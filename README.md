@@ -9,13 +9,10 @@ All code in this repository was written in and tested with `R` 3.xx and `Python`
 
 ## Directory structure & contents
 All directories are formatted with the same subdirectory structure in a clean workflow, as follows:<br/>
-`Code` Contains all scripts written that week, either as part of the general tasks or in submission of practicals.<br/>
+`Code` Contains all scripts.<br/>
 `Data` Houses the data which are read into the scripts in `Code`. <br/>
 `Results` Any form of script output, including, but not limited to, comma-separated files and pdf plots. This directory is under `.gitignore` so as not to void git convention of maintaining repository sizes of less than `100 MB`.<br/>
-`Other` Any files not required for university submission. In `Sandbox` you will find test scripts for exploring functions/techniques and in `Notes` you wil find lecture note files.<br/>
-
-## Practical Submission
-Each week's learning was assessed via practical submission. Practicals also came with extra credit questions. You will be able to identify these submissions in the readme explanation of files in `Code`.
+`Other` Any files not directly related to running the project.<br/>
 
 ## License
 

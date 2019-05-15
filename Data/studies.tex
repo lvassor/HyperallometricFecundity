@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[landscape, margin=1cm]{geometry}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{apacite}
+
+% \newcolumntype{L}{>{\arraybackslash}m{3cm}}
+% \renewcommand{\cellalign/theadalign}{vh}
+
+\title{Ontogenetic Growth Model Literature}
+\date{}
+\begin{document}
+% \maketitle
+
+\begin{table}[]
+    \begin{tabularx}{\textwidth}{|l|l|l|l|X|X|}%{|l|l|l|l|L|l|}
+    \hline
+    \textbf{Study}                          & \textbf{Scaling} & \textbf{P or A}    & \textbf{LHT or MT}    & \textbf{Model(s)}                                                                                                                                                       \\ \hline
+    Gadgil and Bossert (1970)               & Hyperallometric  & Prediction         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Roff (1983)                             & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Roff (1984)                             & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Reiss (1985)                            & Hypoallometric   & Prediction         & LHT                   & dm                                                                                                                                                    \\ \hline
+    \cite{Kozowski1987-determinate}         & Variable         & Prediction         & LHT                   & \makecell[l]{Maximising no. offspring in lifetime equivalent to maximising volume \\ $V = HS$ \\ where $S$ is area of base (determined by $\alpha$, max lifespan and $L(x)$) and \\ $H$ is height (determined by $m_\alpha$) \\ Rate of volume change with $\alpha$ is: \\ $\frac{dV}{dt} = \frac{dH}{dt}S + H\frac{dS}{dt}$}                                                                                                                                                    \\ \hline
+    \cite{kozlowski1996}                        & Variable         & Prediction         & LHT                   & dm                                                                                                                                                    \\ \hline
+    \cite{West2001}                         & Isometric        & Assumption         & MT                    & \makecell[l]{$\frac{dm}{dt} = am^{3/4} - bm$ \\ No growth at size M when $\frac{dm}{dt} = 0 $ \\ $am^{3/4} - bm = 0 $ \\ $am^{3/4} = bm$ \\ $b = \frac{a}{M^{1/4}}$ and substitute \\ $\frac{dm}{dt} = am^{3/4} - \Big(\frac{a}{M^{1/4}}\Big)m = am^{3/4}\Big[1 - (\frac{m}{M})^{1/4}\Big]$ \\ $\int\frac{dm}{dt} = \int am^{3/4}\Big[1 - (\frac{m}{M})^{1/4}\Big]$ using $u = 1 - \big(\frac{m}{M}\big)^{1/4}$ substitution\\ $\big(\frac{m}{M}\big)^{1/4} = 1 - \bigg[1 - \left(\frac{m_0}{M}\right)^{1/4}\bigg]e^{-at/4M^{1/4}}$} \\ \hline
+    \cite{Charnov2001}                      & Isometric        & Assumption         & LHT                   & \makecell[l]{$\frac{dm}{dt} = am^{3/4} - bm$ when $m < m_\alpha$ \\ $\frac{dm}{dt} = am^{3/4} - bm - cm$ when $m > m_\alpha$ \\ Terminal growth asymptote translates down since $M = \Big(\frac{a}{b+c}\Big)^4$}                                                                                                                                                    \\ \hline
+    \cite{Charnov2004}
+    Lester \textit{et al}. (2004)           & Isometric*       & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Roff \textit{et al}. (2006)             & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Quince \textit{et al}. (2008; FGO)      & Isometric*       & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Quince \textit{et al}. (2008; VGO)      & Hyperallometric* & Prediction         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Pecquerie \textit{et al}. (2009)        & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Koojiman (2010)                         & Isometric*       & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Arendt (2004)                           & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Onishi \textit{et al}. (2012)           & Hyperallometric  & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Brunel \textit{et al}. (2013)           & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Charnov \textit{et al}. (2013)          & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Boukal \textit{et al}. (2014)           & Isometric*       & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Koojiman and Luka (2014)                & Isometric*       & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Minte-Vera \textit{et al}. (2016)       & Isometric*       & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Jusup \textit{et al}. (2017)            & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Mangel (2017)                           & Hyperallometric  & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+    Smallegauge \textit{et al}. (2017)      & Isometric        & Assumption         & LHT                   & dm                                                                                                                                                    \\ \hline
+\end{tabularx}
+\end{table}
+
+
+\bibliographystyle{apacite}
+\bibliography{/home/lvassor/Documents/bibtex_sync/CMEE_Thesis.bib}
+\end{document}\grid

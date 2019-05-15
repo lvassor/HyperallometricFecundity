@@ -224,7 +224,7 @@ Applying MPAs to the world's fisheries
 * With MPA strategy, we don't have to cut our global catch by so much
 
 What's next?
-* Pattern: Com;iling reproductive scaling data for all ectotherms (n ~ 84,000 so far)
+* Pattern: Compiling reproductive scaling data for all ectotherms (n ~ 84,000 so far)
 * Process: Revisiting the core assumptions about size, demography and production
 
 ### Questions
