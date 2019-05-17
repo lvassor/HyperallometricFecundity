@@ -1,5 +1,5 @@
 | Study                          | Scaling          | Prediction or Assumption |
-|--------------------------------|------------------|--------------------------|
+| ------------------------------ | ---------------- | ------------------------ |
 | Gadgil and Bossert (1970)      | Hyperallometric  | Prediction               |
 | Roff (1983)                    | Isometric        | Assumption               |
 | Roff (1984)                    | Isometric        | Assumption               |
@@ -25,4 +25,6 @@
 | Mangel (2017)                  | Hyperallometric  | Assumption               |
 | Smallegauge et al. (2017)      | Isometric        | Assumption               |
 
-$$e = mc^2$$
+$e = mc^2$
+
+| Model | param | formula |
