@@ -35,7 +35,7 @@
 *.mkv
 *.m4a
 *.ipynb
-
+*.xls*
 __pycache__
 ./Other/NotesREADME-default.md
 
