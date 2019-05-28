@@ -1,0 +1,110 @@
+\documentclass[a4paper, twoside]{report}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+\usepackage{lscape}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\title{Hyperallometric Fecundity}
+\author{Luke J. Vassor}
+% Update supervisor and other title stuff in title/title.tex
+
+\begin{document}
+
+\begin{titlepage}
+
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+    
+    %----------------------------------------------------------------------------------------
+    %	LOGO SECTION
+    %----------------------------------------------------------------------------------------
+    
+    \includegraphics[width=8cm]{./Images/logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+     
+    %----------------------------------------------------------------------------------------
+    
+    \center % Center everything on the page
+    
+    %----------------------------------------------------------------------------------------
+    %	HEADING SECTIONS
+    %----------------------------------------------------------------------------------------
+    \quad\\[1.5cm]
+    %\textsc{\LARGE MSc Thesis}\\[1.5cm] % Name of your university/college
+    \textsc{\Large Imperial College London}\\[0.5cm] % Major heading such as course name
+    \textsc{\large Department of Life Sciences}\\[0.5cm] % Minor heading such as course title
+    
+    %----------------------------------------------------------------------------------------
+    %	TITLE SECTION
+    %----------------------------------------------------------------------------------------
+    \makeatletter
+    \HRule \\[0.4cm]
+    { \huge \bfseries \@title}\\[0.4cm] % Title of your document
+    \HRule \\[1.5cm]
+     
+    %----------------------------------------------------------------------------------------
+    %	AUTHOR SECTION
+    %----------------------------------------------------------------------------------------
+    
+    \begin{minipage}{0.4\textwidth}
+    \begin{flushleft} \large
+    \emph{Author:}\\
+    \@author % Your name
+    \end{flushleft}
+    \end{minipage}
+    ~
+    \begin{minipage}{0.4\textwidth}
+    \begin{flushright} \large
+    \emph{Supervisor:} \\
+    Dr. Samraat Pawar 
+    % Uncomment the following lines if there's a co-supervisor
+    %\\[1.2em] % Supervisor's Name
+    %\emph{Co-Supervisor:} \\
+    %Dr. Adam Smith % second marker's name
+    \end{flushright}
+    \end{minipage}\\[3cm]
+    \makeatother
+    
+    
+    %----------------------------------------------------------------------------------------
+    %	DATE SECTION
+    %----------------------------------------------------------------------------------------
+    
+    {\large A thesis submitted for the degree of}\\[0.5cm]
+    {\large \emph{M.Sc. Computational Methods in Ecology \& Evolution}}\\[0.5cm]
+    {\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+    
+    \vfill % Fill the rest of the page with whitespace
+    
+\end{titlepage}
+
+\begin{abstract}
+    Your abstract goes here. The abstract is a very brief summary of the dissertation's contents. It should be about half a page long. Somebody unfamiliar with your project should have a good idea of what it's about having read the abstract alone and will know whether it will be of interest to them.
+\end{abstract}
+
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+    It is usual to thank those individuals who have provided particularly useful assistance, technical or otherwise, during your project.
+\end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+\section{Introduction}
+
+\bibliographystyle{unsrt}
+\bibliography{bibs/sample}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\end{document}
