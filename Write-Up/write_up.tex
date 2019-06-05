@@ -1,110 +1,206 @@
-\documentclass[a4paper, twoside]{report}
+\documentclass[a4paper]{article} % twoside for paper submission but remove for electronic submission
+\title{Explicitly Accounting for Resource Supply and Hyperallometric Fecundity Scaling in Ontogenetic Growth Models}
+\author{Luke Joseph Vassor}
 
-\usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{listings}
+% Packages
+% Page Formatting packages
+\usepackage[margin=2cm]{geometry}
+\usepackage{lipsum} % Generates dummy text
+\usepackage{titlesec}
+    \titleformat*{\section}{\LARGE\bfseries}
+    \titleformat*{\subsection}{\Large\bfseries}
+    \titleformat*{\subsubsection}{\large\bfseries}
+    \titleformat*{\paragraph}{\large\bfseries}
+    \titleformat*{\subparagraph}{\large\bfseries}
+    \newcommand{\sectionbreak}{\newpage} % forces new page for each section
+    \titlespacing*{\section}
+{0pt}{20cm plus 1ex minus .2ex}{4.3ex plus .2ex}
+\usepackage{fancyhdr} % rule line and current section displayed at top of pages % \thispagestyle{empty} removes it on desired pages
+    \pagestyle{fancy}
+    \renewcommand{\sectionmark}[1]{\markboth{#1}{}} % set the \leftmark to section name
+    \fancyhead[L]{\nouppercase{\leftmark}} %  sets the left head element ONLY EVER section name, otherwise mark is section/subsection/subsubsection
+    \fancyhead[R]{} % sets the right head element to the page number if you use \thepage as argument
+    \fancyfoot[C]{\thepage} % sets footer as page number
+
+% Math packages
+% \usepackage{amsmath}
+
+% Language packages
+% \usepackage[english]{babel}
+% \usepackage[utf8x]{inputenc} % Doesn't work with Biblatex
+% \usepackage[T1]{fontenc}
+% \usepackage{listings}
+
+% Other packages
 \usepackage{hyperref}
-\hypersetup{colorlinks=false}
-\usepackage{lscape}
-\usepackage{subfigure}
-\usepackage{amsmath}
+    \hypersetup{colorlinks=false}
+% \usepackage[colorinlistoftodos]{todonotes}
+
+% Plotting packages
+% \usepackage{lscape}
+% \usepackage{subfigure}
 \usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
 
-%% Sets page size and margins
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+% Citation packages
+\usepackage[backend=biber, style=imperialharvard]{biblatex}
+    \addbibresource{../Other/Proposal/proposal.bib}
 
-\title{Hyperallometric Fecundity}
-\author{Luke J. Vassor}
-% Update supervisor and other title stuff in title/title.tex
+% Force et al. to be italicised
+\usepackage{xpatch}
+    \xpatchbibmacro{name:andothers}{%
+        \bibstring{andothers}%
+    }{%
+    \bibstring[\emph]{andothers}%
+    }
+    \xpatchbibmacro{Name}{%
+        \bibstring{name}
+    }{%
+    \bibstring[\textbf]{name}%
+    }{}{} % leave these empty arguments here, seem to cause issues when ommited
+
+% Kill "Accessed on" lines in bibliography
+\AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{doi}
+    \clearfield{url}
+    \clearfield{eprint}
+    \clearfield{eprinttype}
+}
+
+% Add numbers to bibliography
+\DeclareFieldFormat{labelnumberwidth}{[#1]}
+\defbibenvironment{bibliography}  % from numeric.bbx
+{\list
+    {\printtext[labelnumberwidth]{%
+            \printfield{prefixnumber}%
+            \printfield{labelnumber}}}
+    {\setlength{\labelwidth}{\labelnumberwidth}%
+        \setlength{\leftmargin}{\labelwidth}%
+        \setlength{\labelsep}{\biblabelsep}%
+        \addtolength{\leftmargin}{\labelsep}%
+        \setlength{\itemsep}{\bibitemsep}%
+        \setlength{\parsep}{\bibparsep}}%
+    \renewcommand*{\makelabel}[1]{\hss##1}}
+{\endlist}
+{\item}
 
 \begin{document}
 
 \begin{titlepage}
-
-    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
-    
+    % Square brackets control size of vertical gap AFTER group
     %----------------------------------------------------------------------------------------
     %	LOGO SECTION
     %----------------------------------------------------------------------------------------
     
-    \includegraphics[width=8cm]{./Images/logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+    \includegraphics[width=4cm]{./Images/logo.png}\\%[1cm] % Include a department/university logo - this will require the graphicx package
      
     %----------------------------------------------------------------------------------------
     
     \center % Center everything on the page
     
-    %----------------------------------------------------------------------------------------
-    %	HEADING SECTIONS
-    %----------------------------------------------------------------------------------------
-    \quad\\[1.5cm]
-    %\textsc{\LARGE MSc Thesis}\\[1.5cm] % Name of your university/college
-    \textsc{\Large Imperial College London}\\[0.5cm] % Major heading such as course name
-    \textsc{\large Department of Life Sciences}\\[0.5cm] % Minor heading such as course title
     
     %----------------------------------------------------------------------------------------
     %	TITLE SECTION
     %----------------------------------------------------------------------------------------
     \makeatletter
-    \HRule \\[0.4cm]
-    { \huge \bfseries \@title}\\[0.4cm] % Title of your document
-    \HRule \\[1.5cm]
-     
+    \linespread{1.5} % controls line spacing of title
+        {\huge{EXPLICITLY ACCOUNTING FOR RESOURCE SUPPLY AND HYPERALLOMETRIC FECUNDITY SCALING IN ONTOGENETIC GROWTH MODELS}\par} % leave \par here
+    \vspace{2.5cm} % Title of your document
+
     %----------------------------------------------------------------------------------------
-    %	AUTHOR SECTION
+    %	DESCRIPTION SECTION
     %----------------------------------------------------------------------------------------
-    
-    \begin{minipage}{0.4\textwidth}
-    \begin{flushleft} \large
-    \emph{Author:}\\
-    \@author % Your name
-    \end{flushleft}
-    \end{minipage}
-    ~
-    \begin{minipage}{0.4\textwidth}
-    \begin{flushright} \large
-    \emph{Supervisor:} \\
-    Dr. Samraat Pawar 
-    % Uncomment the following lines if there's a co-supervisor
-    %\\[1.2em] % Supervisor's Name
-    %\emph{Co-Supervisor:} \\
-    %Dr. Adam Smith % second marker's name
-    \end{flushright}
-    \end{minipage}\\[3cm]
-    \makeatother
-    
-    
+    % If you want consistent line spacing then need to typeset paragraphy as a single {} group and use \\ for line break
+    % Strangely, you need to leave the \ character at the end of the group so that the spacing of the last line from the penultimate line in a group remains constant
+    % textsc command sets small capitals (sc)
+    \textsc{A thesis submitted in partial fulfilment \\ of the requirements for the degree of \\ Master of Science at Imperial College London \\ by \\ \ }\\[2.5cm]
+    \textsc{\Large \@author}\\[2.5cm]
+    \textsc{Submitted for the \\ M.Sc. Computational Methods in Ecology \& Evolution \\ Formatted in the journal style of the Potato Journal \\ \ }\\[2cm]
+
     %----------------------------------------------------------------------------------------
-    %	DATE SECTION
+    %	HEADING SECTIONS
     %----------------------------------------------------------------------------------------
-    
-    {\large A thesis submitted for the degree of}\\[0.5cm]
-    {\large \emph{M.Sc. Computational Methods in Ecology \& Evolution}}\\[0.5cm]
-    {\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+    \textsc{Department of Life Sciences \\ Imperial College London \\ \ }\\[1cm]
+    \textsc{\today}\\[2cm] % Date, change the \today to a set date if you want to be precise
     
     \vfill % Fill the rest of the page with whitespace
     
 \end{titlepage}
 
-\begin{abstract}
+%%% Declaration %%%
+\section*{Declaration of Originality}\thispagestyle{empty}
+    Declaration: The first page inside the cover must provide a brief declaration of the contributions
+    made by you and by others to your project. Key points to address are:
+    \begin{itemize}
+        \item Was the data provided to you or did you collect or assemble it?
+        \item Were you responsible for data processing or cleaning, if required?
+        \item Were any mathematical models developed by you or by your supervisor?
+        \item What role, if any, did your supervisor play in developing the analyses presented?
+    \end{itemize}
+    I certify that this thesis, and the research to which it refers, are the product of my own work, conducted during the current year of the \emph{M.Sc. Computational Methods in Ecology \& Evolution} at Imperial College London. Any ideas or quotations from the work of other people, published or otherwise, or from my own previous work are fully acknowledged in accordance with the standard referencing practices of the discipline.
+    \vspace{3cm}
+    \begin{flushright}
+        Luke Joseph Vassor \\
+        \today
+    \end{flushright}
+
+%%% Abstract %%%
+\section*{Abstract}\thispagestyle{empty}
     Your abstract goes here. The abstract is a very brief summary of the dissertation's contents. It should be about half a page long. Somebody unfamiliar with your project should have a good idea of what it's about having read the abstract alone and will know whether it will be of interest to them.
-\end{abstract}
 
-\renewcommand{\abstractname}{Acknowledgements}
-\begin{abstract}
-    It is usual to thank those individuals who have provided particularly useful assistance, technical or otherwise, during your project.
-\end{abstract}
+%%% Acknowledgements %%%
+\section*{Acknowledgements}\thispagestyle{empty}
+    It is usual to thank those individuals who have provided particularly useful assistance, technical or otherwise, during your project. \\
+    Samraat \\
+    Dustin - useful conversations \\
+    Tom - ditto \\
+    Francis - code help \\
+    Pawarlab - conversations and environment \\
+    Course members \\
 
-\tableofcontents
-\listoffigures
-\listoftables
+%%% Table of Contents %%%
+\newpage\tableofcontents\thispagestyle{empty}
 
+%%% List of Figures %%%
+\newpage\listoffigures\thispagestyle{empty}
+\addcontentsline{toc}{section}{List of Figures}
 
-\section{Introduction}
+%%% Listof Tables %%%
+\newpage\listoftables\thispagestyle{empty}
+\addcontentsline{toc}{section}{List of Tables}
 
-\bibliographystyle{unsrt}
-\bibliography{bibs/sample}
-\addcontentsline{toc}{chapter}{Bibliography}
+%%% Introduction %%%
+\vspace*{250px}
+\section{Introduction}\thispagestyle{empty}
+    Using ideas from \cite{Barneche2016} \lipsum
+    \newpage
+    starting with his ideas
+    \subsection{lit review}
+    \lipsum
+
+%%% Methods %%%
+\section{Methods}\thispagestyle{empty}
+\lipsum
+
+%%% Results %%%
+\section{Results}\thispagestyle{empty}
+\lipsum
+
+%%% Discussion %%%
+\section{Discussion}\thispagestyle{empty}
+\lipsum
+
+%%% Conclusion %%%
+\section{Conclusion}\thispagestyle{empty}
+\lipsum
+
+%%% Bibliography %%%
+\addcontentsline{toc}{section}{Bibliography}
+\newpage\let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
+
+%%% Appendices %%%
+\newpage\section*{Appendix A}\thispagestyle{empty}
+\lipsum
 
 \end{document}
