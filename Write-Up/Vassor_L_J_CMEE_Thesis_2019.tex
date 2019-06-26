@@ -43,9 +43,9 @@
 
 % Citation packages
 \usepackage[backend=biber, style=imperialharvard]{biblatex}
-    \addbibresource{../Other/Proposal/proposal.bib}
+    \addbibresource{./CMEE_Thesis.bib}
 
-% Force et al. to be italicised
+% Force \textit{et al}. to be italicised
 \usepackage{xpatch}
     \xpatchbibmacro{name:andothers}{%
         \bibstring{andothers}%
@@ -189,9 +189,52 @@
         \end{itemize}
     
     \subsection{Lit review}
-        Using ideas from \cite{Barneche2016}
-        \lipsum
+        For over a century, biologists have attempted to understand ontogenetic growth. That is, the pattern of the growth of an individual throughout its developmental lifetime. It has peaked the interests of scientists across the spectrum of biology, including evolutionary life history theorists, game theorists, metabolic theorists, optimal foraging theorists and fisheries scientists. Why do organisms grow at the rate they grow? Why do they stop growing? What causes them to stop growing? Can they control growth? Why would they control growth? All valid questions which \dots. The recent migration of biology towards that of a theoretical discipline has seen mathematical biologists attempt to capture growth in the form of sophisticated mathematical equations. Evolutionary life history and game theorists, concerned with growth from a coarser level, life history perspective, have typically employed optimisation techniques. These attempt to predict the optimal time for maturation or the onset of reproduction to maximise lifetime reproductive output, e.g. fecundity, given an age/time-dependent mortality constraint. Metabolic theorists, concerned with growth at a granular level have used laws from thermodynamics and enzyme kinetics as a first-principles approach to growth problems through the lens of Metaolic Theory and Dynamic Energy Budget (DEB)
 
+        von Bertalanffy: ``there will be growth so long as building up prevails over breaking down; the organism reaches a steady state if and when both processes are equal. We may express this in a general formula: $\frac{dW}{dt} = \eta W^m - \kappa W^n$ ''
+    \begin{table}[]
+        \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{Study}                          & \textbf{Model type} & \textbf{Scaling} & \textbf{Prediction or Assumption} & \textbf{Refs} \\ \hline
+        Gadgil and Bossert (1970)               & Life history        & Hyperallometric  & Prediction                        & (40)          \\ \hline
+        Roff (1983)                             & Life history        & Isometric        & Assumption                        & (41)          \\ \hline
+        Roff (1984)                             & Life history        & Isometric        & Assumption                        & (42)          \\ \hline
+        Reiss (1985)                            & Life history        & Hypoallometric   & Prediction                        & (43)          \\ \hline
+        Kozłowski and Uchmanksi (1987)          & Life history        & Variable         & Prediction                        & (44)          \\ \hline
+        Kozłowski (1996)                        & Life history        & Variable         & Prediction                        & (45)          \\ \hline
+        West \textit{et al}. (2001)             & Life history        & Isometric        & Assumption                        & (46)          \\ \hline
+        Charnov \textit{et al}. (2001)          & Life history        & Isometric        & Assumption                        & (47)          \\ \hline
+        Charnov (2002)                          & Life history        & Isometric        & Assumption                        & (48)          \\ \hline
+        Lester \textit{et al}. (2004)           & Life history        & Isometric*       & Assumption                        & (49)          \\ \hline
+        Roff \textit{et al}. (2006)             & Life history        & Isometric        & Assumption                        & (50)          \\ \hline
+        Quince \textit{et al}. (2008; FGO)      & Life history        & Isometric*       & Assumption                        & (51)          \\ \hline
+        Quince \textit{et al}. (2008; VGO)      & Life history        & Hyperallometric* & Prediction                        & (51)          \\ \hline
+        Pecquerie \textit{et al}. (2009)        & Life history        & Isometric        & Assumption                        & (52)          \\ \hline
+        Koojiman (2010)                         & Life history        & Isometric*       & Assumption                        & (53)          \\ \hline
+        Arendt (2011)                           & Life history        & Isometry         & Assumption                        & (54)          \\ \hline
+        Onishi \textit{et al}. (2012)           & Life history        & Hyperallometric  & Assumption                        & (55)          \\ \hline
+        Brunel \textit{et al}. (2013)           & Life history        & Isometric        & Assumption                        & (56)          \\ \hline
+        Charnov \textit{et al}. (2013)          & Life history        & Isometric        & Assumption                        & (57)          \\ \hline
+        Boukal \textit{et al}. (2014)           & Life history        & Isometric*       & Assumption                        & (58)          \\ \hline
+        Koojiman and Lika (2014)                & Life history        & Isometric*       & Assumption                        & (59)          \\ \hline
+        Minte-Vera \textit{et al}. (2016)       & Life history        & Isometric*       & Assumption                        & (60)          \\ \hline
+        Jusup \textit{et al}. (2017)            & Life history        & Isometric        & Assumption                        & (61)          \\ \hline
+        Mangel (2017)                           & Life history        & Hyperallometric  & Assumption                        & (62)          \\ \hline
+        Smallegange \textit{et al}. (2017)      & Life history        & Isometric        & Assumption                        & (63)          \\ \hline
+        Beverton and Holt (1957)                & Fisheries           & Isometric        & Assumption                        & (2)           \\ \hline
+        Scott \textit{et al}. (2006)            & Fisheries           & Hyperallometric  & Assumption                        & (64)          \\ \hline
+        Jørgensen and Fisken (2006)             & Fisheries           & Isometric*       & Assumption                        & (65)          \\ \hline
+        Enberg \textit{et al}. (2010)           & Fisheries           & Isometric        & Assumption                        & (66)          \\ \hline
+        Eikeset \textit{et al}. (2013)          & Fisheries           & Isometric        & Assumption                        & (67)          \\ \hline
+        Lester \textit{et al}. (2014)           & Fisheries           & Isometric        & Assumption                        & (68)          \\ \hline
+        Andersen and Beyer (2015)               & Fisheries           & Isometric        & Assumption                        & (69)          \\ \hline
+        Eikeset \textit{et al}. (2016)          & Fisheries           & Isometric        & Assumption                        & (70)          \\ \hline
+        Andersen \textit{et al}. (2016)         & Fisheries           & Isometric        & Assumption                        & (12)          \\ \hline
+        Zimmerman and Jørgensen (2016)          & Fisheries           & Isometric        & Assumption                        & (71)          \\ \hline
+        Hartvig \textit{et al}. (2011)          & Food web            & Isometric        & Assumption                        & (72)          \\ \hline
+        Carozza \textit{et al}. (2016)          & Food web            & Isometric        & Assumption                        & (73)          \\ \hline
+        \end{tabular}
+    \end{table}
 %%% Methods %%%
 \section{Methods}\thispagestyle{empty}
 \lipsum
