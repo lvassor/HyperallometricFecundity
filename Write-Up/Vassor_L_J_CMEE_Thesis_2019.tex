@@ -23,7 +23,7 @@
     \fancyfoot[C]{\thepage} % sets footer as page number
 
 % Math packages
-% \usepackage{amsmath}
+\usepackage{amsmath}
 
 % Language packages
 % \usepackage[english]{babel}
@@ -69,21 +69,21 @@
 }
 
 % Add numbers to bibliography
-\DeclareFieldFormat{labelnumberwidth}{[#1]}
-\defbibenvironment{bibliography}  % from numeric.bbx
-{\list
-    {\printtext[labelnumberwidth]{%
-            \printfield{prefixnumber}%
-            \printfield{labelnumber}}}
-    {\setlength{\labelwidth}{\labelnumberwidth}%
-        \setlength{\leftmargin}{\labelwidth}%
-        \setlength{\labelsep}{\biblabelsep}%
-        \addtolength{\leftmargin}{\labelsep}%
-        \setlength{\itemsep}{\bibitemsep}%
-        \setlength{\parsep}{\bibparsep}}%
-    \renewcommand*{\makelabel}[1]{\hss##1}}
-{\endlist}
-{\item}
+% \DeclareFieldFormat{labelnumberwidth}{[#1]}
+% \defbibenvironment{bibliography}  % from numeric.bbx
+% {\list
+%     {\printtext[labelnumberwidth]{%
+%             \printfield{prefixnumber}%
+%             \printfield{labelnumber}}}
+%     {\setlength{\labelwidth}{\labelnumberwidth}%
+%         \setlength{\leftmargin}{\labelwidth}%
+%         \setlength{\labelsep}{\biblabelsep}%
+%         \addtolength{\leftmargin}{\labelsep}%
+%         \setlength{\itemsep}{\bibitemsep}%
+%         \setlength{\parsep}{\bibparsep}}%
+%     \renewcommand*{\makelabel}[1]{\hss##1}}
+% {\endlist}
+% {\item}
 
 \begin{document}
 
@@ -171,6 +171,25 @@
 \newpage\listoftables\thispagestyle{empty}
 \addcontentsline{toc}{section}{List of Tables}
 
+%%% Notation %%%
+\newpage\section*{Notation}\thispagestyle{empty}
+\addcontentsline{toc}{section}{Notation}
+\begin{itemize}    
+    \item $\frac{dm}{dt}$ = change in mass with (continuous) time
+    \item $m$ = mass
+    \item $a$ = coefficient (proportion of body mass) for energy/resource intake/acquisition
+    \item $b$ = coefficient for maintenance
+    \item $c$ = coefficient for reproduction
+    \item $y$ = mass scaling exponent for energy intake (almost always = 0.75 (MTE))
+    \item $z$ = mass scaling exponent for maintenance (almost always = 1)
+    \item $\rho$ = mass scaling exponent for reproduction
+    \item $\alpha$ = age at maturity (onset of reproduction)
+    \item $m_{\alpha}$ = mass at maturity
+    \item $M$ = asymptotic/terminal size
+    \item $L(x)$ or $L_x$ = Probability of survival to age $x$
+    \item ATR = allocation to reproduction
+\end{itemize}
+
 %%% Introduction %%%
 \vspace*{250px}
 \section{Introduction}\thispagestyle{empty}
@@ -189,9 +208,83 @@
         \end{itemize}
     
     \subsection{Lit review}
-        For over a century, biologists have attempted to understand ontogenetic growth. That is, the pattern of the growth of an individual throughout its developmental lifetime. It has peaked the interests of scientists across the spectrum of biology, including evolutionary life history theorists, game theorists, metabolic theorists, optimal foraging theorists and fisheries scientists. Why do organisms grow at the rate they grow? Why do they stop growing? What causes them to stop growing? Can they control growth? Why would they control growth? All valid questions which \dots. The recent migration of biology towards that of a theoretical discipline has seen mathematical biologists attempt to capture growth in the form of sophisticated mathematical equations. Evolutionary life history and game theorists, concerned with growth from a coarser level, life history perspective, have typically employed optimisation techniques. These attempt to predict the optimal time for maturation or the onset of reproduction to maximise lifetime reproductive output, e.g. fecundity, given an age/time-dependent mortality constraint. Metabolic theorists, concerned with growth at a granular level have used laws from thermodynamics and enzyme kinetics as a first-principles approach to growth problems through the lens of Metaolic Theory and Dynamic Energy Budget (DEB)
+        For over a century, biologists have attempted to understand ontogenetic growth. That is, the pattern of the growth of an individual throughout its developmental lifetime. It has peaked the interests of scientists across the spectrum of Biology, including theorists, field ecologists and applied scientists, in the hope of answering questions about growth. evolutionary life history theorists, game theorists, metabolic theorists, optimal foraging theorists and fisheries scientists. Why do organisms grow at the rate they grow? Why do they stop growing? What causes them to stop growing? Can they control growth? Why would they control growth? What is the optimal size to grow to? When is the optimal age to mature? All valid questions which many would argue require a theoretical understanding of the constraints on growth and how evolution has worked with these constraints to produce the growth patters we see in organisms.
 
-        von Bertalanffy: ``there will be growth so long as building up prevails over breaking down; the organism reaches a steady state if and when both processes are equal. We may express this in a general formula: $\frac{dW}{dt} = \eta W^m - \kappa W^n$ ''
+        The recent migration of biology towards that of a theoretical discipline has seen mathematical biologists attempt to capture growth in the form of sophisticated mathematical equations. In a rapidly changing world, scientific theory will allow us to pierce through the noise in the data we collect and reduce the uncertainty in how the world is constructed and functions. The way in which we do this, traditionally, is to utilise human knowledge to eliminate improbable links from all logical possibilites and suggest the probable value or range of values for a dependent variable. The tools permitting this being quantifiable, mathematisable, testable ideas which are derived from underlying generic principles and built into a predictive framework, called a scientific theory \cite{peters1983, West2011}. ADD POPPER 1967 and 1972. In order to accurately predict and understand biological phenomena, biology is undergoing a transition towards a discipline whose predictive power is increasingly derived from  biological theory. Mathematical biologists and physicists are now using laws from quantitative disciplines to accurately predict the value of dependent variables, such as laws of geometry \& scaling and laws of thermodynamics \& enzyme kinetics. Geometric laws have become of particular interest to those who seek to model growth, to develop theory and equations which relate an organism's characteristics to its body size. Most body size relations take the form of a power law:
+
+        \begin{equation}
+            Y = Y_0 M^b
+        \end{equation}
+
+        where $Y$ is the biological characteristic to be predicted, $M$ is animal body mass, and $Y_0$ and $b$ are empirically derived constants. The use of power laws in biology has a venerable history and these laws are writted an ``allometric" equations. If $b = 1$, the scaling is said to be ``isometric", while if $b \neq 1$, the relationship is called allometric, and plots as a curve on linear axes \autocite{brown2000-scaling-book}
+
+        Concern with growth and body size relations is well-founded, especially given the decline of the state of the Earth's biosphere. Given this decline, never has it been so crucial for ecologists to make prudent, accurate predictions about what will happen to life on Earth and prioritise what life to conserve as resources become increasingly stretched and time is of the essence. Ontogenetic growth gives rise to different, ecologically-distinct stages across the lifetime of an organism. Knowledge and powerful theory which allows us to ascertain which stages are most crucial to an organism's conservation, such as ontogenetic growth models and (st)age-based models will allow us to direct resources to conserving not only organisms themselves, but the stages of ontogeny within those organisms which are most crucial to the species' survival. To quote \cite{Bartholomew1981} ``It is only a slight overestimate to say that the most important attribute of an animal, both physiologically and ecologically, is its size.'' The variety of size plays a central role in the fantastic spectrum of niches we can see across the surface of the planet, since most key physiological, ecological and evolutionary life history parameters covary with body size \autocite{peters1983, brown2000-scaling-book,schmidt1984scaling,Marshall2019b}. Larger organisms have lower mass-specific metabolic rates i.e. demand less energy per unit body mass, tend to live for longer and sleep for longer than smaller organisms. They have lower intrinsic rates of increase and population sizes and slower rates of evolution. 
+
+        Ontogenetic growth, the rate of change of size per unit time, has see many quantitative biologists attempt to explain this by relating growth rate to fundamental life history events or to fundamental cellular processes. Ontogenetic growth models typically take the form of a ODE:
+
+        \begin{equation}
+            \frac{dm}{dt} = am^y - bm^z
+        \end{equation}
+                
+        \subsection{Understanding Growth and Reproduction}
+        Broadly, theory bifurcates into two major branches: mechanistic (``bottom-up'') and phenomenological (``top-down''). Both branches have seen many attempts to understand ontogentic changes in body size.  
+        
+        Evolutionary life history and game theorists, concerned with growth from a coarser-level, life history perspective, have typically employed optimisation techniques to solve for the optimal age and size values of given life history events, for example age-at-maturation or the onset of reproduction to maximise lifetime reproductive output, e.g. fecundity, given an age/time-dependent mortality constraint. Converseley, metabolic theorists, concerned with growth at a granular level have used laws from thermodynamics and enzyme kinetics as a first-principles approach to growth problems through the lens of Metabolic Theory and Dynamic Energy Budget (DEB). Under these paradigms, everything an organism does in its lifetime, including how it grows, is ultimately governed by the metabolic energy that flows into its system. 
+
+        \subsubsection{Bottom-Up Mechanistic Approaches}
+        The most venerable theory, which has since provided the foundation for many extant growth models to be built from, was the P\"{u}tter balance equation, now commonly associated with the von Bertalanffy growth function, which estimates the rate of increase in mass as the difference between anabolism and catabolism per unit time. \autocite{Putter1920, vonBert1938, VonBertalanffy1957,Marshall2019b}
+        von Bertalanffy: ``there will be growth so long as building up prevails over breaking down; the organism reaches a steady state if and when both processes are equal. We may express this in a general formula: 
+        \begin{equation}
+            \frac{dW}{dt} = \eta W^m - \kappa W^n \text{\qquad ''}
+        \end{equation}
+
+        Through time, the mechanistic interpretation of the VBGF has varied, now broadly being considered as the difference in rates of energy assimilation and expenditure or the flow of energy in minus energy use for maintenance of existing tissues (metabolism). Implicit in these models is the assumption that surplus energy is optimally allocated to growth \textit{after} non-negotiable maintenance of existing cells. This is derived from rearranging the conservation of energy equation presented by \cite{West2001}:
+
+        \begin{align}
+            B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\
+            \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \\
+            \text{Rate of new cells} &= \frac{\text{Surplus energy}}{\text{Cost of creating single cell}}
+        \end{align}
+
+        \begin{itemize}            
+            \item $B$ = incoming rate of energy flow, which is the average resting metabolic rate of the whole organism at time $t$
+            \item $B_c$ = the metabolic rate of a single cell
+            \item $E_c$ = the metabolic energy required to create a cell
+            \item $N_c$ = the total number of cells
+            \item $\sum\limits_c$ = over all types of tissue, assuming a typical cell as the fundamental unit
+        \end{itemize}
+        
+        The VGBF triggered a model-construction philosophy that focuses on ``bottom-up'' drivers of growth, typically based on fundamental laws previously established in other sciencies, such as thermodynamics and enzyme kinetics, combining biological knowledge, intuition and mathematics to explain observed ecological phenomena. Within this paradigm, body size is the end result of mechanistic constraints on resource supply and demand and the flow of free energy. This has given rise to well-known frameworks, such as Dynamic Energy Budget (DEB) theory, Metabolic Theory of Ecology (MTE) \& the Ontogenetic Growth Model (OGM) and Pauly's limiting gill surface model (LGSM). Although having different foci, each model is predicated on the assumption that the size scaling of resource acquisition is shallower than that of resource use, such that these two relationships eventually converge on a terminal size and growth ceases, when an organism is ``spending'' as much energy as it is acquiring. 
+        
+        What is puzzling, however, is that despite being an uncontroversially fundamental life history event, the VBGF, and the majority of models which have evolved from it do not consider reproduction. It has was indicated more than 20 years ago that mechanistic inferences made from the results of these models are problematic since they do not account for reproduction \autocite{Day1997, Marshall2019b}. Reproduction incurs large energetic costs and increases an organism's mortality risk, with some highly fecund vertebrates consisting of 75\% reproductive tissue \autocite{Parker2018}. Sexual maturity and the consequent onset of reproduction therefore sees different mechanistic dynamics play out relative to those in the preceding juvenile phase as resources are shunted from growth to reproduction \autocite{Day1997}. The lack of an explicit term in most mechanistic models to represent allocation of energy to reproduction consequently means they make a simple but critical assumption: that reproduction is proportionate to body size - in other words, reproduction energy output scales isometrically with size. These models assume that loss of energy to reproduction occurs from birth to death ($t_0 \rightarrow t_{\infty}$) as a part of energy loss to maintenance ($-bm^z$), which scales with mass to an exponent of 1, meaning reproduction remains a constant fraction of total body size throughout ontogeny.
+
+        \subsubsection{Top-Down Life History Approaches}
+        Life-history theory assumes fundamentally that evolution maximises an organism's reproductive output, and that strategies concerning the timing of life-history events are the product of optimising trade-offs among different traits which compete for limited resources \autocite{Day1997, Stearns1989, stearns1992evolution}.      
+
+        In contrast to mechanistic approaches, life-history theory typically makes simplifying assumptions with regard to why certain biological traits scale with mass. \autocite{Day1997, Kozowski1987-indeterminate} For instance, while growth rate, resource acquisition ($am^y$), realised through consumption rate, and maintenance metabolism all scale with body size in particular ways \autocite{peters1983,Werner1988,brown2000-scaling-book}, phenomenological, life-history models typically remain agnostic as to \textit{why} such scaling occurs. The chain of causality in the scientific approach here is inherently reversed. The concern is not with how the mechanisms behind scaling laws explain ontogenetic growth, but instead with how evolution has selected for particular life-history strategies for reproduction and growth - and therefore size - \textit{given} that these scaling laws exist \autocite{Danko2017}. Mechanistic: Given these observed strategies, what are the mechanisms and how do they work. Phenom: Given these mechanisms exist, what is the best strategy (bayesian vs frequentist) ``From this perspective, life-history models are ‘top-down’ – they are driven by selection on body size, and the underlying physiology evolves in response to these selection pressures. Such phenomenological models of growth are good at predicting changes in size, based on variation in external context across populations or between closely related species (e.g., [34,35]).''
+        
+        Thus, size at maturity is predicted to be inversely related to mortality rate under a simple life-history model [30].
+
+        \subsubsection{Hybrids}
+        Whilst these two branches of theory tend to operate in isolation, several attempts have been made at combining them. Broadly classed as biphasic models (reviewed in \autocite{Wilson2018}), some account for the mechanistic drivers of growth pre- and post-maturity through seperate equations. 
+        
+        ''Similarly, links between DEB theory and integral projection models consider the demographic consequences of different physiologies [37]. These hybrid approaches seek to maximise their relevance and explanatory potential by drawing the different strengths of both the mechanistic and phenomenological schools of thought about how and why organisms grow. Thus, models of growth occur along a continuum, from exclusively mechanistic to exclusively phenomenological, but most tend to make assumptions about the costliness of reproduction.''
+
+        \subsubsection{A glitch in the matrix}
+
+        The biological literature suggests that both branches typically assume that reproductive output scales isometrically with body size, e.g. a single 2kg female has the same reproductive output as two 1kg females. However, a recent meta-analysis of marine fishes covering 342 species and 15 orders has contradicted this assumption, with larger mothers reproducing disproportionately more for 95\% of species, i.e. reproductive hyperallometry whereby a single 2kg female reproduces more than two 1kg females \autocite{Barneche2018d}. It has since been argued that reproductive hyperallometry profoundly challenges mechanistic theories of growth, which should be revised accordingly, and that this hyperallometry drives growth trajectories in ways largely unanticipated by current theories PLAG \autocite{Marshall2019b}. In their opinion paper, \cite{Marshall2019b} correctly proclaim that these recent results beg two questions:
+        \begin{enumerate}
+            \item How reasonable is an assumption of isometric reproductive output (isometric reproductive scaling)?
+            \item If reproduction is not isometric, how does this alter our understanding of growth?
+        \end{enumerate}
+
+
+        The most familiar example of allometry is simple geometric scaling. If we have spheres or any objects of self-similar shapes, we can describe changes in surface area, $A$, or volume, $V$, as a function of a linear dimension, the radius, $r$, as follows: $A = \pi r^2$ and $V = \frac{4}{3}\pi r^3$. And if the objects can maintain a constant density as they vary in size then $M \propto V$, and we can express their linear dimensions, $l$, or surface areas as functions of their mass
+        \begin{equation}
+            l = c_{1}M^{1/3} \; \text{and} \; c_{2}M^{2/3}
+        \end{equation}
+        where the values of the normalisation constants $c_1$ and $c_2$ depend on the units of measurement. Since these same equations apply to any shape, if organisms preserve self-similar shapes as they vary in size, then their linear dimensions should vary as the 1/3 and their surface areas as the 2/3 powers of their mass.
+        
     \begin{table}[]
         \begin{tabular}{|l|l|l|l|l|}
         \hline
@@ -200,8 +293,8 @@
         Roff (1983)                             & Life history        & Isometric        & Assumption                        & (41)          \\ \hline
         Roff (1984)                             & Life history        & Isometric        & Assumption                        & (42)          \\ \hline
         Reiss (1985)                            & Life history        & Hypoallometric   & Prediction                        & (43)          \\ \hline
-        Kozłowski and Uchmanksi (1987)          & Life history        & Variable         & Prediction                        & (44)          \\ \hline
-        Kozłowski (1996)                        & Life history        & Variable         & Prediction                        & (45)          \\ \hline
+        Koz\l{}owski and Uchmanksi (1987)          & Life history        & Variable         & Prediction                        & (44)          \\ \hline
+        Koz\l{}owski (1996)                        & Life history        & Variable         & Prediction                        & (45)          \\ \hline
         West \textit{et al}. (2001)             & Life history        & Isometric        & Assumption                        & (46)          \\ \hline
         Charnov \textit{et al}. (2001)          & Life history        & Isometric        & Assumption                        & (47)          \\ \hline
         Charnov (2002)                          & Life history        & Isometric        & Assumption                        & (48)          \\ \hline
