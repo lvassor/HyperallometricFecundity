@@ -27,8 +27,8 @@
 
 % Language packages
 % \usepackage[english]{babel}
-% \usepackage[utf8x]{inputenc} % Doesn't work with Biblatex
-% \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}    % utf8 support       %!!!!!!!!!!!!!!!!!!!!
+\usepackage[T1]{fontenc}       % code for pdf file  %!!!!!!!!!!!!!!!!!!!!
 % \usepackage{listings}
 
 % Other packages
@@ -42,7 +42,7 @@
 \usepackage{graphicx}
 
 % Citation packages
-\usepackage[backend=biber, style=imperialharvard]{biblatex}
+\usepackage[maxcitenames=2, backend=biber, style=imperialharvard]{biblatex}
     \addbibresource{./CMEE_Thesis.bib}
 
 % Force \textit{et al}. to be italicised
@@ -261,7 +261,7 @@
         \subsubsection{Top-Down Life History Approaches}
         Life-history theory assumes fundamentally that evolution maximises an organism's reproductive output, and that strategies concerning the timing of life-history events are the product of optimising trade-offs among different traits which compete for limited resources \autocite{Day1997, Stearns1989, stearns1992evolution}.      
 
-        In contrast to mechanistic approaches, life-history theory typically makes simplifying assumptions with regard to why certain biological traits scale with mass. \autocite{Day1997, Kozowski1987-indeterminate} For instance, while growth rate, resource acquisition ($am^y$), realised through consumption rate, and maintenance metabolism all scale with body size in particular ways \autocite{peters1983,Werner1988,brown2000-scaling-book}, phenomenological, life-history models typically remain agnostic as to \textit{why} such scaling occurs. The chain of causality in the scientific approach here is inherently reversed. The concern is not with how the mechanisms behind scaling laws explain ontogenetic growth, but instead with how evolution has selected for particular life-history strategies for reproduction and growth - and therefore size - \textit{given} that these scaling laws exist \autocite{Danko2017}. Mechanistic: Given these observed strategies, what are the mechanisms and how do they work. Phenom: Given these mechanisms exist, what is the best strategy (bayesian vs frequentist) ``From this perspective, life-history models are ‘top-down’ – they are driven by selection on body size, and the underlying physiology evolves in response to these selection pressures. Such phenomenological models of growth are good at predicting changes in size, based on variation in external context across populations or between closely related species (e.g., [34,35]).''
+        In contrast to mechanistic approaches, life-history theory typically makes simplifying assumptions with regard to why certain biological traits scale with mass. \autocite{Day1997, Kozowski1987-indeterminate} For instance, while growth rate, resource acquisition ($am^y$), realised through consumption rate, and maintenance metabolism ($bm^z$) all scale with body size in particular ways \autocite{peters1983,Werner1988,brown2000-scaling-book}, phenomenological, life-history models typically remain agnostic as to \textit{why} such scaling occurs. The chain of causality in the scientific approach here is inherently reversed. The concern is not with how the mechanisms behind scaling laws explain ontogenetic growth, but instead with how evolution has selected for particular life-history strategies for reproduction and growth - and therefore size - \textit{given} that these scaling laws exist \autocite{Danko2017}. Mechanistic: Given these observed strategies, what are the mechanisms and how do they work. Phenom: Given these mechanisms exist, what is the best strategy (bayesian vs frequentist) ``From this perspective, life-history models are ‘top-down’ – they are driven by selection on body size, and the underlying physiology evolves in response to these selection pressures. Such phenomenological models of growth are good at predicting changes in size, based on variation in external context across populations or between closely related species (e.g., [34,35]).''
         
         Thus, size at maturity is predicted to be inversely related to mortality rate under a simple life-history model [30].
 
@@ -288,44 +288,45 @@
     \begin{table}[]
         \begin{tabular}{|l|l|l|l|l|}
         \hline
-        \textbf{Study}                          & \textbf{Model type} & \textbf{Scaling} & \textbf{Prediction or Assumption} & \textbf{Refs} \\ \hline
-        Gadgil and Bossert (1970)               & Life history        & Hyperallometric  & Prediction                        & (40)          \\ \hline
-        Roff (1983)                             & Life history        & Isometric        & Assumption                        & (41)          \\ \hline
-        Roff (1984)                             & Life history        & Isometric        & Assumption                        & (42)          \\ \hline
-        Reiss (1985)                            & Life history        & Hypoallometric   & Prediction                        & (43)          \\ \hline
-        Koz\l{}owski and Uchmanksi (1987)          & Life history        & Variable         & Prediction                        & (44)          \\ \hline
-        Koz\l{}owski (1996)                        & Life history        & Variable         & Prediction                        & (45)          \\ \hline
-        West \textit{et al}. (2001)             & Life history        & Isometric        & Assumption                        & (46)          \\ \hline
-        Charnov \textit{et al}. (2001)          & Life history        & Isometric        & Assumption                        & (47)          \\ \hline
-        Charnov (2002)                          & Life history        & Isometric        & Assumption                        & (48)          \\ \hline
-        Lester \textit{et al}. (2004)           & Life history        & Isometric*       & Assumption                        & (49)          \\ \hline
-        Roff \textit{et al}. (2006)             & Life history        & Isometric        & Assumption                        & (50)          \\ \hline
-        Quince \textit{et al}. (2008; FGO)      & Life history        & Isometric*       & Assumption                        & (51)          \\ \hline
-        Quince \textit{et al}. (2008; VGO)      & Life history        & Hyperallometric* & Prediction                        & (51)          \\ \hline
-        Pecquerie \textit{et al}. (2009)        & Life history        & Isometric        & Assumption                        & (52)          \\ \hline
-        Koojiman (2010)                         & Life history        & Isometric*       & Assumption                        & (53)          \\ \hline
-        Arendt (2011)                           & Life history        & Isometry         & Assumption                        & (54)          \\ \hline
-        Onishi \textit{et al}. (2012)           & Life history        & Hyperallometric  & Assumption                        & (55)          \\ \hline
-        Brunel \textit{et al}. (2013)           & Life history        & Isometric        & Assumption                        & (56)          \\ \hline
-        Charnov \textit{et al}. (2013)          & Life history        & Isometric        & Assumption                        & (57)          \\ \hline
-        Boukal \textit{et al}. (2014)           & Life history        & Isometric*       & Assumption                        & (58)          \\ \hline
-        Koojiman and Lika (2014)                & Life history        & Isometric*       & Assumption                        & (59)          \\ \hline
-        Minte-Vera \textit{et al}. (2016)       & Life history        & Isometric*       & Assumption                        & (60)          \\ \hline
-        Jusup \textit{et al}. (2017)            & Life history        & Isometric        & Assumption                        & (61)          \\ \hline
-        Mangel (2017)                           & Life history        & Hyperallometric  & Assumption                        & (62)          \\ \hline
-        Smallegange \textit{et al}. (2017)      & Life history        & Isometric        & Assumption                        & (63)          \\ \hline
-        Beverton and Holt (1957)                & Fisheries           & Isometric        & Assumption                        & (2)           \\ \hline
-        Scott \textit{et al}. (2006)            & Fisheries           & Hyperallometric  & Assumption                        & (64)          \\ \hline
-        Jørgensen and Fisken (2006)             & Fisheries           & Isometric*       & Assumption                        & (65)          \\ \hline
-        Enberg \textit{et al}. (2010)           & Fisheries           & Isometric        & Assumption                        & (66)          \\ \hline
-        Eikeset \textit{et al}. (2013)          & Fisheries           & Isometric        & Assumption                        & (67)          \\ \hline
-        Lester \textit{et al}. (2014)           & Fisheries           & Isometric        & Assumption                        & (68)          \\ \hline
-        Andersen and Beyer (2015)               & Fisheries           & Isometric        & Assumption                        & (69)          \\ \hline
-        Eikeset \textit{et al}. (2016)          & Fisheries           & Isometric        & Assumption                        & (70)          \\ \hline
-        Andersen \textit{et al}. (2016)         & Fisheries           & Isometric        & Assumption                        & (12)          \\ \hline
-        Zimmerman and Jørgensen (2016)          & Fisheries           & Isometric        & Assumption                        & (71)          \\ \hline
-        Hartvig \textit{et al}. (2011)          & Food web            & Isometric        & Assumption                        & (72)          \\ \hline
-        Carozza \textit{et al}. (2016)          & Food web            & Isometric        & Assumption                        & (73)          \\ \hline
+        \textbf{Study}                          & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} & \textbf{Refs} \\ \hline
+        \autocite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                        & (40)          \\ \hline
+        \autocite{Roff1983}                     & Life history              & Isometric        & Assumption                        & (41)          \\ \hline
+        \autocite{Roff1984}                     & Life history              & Isometric        & Assumption                        & (42)          \\ \hline
+        \autocite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                        & (43)          \\ \hline
+        \autocite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                        & (44)          \\ \hline
+        \autocite{kozlowski1996}                & Life history              & Variable         & Prediction                        & (45)          \\ \hline
+        \autocite{West2001}                     & Mechanistic               & Isometric        & Assumption                        & (46)          \\ \hline
+        \autocite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                        & (47)          \\ \hline
+        \autocite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                        & (48)          \\ \hline
+        \autocite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (49)          \\ \hline
+        \autocite{Roff2006}                     & Life history              & Isometric        & Assumption                        & (50)          \\ \hline
+        \autocite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (51)          \\ \hline
+        \autocite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                        & (51)          \\ \hline
+        \autocite{Pecquerie2009}                & Life history              & Isometric        & Assumption                        & (52)          \\ \hline
+        \autocite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                        & (53)          \\ \hline
+        \autocite{Arendt2011}                   & Life history              & Isometry         & Assumption                        & (54)          \\ \hline
+        \autocite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                        & (55)          \\ \hline
+        \autocite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                        & (56)          \\ \hline
+        \autocite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                        & (57)          \\ \hline
+        \autocite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (58)          \\ \hline
+        \autocite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                        & (59)          \\ \hline
+        \autocite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                        & (60)          \\ \hline
+        \autocite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                        & (61)          \\ \hline
+        \autocite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                        & (62)          \\ \hline
+        \autocite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                        & (63)          \\ \hline
+        \autocite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                        & (63)          \\ \hline
+        Beverton and Holt (1957)                & Fisheries                 & Isometric        & Assumption                        & (2)           \\ \hline
+        Scott \textit{et al}. (2006)            & Fisheries                 & Hyperallometric  & Assumption                        & (64)          \\ \hline
+        Jørgensen and Fisken (2006)             & Fisheries                 & Isometric*       & Assumption                        & (65)          \\ \hline
+        Enberg \textit{et al}. (2010)           & Fisheries                 & Isometric        & Assumption                        & (66)          \\ \hline
+        Eikeset \textit{et al}. (2013)          & Fisheries                 & Isometric        & Assumption                        & (67)          \\ \hline
+        Lester \textit{et al}. (2014)           & Fisheries                 & Isometric        & Assumption                        & (68)          \\ \hline
+        Andersen and Beyer (2015)               & Fisheries                 & Isometric        & Assumption                        & (69)          \\ \hline
+        Eikeset \textit{et al}. (2016)          & Fisheries                 & Isometric        & Assumption                        & (70)          \\ \hline
+        Andersen \textit{et al}. (2016)         & Fisheries                 & Isometric        & Assumption                        & (12)          \\ \hline
+        Zimmerman and Jørgensen (2016)          & Fisheries                 & Isometric        & Assumption                        & (71)          \\ \hline
+        Hartvig \textit{et al}. (2011)          & Food web                  & Isometric        & Assumption                        & (72)          \\ \hline
+        Carozza \textit{et al}. (2016)          & Food web                  & Isometric        & Assumption                        & (73)          \\ \hline
         \end{tabular}
     \end{table}
 %%% Methods %%%
