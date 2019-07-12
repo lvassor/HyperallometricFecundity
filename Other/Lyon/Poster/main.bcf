@@ -65,7 +65,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labeldate</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>labeldatespec</bcf:key>
@@ -81,7 +81,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>99</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
@@ -129,7 +129,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquename</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>useprefix</bcf:key>
@@ -310,8 +310,7 @@
     <bcf:option datatype="boolean">doi</bcf:option>
     <bcf:option datatype="boolean">eprint</bcf:option>
     <bcf:option datatype="boolean">related</bcf:option>
-    <bcf:option datatype="boolean">dashed</bcf:option>
-    <bcf:option datatype="boolean">mergedate</bcf:option>
+    <bcf:option datatype="boolean">subentry</bcf:option>
     <bcf:option datatype="integer">mincrossrefs</bcf:option>
     <bcf:option datatype="integer">maxnames</bcf:option>
     <bcf:option datatype="integer">minnames</bcf:option>
@@ -2051,7 +2050,9 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">Barneche2018d</bcf:citekey>
-    <bcf:citekey order="2">Pawar2012</bcf:citekey>
+    <bcf:citekey order="2">peters1983</bcf:citekey>
+    <bcf:citekey order="3">Pawar2012</bcf:citekey>
+    <bcf:citekey order="4">West2001</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nty/global" type="entry" sortscheme="nty" sortnamekeyscheme="global">
   <bcf:sorting>

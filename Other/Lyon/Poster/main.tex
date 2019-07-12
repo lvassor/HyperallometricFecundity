@@ -11,9 +11,39 @@
 \usepackage[size=a0,orientation=portrait,scale=1.55]{beamerposter}
 \usepackage{pgfplots}
 \pgfplotsset{width=25cm,compat=1.9}
-
+\usepackage{tabularx}
 \usetheme{ImperialPoster}
 
+
+\makeatletter
+\renewbibmacro*{textcite}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+    {\mkbibsuperscript{\supercitedelim}}
+    {\cbx@tempa
+     \ifnameundef{labelname}
+       {\printfield[citetitle]{labeltitle}}
+       {\printnames{labelname}}}%
+  \ifnumequal{\value{citecount}}{1}
+    {}
+    {}%
+  \mkbibsuperscript{\usebibmacro{cite}}%
+  \savefield{namehash}{\cbx@lasthash}%
+  \gdef\cbx@tempa{\addspace\multicitedelim}}%
+
+\DeclareCiteCommand{\textcite}
+  {\let\cbx@tempa=\empty
+   \undef\cbx@lasthash
+   \iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{textcite}}
+  {}
+  {}
+\makeatother
 %% Four available colour themes
 \usecolortheme{ImperialWhite} % Default
 % \usecolortheme{ImperialLightBlue}
@@ -43,36 +73,75 @@
 
 \begin{block}{The ``General Life History Problem''}
     \begin{itemize}
-        \item The onset of reproduction brings new costs to an organism. Life history theory assumes that evolution selects for strategies that maximise lifetime reproduction.
-        \item The general life-history problem asks: ``\textit{given that reproduction propagates genetic material but also bears cost (e.g. increased parental mortality), how should reproduction be optimally distributed over ontogeny to maximise output?}"
-        \item A large metastudy \autocite{Barneche2018d} has now extended this problem by showing that the total reproductive output of female fish scales hyperallometrically with body size (across species) i.e. $R \propto m^{>1}$, 
-        \begin{itemize}
-            \item 1 x 2kg fish reproduces > 2 x 1kg fish
-        \end{itemize}
-        \item This potentially resets a crucial theoretical assumption of many existing growth models - that reproduction scales \textit{isometrically} with body size i.e. $R \propto m^{1}$. 
+        \item ``\textit{Given that reproduction bears cost (e.g. increased parental mortality), how should reproduction be optimally distributed over ontogeny to maximise output?}"
+        \item Life history theory assumes that evolution selects for strategies which maximise lifetime reproduction.
+        \item A large metastudy \autocite{Barneche2018d} has extended this problem by showing that the \textbf{total reproductive output} of female fish scales \textbf{hyper}allometrically with body size - bigger mothers reproduce disproportionately more i.e. $R \propto m^{>1}$
+        \includegraphics[width=0.8\hsize]{./fish_figure.png}
     \end{itemize}
     %This begs a new question: ``given that fish are indeterminate growers, and that they can increase reproductive output by delaying maturation and investing in somatic growth, when is the optimal time to mature, and what is the optimal exponent? given a mortality rate"
 \end{block}
 
-\begin{block}{The model}
+
+\begin{block}{Shrinking fish and ``Missing Energy''}
     \begin{itemize}
-        \item Energy intake scales hypoallometrically with size $= am^{3/4}$%, constrained by the fractal-like architecture of a branching capillary network, 
-        \item Cellular maintenance scales isometrically with size $= bm$ 
-        \item Reproduction begins at maturity, age $\alpha$, size $m_{\alpha}$ and scales hyperallometrically with size $= cm^{\rho}$
-        \item Surplus energy is optimally allocated to growth
-        \item Optimising reproductive output ($R_{T}$ is constrained by probability of survival at age $x$, which decays exponentially $= L_x$
+        \item Simulating growth curves (Figure 1) with high reproductive exponents suggests fish should be shrinking after maturity
+        \item Where are they obtaining the extra energy to prevent shrinking?
     \end{itemize}
-    \begin{align*}
-        \frac{dm}{dt} &= am^{3/4} - bm \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; m < m_{\alpha} \\
-        \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \; \; \; \;\; m > m_{\alpha} \\
-        \text{Maximise } R_{T} &= \int_{\alpha}^{\infty} L_{x}cm_{x}^{\rho}dx
-    \end{align*}
 \end{block}
 
+%%%%% Growth Curves Figure %%%%%
 \begin{figure}
-\includegraphics[width=\hsize]{../../../Results/optimisation.pdf}
-\caption{Fitness surface for lifetime reproductive output ($R$) as a function of age at maturity ($\alpha$) and allometric scaling exponent of reproduction ($\rho$). Maximum reproduction results from highest exponent and intermediate maturation age.}
+    \includegraphics[width=\hsize]{../../../Results/growth_curve_rho.pdf}
+    \caption{Ontogenetic growth curves for different maturity ages (dashed lines: $\alpha = 100, 200, 300$) and different reproductive exponents ($\rho$). Large $\rho$ values produce shrinking fish.}
 \end{figure}
+
+\begin{block}{Scaling of intake rate}
+    \begin{itemize}
+        \item Size-scaling laws are ubiquitous among biological rates data \autocite{peters1983}
+        \item This extends to consumption rate --- different size-scalings for different environments i.e. $C \propto m^\gamma$ \autocite{Pawar2012}
+    \end{itemize}
+    % \begin{tikzpicture}
+    %     \begin{axis}[
+    %         ymode=log,
+    %         axis lines = left,
+    %         xlabel = $x$,
+    %         ylabel = {$f(x)$},
+    %     ]
+    %     %Below the red parabola is defined
+    %     \addplot [
+    %         domain=0:10, 
+    %         samples=100, 
+    %         color=red,
+    %     ]
+    %     {x^0.75};
+    %     \addlegendentry{$\beta = 3/4$}
+    %     %Here the blue parabloa is defined
+    %     \addplot [
+    %         domain=0:10, 
+    %         samples=100, 
+    %         color=blue,
+    %         ]
+    %         {x^1.06 - 10};
+    %     \addlegendentry{$\beta = 1.06$}
+         
+    %     \end{axis}
+    %     \end{tikzpicture}
+\end{block}
+
+%%%%%% Intake Rate Exponents %%%%%%
+\begin{table}
+    \begin{tabularx}{\linewidth}{l  X  X  }
+    \toprule
+        & \multicolumn{2}{c}{\textbf{Consumption rate}}                                        \\
+    \midrule
+        & \multicolumn{1}{c}{\textbf{Scarce resources}} & \multicolumn{1}{c}{\textbf{Abundant resources}} \\
+    \midrule
+     2D & 0.85 $\pm$ 0.05                      & 0.85 $\pm$ 0.05                        \\
+    \midrule
+     3D & 1.06 $\pm$ 0.06                      & 1.00 $\pm$ 0.06                        \\              
+    \bottomrule
+    \end{tabularx}
+\end{table}
 
 % \begin{table}
 % \begin{tabularx}{\linewidth}{  X  X  }
@@ -89,7 +158,7 @@
 % \end{table}
 
 \begin{block}{Acknowledgements}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In nunc nisl, pharetra et, lacinia non, pellentesque sit amet, tellus. Sed tempus. In egestas. Maecenas aliquam libero vitae leo. Donec consectetuer. Pellentesque ultrices feugiat enim. Morbi tempus tortor non metus. Quisque vitae metus. Nulla justo.
+    \textbf{Author contributions:} L.J.V., S.P. and T.C. conceived the study. V.M.S. performed the majority of mathematics. D.R.B. provided insight into and data on fish growth. D.J.M. 
 \end{block}
 
 \end{column}
@@ -98,76 +167,30 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In nunc nisl, pharetra
 %%%% Second Column
 \begin{column}{.47\textwidth}
 
-\begin{block}{Scaling of intake rate}
+\begin{block}{Ontogenetic Growth Models}
     \begin{itemize}
-        \item Size-scaling laws are ubiquitous among biological rates
-        \item This extends to consumption rate \autocite{Pawar2012}
-        \begin{itemize}
-            \item Different scalings for 2D/3D foraging
-            \item Different scalings for resource-saturated/depleted environments
-            \item 
-        \end{itemize}
+        \item Current mechanistic growth models typically assume that energy is optimally dedicated to somatic growth \textbf{after} maintenance and reproduction (post-maturation) costs
+        \item Under metabolic theory, most assume that energy intake scales with \textbf{hypo}allometrically with mass as $I \propto m^{3/4}$ \autocite{West2001}
     \end{itemize}
-    \begin{tikzpicture}
-        \begin{axis}[
-            ymode=log,
-            axis lines = left,
-            xlabel = $x$,
-            ylabel = {$f(x)$},
-        ]
-        %Below the red parabola is defined
-        \addplot [
-            domain=0:10, 
-            samples=100, 
-            color=red,
-        ]
-        {x^0.75};
-        \addlegendentry{$\beta = 3/4$}
-        %Here the blue parabloa is defined
-        \addplot [
-            domain=0:10, 
-            samples=100, 
-            color=blue,
-            ]
-            {x^1.06 - 10};
-        \addlegendentry{$\beta = 1.06$}
-         
-        \end{axis}
-        \end{tikzpicture}
+    \begin{align*}
+        \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \; \; \; \;\; m > m_{\alpha} \\
+        % aosoossjejje \uparrow \uparrow \uparrow \\
+    \end{align*}
+    \begin{itemize}
+        \item We theorise that the ``missing energy'' causing shrinkage is obtained via the superlinear scaling of intake rate (Table 1)
+        \item In a 3D environment with scarce resources, intake would scales as $I = I_{0}m^{1.06}$
+        \item Organisms can switch between environments 
+        \item Given this intake rate and a survivorship probability, organisms can then optimise their age-at-maturtiy ($\alpha$) and fecundity allometry ($\rho$), extending the general life history problem
+    \end{itemize}
+    % \begin{align*}
+    %     \text{Maximise } R_{T} &= \int_{\alpha}^{\infty} L_{x}cm_{x}^{\rho}dx
+    % \end{align*}
 \end{block}
 
-\begin{block}{Incorporating into OGM}
-\begin{itemize}
-    \item Current growth models assume that energy intake is fixed scales to $\frac{3}{4}$.
-    \item In nunc nisl, pharetra et, lacinia non, pellentesque sit amet, tellus. Sed tempus.
-    \item In egestas.
-    \item Maecenas aliquam libero vitae leo. Donec consectetuer. 
-    \item Pellentesque ultrices feugiat enim. Morbi tempus tortor non metus. 
-    \item Nulla justo. Pellentesque laoreet dui a felis bibendum blandit. Quisque commodo. 
-\end{itemize}
-\end{block}
-
-% \begin{table}
-% \begin{tabularx}{\linewidth}{  X  X  }
-% \toprule
-% \textbf{Table header (bold)} & \textbf{Table header (bold)} \\
-% \midrule
-% Table header (normal) & Table header (normal) \\
-% \midrule
-% Table header (normal) & Table header (normal) \\
-% \midrule
-% Table header (normal) & Table header (normal) \\
-% \bottomrule
-% \end{tabularx}
-% \end{table}
-
-\begin{sidefigure}
-\includegraphics[width=\hsize]{example-image-golden-upright}
-\caption{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In nunc nisl, pharetra et, lacinia non, pellentesque sit amet, tellus. Sed tempus. In egestas. Maecenas aliquam libero vitae leo. Donec consectetuer. Pellentesque ultrices feugiat enim. Morbi tempus tortor non metus. Quisque vitae metus. Nulla justo. Pellentesque laoreet dui a felis bibendum blandit. Quisque commodo. Cras luctus vestibulum leo. Quisque varius mauris vel diam. Aenean quis erat. Vestibulum mauris. Suspendisse potenti. Vivamus consectetuer massa et nunc. Aliquam ornare risus eu risus. Suspendisse molestie urna vitae augue.
-
-Aliquam erat volutpat. Duis at sapien vestibulum mi sollicitudin rutrum.}
-\end{sidefigure}
-
+\begin{figure}
+\includegraphics[width=\hsize]{../../../Results/optimisation_square.pdf}
+\caption{Fitness surface for lifetime reproductive output ($R$) as a function of age at maturity ($\alpha$) and allometric scaling exponent of reproduction ($\rho$). Maximum reproduction results from highest exponent and intermediate maturation age.}
+\end{figure}
 
 \let\mkbibnamefamily\textsc\printbibliography
 
