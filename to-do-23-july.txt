@@ -1,0 +1,8 @@
+=====================
+To-Do Week c. 23/7/19
+=====================
+- fixed alpha (using invariants - proportion of lifetime) and vary c
+- note out diego and van
+- 3-page version of diss
+- time foraging data
+- logical flow

@@ -8,53 +8,66 @@
 %% Possible paper sizes: a0, a0b, a1, a2, a3, a4 (although Imperial College posters are usually A0 or A1).
 %% Possible orientations: portrait, landscape
 %% Font sizes can be changed using the scale option.
-\usepackage[size=a0,orientation=portrait,scale=1.55]{beamerposter}
+\usepackage[size=a0,orientation=portrait,scale=1.8]{beamerposter}
 \usepackage{pgfplots}
 \pgfplotsset{width=25cm,compat=1.9}
 \usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{caption}
+\captionsetup{skip=0pt,belowskip=0pt}
 \usetheme{ImperialPoster}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\renewcommand*{\bibfont}{\footnotesize}
+\AtEveryBibitem{[\printfield{labelnumber}]\addspace}%Numbers in the bib
+% reducing space around equations
+% \setlength{\abovedisplayshortskip}{-1pt}
+% \setlength{\belowdisplayshortskip}{-1pt}
 
+% \AtBeginDocument{%
+%    \setlength\abovedisplayskip{-2pt}
+%    \setlength\belowdisplayskip{-2pt}}
 
-\makeatletter
-\renewbibmacro*{textcite}{%
-  \iffieldequals{namehash}{\cbx@lasthash}
-    {\mkbibsuperscript{\supercitedelim}}
-    {\cbx@tempa
-     \ifnameundef{labelname}
-       {\printfield[citetitle]{labeltitle}}
-       {\printnames{labelname}}}%
-  \ifnumequal{\value{citecount}}{1}
-    {}
-    {}%
-  \mkbibsuperscript{\usebibmacro{cite}}%
-  \savefield{namehash}{\cbx@lasthash}%
-  \gdef\cbx@tempa{\addspace\multicitedelim}}%
+% \setlist[itemize]{noitemsep, topsep=0pt} % reduce spacing before itemize
+% \makeatletter
+% \renewbibmacro*{textcite}{%
+%   \iffieldequals{namehash}{\cbx@lasthash}
+%     {\mkbibsuperscript{\supercitedelim}}
+%     {\cbx@tempa
+%      \ifnameundef{labelname}
+%        {\printfield[citetitle]{labeltitle}}
+%        {\printnames{labelname}}}%
+%   \ifnumequal{\value{citecount}}{1}
+%     {}
+%     {}%
+%   \mkbibsuperscript{\usebibmacro{cite}}%
+%   \savefield{namehash}{\cbx@lasthash}%
+%   \gdef\cbx@tempa{\addspace\multicitedelim}}%
 
-\DeclareCiteCommand{\textcite}
-  {\let\cbx@tempa=\empty
-   \undef\cbx@lasthash
-   \iffieldundef{prenote}
-     {}
-     {\BibliographyWarning{Ignoring prenote argument}}%
-   \iffieldundef{postnote}
-     {}
-     {\BibliographyWarning{Ignoring postnote argument}}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{textcite}}
-  {}
-  {}
-\makeatother
+% \DeclareCiteCommand{\textcite}
+%   {\let\cbx@tempa=\empty
+%    \undef\cbx@lasthash
+%    \iffieldundef{prenote}
+%      {}
+%      {\BibliographyWarning{Ignoring prenote argument}}%
+%    \iffieldundef{postnote}
+%      {}
+%      {\BibliographyWarning{Ignoring postnote argument}}}
+%   {\usebibmacro{citeindex}%
+%    \usebibmacro{textcite}}
+%   {}
+%   {}
+% \makeatother
 %% Four available colour themes
 \usecolortheme{ImperialWhite} % Default
 % \usecolortheme{ImperialLightBlue}
 % \usecolortheme{ImperialDarkBlue}
 % \usecolortheme{ImperialBlack}
 
-\title{Explicitly Accounting for Resource Supply \& Hyperallometric Fecundity Scaling in Ontogenetic Growth Models}
+\title{Reconciling Resource Supply \& Hyperallometric Fecundity Scaling in Ontogenetic Growth Models}
 
-\author{\mainauthor{Luke Vassor},\Tsup{1} Tom Clegg,\Tsup{1} Diego Barneche,\Tsup{2} Van Savage,\Tsup{3} Dustin Marshall,\Tsup{4} Samraat Pawar\Tsup{1}}
-
-\institute{\Tsup{1}Department of Life Sciences, Silwood Park, Imperial College London \Tsup{2}College of Life and Environmental Science, University of Exeter \Tsup{3}Departments of Biomathematics and Ecology and Evolutionary Biology, UCLA \Tsup{4}Centre for Geometric Biology, Monash University, Australia}
+\author{\mainauthor{Luke Vassor},\Tsup{1} Tom Clegg,\Tsup{1} Diego Barneche,\Tsup{2} Dustin Marshall,\Tsup{3} Van Savage, \Tsup{4} Samraat Pawar\Tsup{1}}
+% \vspace*{1pt}
+\institute{\Tsup{1}Department of Life Sciences, Silwood Park, Imperial College London \Tsup{2}College of Life and Environmental Science, University of Exeter \Tsup{3}Centre for Geometric Biology, Monash University \Tsup{4}Departments of Biomathematics and Ecology and Evolutionary Biology, UCLA}
 
 \addbibresource{../../../Write-Up/CMEE_Thesis.bib}
 % \usepackage[maxcitenames=2, backend=biber, style=imperialharvard]{biblatex}
@@ -73,33 +86,35 @@
 
 \begin{block}{The ``General Life History Problem''}
     \begin{itemize}
-        \item ``\textit{Given that reproduction bears cost (e.g. increased parental mortality), how should reproduction be optimally distributed over ontogeny to maximise output?}"
-        \item Life history theory assumes that evolution selects for strategies which maximise lifetime reproduction.
-        \item A large metastudy \autocite{Barneche2018d} has extended this problem by showing that the \textbf{total reproductive output} of female fish scales \textbf{hyper}allometrically with body size - bigger mothers reproduce disproportionately more i.e. $R \propto m^{>1}$
-        \includegraphics[width=0.8\hsize]{./fish_figure.png}
+        \item ``\textit{Given that reproduction bears cost (e.g. increased parent mortality), how should it be optimally distributed over ontogeny to maximise output?}"
+        \item Life history theory assumes that evolution selects for strategies which maximise lifetime reproduction
+        \item A large metastudy \autocite{Barneche2018d} has extended this problem by showing that \textbf{total reproductive output} in female fish scales \textbf{hyper}allometrically with size - bigger mothers are disproportionately more fecund i.e. $R \propto m^{>1}$
+        \\ \quad \quad \ \ \ 1 x 2kg \ \ \ \ \ \qquad \qquad \quad \quad 2 x 1kg
+        \includegraphics[width=0.8\hsize,trim=0 0 0 1.1cm, clip]{./fish_figure.png}
     \end{itemize}
+    % ,trim=0cm 0cm 0cm 0.8cm,clip
     %This begs a new question: ``given that fish are indeterminate growers, and that they can increase reproductive output by delaying maturation and investing in somatic growth, when is the optimal time to mature, and what is the optimal exponent? given a mortality rate"
 \end{block}
 
 
 \begin{block}{Shrinking fish and ``Missing Energy''}
     \begin{itemize}
-        \item Simulating growth curves (Figure 1) with high reproductive exponents suggests fish should be shrinking after maturity
-        \item Where are they obtaining the extra energy to prevent shrinking?
+        \item Simulated growth curves with high fecundity scaling exponents suggests fish should shrink at maturity
+        \item Where do they obtain the energy to prevent shrinking?
     \end{itemize}
 \end{block}
-
-%%%%% Growth Curves Figure %%%%%
 \begin{figure}
-    \includegraphics[width=\hsize]{../../../Results/growth_curve_rho.pdf}
-    \caption{Ontogenetic growth curves for different maturity ages (dashed lines: $\alpha = 100, 200, 300$) and different reproductive exponents ($\rho$). Large $\rho$ values produce shrinking fish.}
+    \vspace*{-1.4cm} % reduce white space before figure
+    \includegraphics[width=\hsize]{../../../Results/growth_curve_rho_good.pdf}
+    \caption{Ontogenetic growth curves for different maturation ages (dashed lines: $\alpha = 100, 200, 300$) and different reproductive exponents ($\rho$). Large $\rho$ values produce shrinking fish.}
 \end{figure}
 
-\begin{block}{Scaling of intake rate}
+\begin{block}{Size-Scaling of intake rate}
     \begin{itemize}
-        \item Size-scaling laws are ubiquitous among biological rates data \autocite{peters1983}
-        \item This extends to consumption rate --- different size-scalings for different environments i.e. $C \propto m^\gamma$ \autocite{Pawar2012}
+        \item Size-scaling laws of biological rates are ubiquitous \autocite{peters1983}
+        \item This extends to consumption rate - different size scalings for different environments i.e. $C \propto m^\gamma$ \autocite{Pawar2012}
     \end{itemize}
+
     % \begin{tikzpicture}
     %     \begin{axis}[
     %         ymode=log,
@@ -126,23 +141,24 @@
          
     %     \end{axis}
     %     \end{tikzpicture}
-\end{block}
-
-%%%%%% Intake Rate Exponents %%%%%%
 \begin{table}
-    \begin{tabularx}{\linewidth}{l  X  X  }
+    \setlength\abovecaptionskip{20pt}
+    \setlength\belowcaptionskip{-30pt}
+    \caption{Size-scaling exponents of consumption rate in different foraging dimensions and resource states. 2D v 3D \& Empirical v Predicted (parentheses) are significantly different in all cases \autocite{Pawar2012}}
+    \renewcommand{\arraystretch}{0.9}% Tighter
+    \begin{tabularx}{\linewidth}{l  Y  Y  }
     \toprule
-        & \multicolumn{2}{c}{\textbf{Consumption rate}}                                        \\
+    \rowcolor{blue!20}    & \multicolumn{2}{c}{\textbf{Consumption rate scaling exponent}}                                        \\
     \midrule
-        & \multicolumn{1}{c}{\textbf{Scarce resources}} & \multicolumn{1}{c}{\textbf{Abundant resources}} \\
+    \rowcolor{blue!20}& \multicolumn{1}{c}{\textbf{Scarce resources}} & \multicolumn{1}{c}{\textbf{Abundant resources}} \\
     \midrule
-     2D & 0.85 $\pm$ 0.05                      & 0.85 $\pm$ 0.05                        \\
+    \rowcolor{blue!5}2D & 0.85 $\pm$ 0.05 (0.78)                      & 0.85 $\pm$ 0.05 (0.78)                        \\
     \midrule
-     3D & 1.06 $\pm$ 0.06                      & 1.00 $\pm$ 0.06                        \\              
+    \rowcolor{blue!20}3D & 1.06 $\pm$ 0.06 (1.16)                      & 1.00 $\pm$ 0.06 (1.16)                       \\              
     \bottomrule
     \end{tabularx}
 \end{table}
-
+\end{block}
 % \begin{table}
 % \begin{tabularx}{\linewidth}{  X  X  }
 % \toprule
@@ -157,9 +173,9 @@
 % \end{tabularx}
 % \end{table}
 
-\begin{block}{Acknowledgements}
-    \textbf{Author contributions:} L.J.V., S.P. and T.C. conceived the study. V.M.S. performed the majority of mathematics. D.R.B. provided insight into and data on fish growth. D.J.M. 
-\end{block}
+% \begin{block}{Acknowledgements}
+%     \textbf{Author contributions:} L.J.V., S.P. and T.C. conceived the study. V.M.S. performed the majority of mathematics. D.R.B. provided insight into and data on fish growth. D.J.M. 
+% \end{block}
 
 \end{column}
 
@@ -169,29 +185,27 @@
 
 \begin{block}{Ontogenetic Growth Models}
     \begin{itemize}
-        \item Current mechanistic growth models typically assume that energy is optimally dedicated to somatic growth \textbf{after} maintenance and reproduction (post-maturation) costs
-        \item Under metabolic theory, most assume that energy intake scales with \textbf{hypo}allometrically with mass as $I \propto m^{3/4}$ \autocite{West2001}
+        \item Extant models typically assume energy is optimally allocated to somatic growth \textbf{after} maintenance and reproduction (post-maturation) costs
+        \item Under metabolic theory, energy intake is assumed to scale \textbf{hypo}allometrically with mass i.e. $I \propto m^{3/4}$ \autocite{West2001}
     \end{itemize}
     \begin{align*}
-        \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \; \; \; \;\; m > m_{\alpha} \\
-        % aosoossjejje \uparrow \uparrow \uparrow \\
+        \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \; \; \; \;\; m > m_{\alpha}
     \end{align*}
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
         \item We theorise that the ``missing energy'' causing shrinkage is obtained via the superlinear scaling of intake rate (Table 1)
-        \item In a 3D environment with scarce resources, intake would scales as $I = I_{0}m^{1.06}$
+        \item In a 3D environment with scarce resources, intake would scale as $I = I_{0}m^{1.06}$
         \item Organisms can switch between environments 
         \item Given this intake rate and a survivorship probability, organisms can then optimise their age-at-maturtiy ($\alpha$) and fecundity allometry ($\rho$), extending the general life history problem
     \end{itemize}
     % \begin{align*}
     %     \text{Maximise } R_{T} &= \int_{\alpha}^{\infty} L_{x}cm_{x}^{\rho}dx
     % \end{align*}
-\end{block}
-
 \begin{figure}
-\includegraphics[width=\hsize]{../../../Results/optimisation_square.pdf}
-\caption{Fitness surface for lifetime reproductive output ($R$) as a function of age at maturity ($\alpha$) and allometric scaling exponent of reproduction ($\rho$). Maximum reproduction results from highest exponent and intermediate maturation age.}
+    \vspace*{-1.4cm} % reduce white space before figure
+    \includegraphics[width=\hsize,trim=0cm 0cm 0cm 0.8cm,clip]{../../../Results/optimisation_square.pdf}
+    \caption{Fitness surface for lifetime reproductive output ($R$) as a function of age at maturity ($\alpha$) and allometric scaling exponent of reproduction ($\rho$). ATR = allocation to reproduction.}
 \end{figure}
-
+\end{block}
 \let\mkbibnamefamily\textsc\printbibliography
 
 \end{column}
