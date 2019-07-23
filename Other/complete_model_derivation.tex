@@ -1,0 +1,146 @@
+\documentclass[a3paper]{article} % twoside for paper submission but remove for electronic submission
+\title{Reconciling Resource Supply and Hyperallometric Fecundity Scaling in Ontogenetic Growth Models}
+\author{Luke Joseph Vassor}
+
+% Packages
+% Page Formatting packages
+\usepackage[margin=2cm]{geometry}
+\usepackage{lipsum} % Generates dummy text
+
+% Math packages
+\usepackage{amsmath}
+
+% Language packages
+% \usepackage[english]{babel}
+\usepackage[utf8]{inputenc}    % utf8 support       %!!!!!!!!!!!!!!!!!!!!
+\usepackage[T1]{fontenc}       % code for pdf file  %!!!!!!!!!!!!!!!!!!!!
+% \usepackage{listings}
+
+% Other packages
+\usepackage{hyperref}
+    \hypersetup{colorlinks=false}
+% \usepackage[colorinlistoftodos]{todonotes}
+
+% Plotting packages
+% \usepackage{lscape}
+% \usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{soul}
+% Citation packages
+\usepackage[maxcitenames=2, backend=biber, style=imperialharvard]{biblatex}
+    \addbibresource{../Write-Up/CMEE_Thesis.bib}
+    % \renewcommand*\finalnamedelim{\addspace\&\space}
+% Force \textit{et al}. to be italicised
+\usepackage{xpatch}
+    \xpatchbibmacro{name:andothers}{%
+        \bibstring{andothers}%
+    }{%
+    \bibstring[\emph]{andothers}%
+    }
+    \xpatchbibmacro{Name}{%
+        \bibstring{name}
+    }{%
+    \bibstring[\textbf]{name}%
+    }{}{} % leave these empty arguments here, seem to cause issues when ommited
+
+% Kill "Accessed on" lines in bibliography
+\AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{doi}
+    \clearfield{url}
+    \clearfield{eprint}
+    \clearfield{eprinttype}
+}
+
+\begin{document}
+
+\begin{titlepage}
+    % Square brackets control size of vertical gap AFTER group
+    %----------------------------------------------------------------------------------------
+    %	LOGO SECTION
+    %----------------------------------------------------------------------------------------
+    
+    \includegraphics[width=4cm]{../Write-Up/Images/logo.png}\\%[1cm] % Include a department/university logo - this will require the graphicx package
+     
+    %----------------------------------------------------------------------------------------
+    
+    \center % Center everything on the page
+    
+    
+    %----------------------------------------------------------------------------------------
+    %	TITLE SECTION
+    %----------------------------------------------------------------------------------------
+    \makeatletter
+    \vspace{4cm}
+    \linespread{1.5} % controls line spacing of title
+        {\huge{RECONCILING RESOURCE SUPPLY AND \\ HYPERALLOMETRIC FECUNDITY SCALING IN \\ ONTOGENETIC GROWTH MODELS}\par} % leave \par here
+    \vspace{2.5cm}
+        {\huge\bfseries{COMPLETE MODEL DERIVATION}\par}
+    \vspace{2.5cm} % Title of your document
+
+    %----------------------------------------------------------------------------------------
+    %	DESCRIPTION SECTION
+    %----------------------------------------------------------------------------------------
+    % If you want consistent line spacing then need to typeset paragraphy as a single {} group and use \\ for line break
+    % Strangely, you need to leave the \ character at the end of the group so that the spacing of the last line from the penultimate line in a group remains constant
+    % textsc command sets small capitals (sc)
+    \textsc{A thesis component in partial fulfilment \\ of the requirements for the degree of \\ Master of Science at Imperial College London \\ by \\ \ }\\[2.5cm]
+    \textsc{\Large \@author}\\[2.5cm]
+    \textsc{Completed for the \\ M.Sc. Computational Methods in Ecology \& Evolution \ }\\[2cm]
+
+    %----------------------------------------------------------------------------------------
+    %	HEADING SECTIONS
+    %----------------------------------------------------------------------------------------
+    \textsc{Department of Life Sciences \\ Imperial College London \\ \ }\\[1cm]
+    \textsc{\today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+    
+    \vfill % Fill the rest of the page with whitespace
+    
+\end{titlepage}
+
+%% Begin derivation from master equation %%
+\begin{multicols}{2}
+\begingroup
+\Large
+\begin{align*}
+    B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\ \\
+    B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \\ \\
+    &= \textsc{No*}\frac{\textsc{Joules}}{\textsc{Second}} + \textsc{Joules*}\frac{\textsc{No}}{\textsc{Second}}\\ \\
+    \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \\
+    &= \frac{\textsc{Surplus energy}}{\textsc{Cost of creating single cell}} \\ \\
+    \Bigg(\frac{dN_{c}}{dt}\Bigg)m_c &= \Bigg(\frac{B - N_{c}B_{c}}{E_{c}}\Bigg)m_c \\ \\
+    \frac{dm}{dt} &= \Bigg(\frac{Bm_c - N_{c}m_{c}B_{c}}{E_c}\Bigg) \\ \\
+    \frac{\textsc{grams}}{\textsc{Second}} &= \frac{\textsc{\st{Joules}*Grams - No*Grams*\st{Joules}}}{\textsc{\st{Joules}}} \\ \\
+    \frac{dm}{dt} &= \Bigg(\frac{Bm_c}{E_c}\Bigg) - \Bigg(\frac{N_{c}m_{c}B_{c}}{E_c}\Bigg) \\ \\
+    \frac{dm}{dt} &= \Bigg(\frac{Bm_c}{E_c}\Bigg) - \Bigg(\frac{m_{tot}B_{c}}{E_c}\Bigg) \\ \\
+    \frac{dm}{dt} &= \Bigg(\frac{m_c}{E_c}\Bigg)B - \Bigg(\frac{B_{c}}{E_c}\Bigg)m_{tot} \\ \\
+    \frac{\textsc{grams}}{\textsc{Second}} &= \frac{\textsc{Grams*Joules}}{\textsc{Joules}} - \frac{\textsc{Joules*Grams}}{\textsc{Joules}} \\ \\
+    \text{sub } B &= B_{0}m^{3/4}  \\ \\
+    \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m_{tot} \\ \\
+    \text{sub } a &= \frac{m_c}{E_c}B_{0}  \\ \\
+    b &= \frac{B_{c}}{E_c} \\ \\
+    \frac{dm}{dt} &= am^{3/4} - bm \\ \\
+    \frac{dm}{dt} &= am^{3/4} - bm - cm \\ \\
+    \frac{dm}{dt} &= am^{3/4} - (b+c)m \\ \\
+    \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \\ \\
+\end{align*}
+
+% \vfill\null
+\columnbreak
+%%%%%% SECOND COLUMN %%%%%%%%
+Energy transformation is the sum of maintenance (number of cells X metabolic rate of each cell) + rate of new tissue creation (metabolic energy required to create 1 cell X rate of new cells) \\ \\ \\ \\ \\ \\ \\ \\
+% \vspace{3cm}
+Rearrange for rate of new cells growth. Explicitly, growth comes \textbf{after} addressing costs \\ \\ \\ \\
+Multiply by mass of cell $m_{c}$ to get rate of growth for whole oraganism on LHS - number of cells X mass of cells $N_{c}m_{c}$ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+Change in mass is how many cells you can grow with your energy $\frac{B}{E_c}$ X the mass of a single cell $m_c$ minus maintenance 
+% Problem 
+\endgroup
+%%% Bibliography %%%
+\addcontentsline{toc}{section}{Bibliography}
+\newpage\let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
+
+\end{multicols}
+\end{document}\grid
+
