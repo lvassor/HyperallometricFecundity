@@ -104,6 +104,64 @@
 \begin{multicols}{2}
 \begingroup
 \Large
+\section{Energy balance}
+Ontogenetic development is fuelled by metabolism and occurs primarily by cell division. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During growth, some fraction of this energy is allocated to the production ofnew tissue. Thus, the rate ofenergy transformation is the sum of two terms, one of which represents the maintenance of existing tissue, and the other, the creation of new tissue. This is expressed by the conservation of energy equation:
+\begin{align}
+    B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg]
+\end{align}
+The incoming rate of energy flow, $B$, is the average resting metabolic rate of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell, $E_c$ is the metabolic energy required to create a cell and $N_c$ is the total number of cells; the sum is over all types of tissue. Possible differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power needed to sustain the organism in all of its activities, whereas the second is the power allocated to production of new cells and therefore to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$, are assumed to be independent of $m$ remaining constant throughout growth and development. At any time $t$ the total body mass $m = N_{c}m_{c}$, so equation (1) can be written as
+\begin{align}
+    \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m_{tot}
+\end{align}
+\section{Growth equation}
+Now, if $B = B_{0}m^{3/4}$, where $B_0$ is constant for a given taxon, then
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - bm
+\end{align}
+with $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E{c}$. The 3/4 exponent is well supported by data on mammals, birds, fish, molluscs, and plants.
+Although some mammals may show fluctuations around 3/4-power scaling owing to `growth spurts' (ref. 1), the 3/4 exponent describes the overall allometry of B from birth to reproductive maturity. For altricial birds, hatchlings are supplied with a store of metabolically inert water which is expended during growth, and when this is taken into account in relating $N_c$ to $m$, $B \propto m^{3/4}$.
+Individual production (growth) prior to the initiation of reproduction is assumed to follow the differential equation proposed by \cite{West2001}
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - bm
+\end{align}
+This equation excludes reproduction and would result in sigmoid growth to an asymptotic size [$m_{2} = (a/b)^{4}$]. To add reproduction, we note that gonad mass in fish is commonly proportional to body mass; thus, after the onset of reproduction (age $\alpha$) at size $m_{\alpha}$ growth follows
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - (b+c)m
+\end{align}
+
+\columnbreak
+where $c \cdot m$ is the reproductive allocation. The asymptotic size has been shifted downward from $m_2$ to $m_{\infty}$ ($= [a/(b+c)]^4$). Thus, lifetime growth reflects production and the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
+
+\section{Recent addition}
+A recent large-scale metastudy by \cite{Barneche2018d} revealed that across 324 species, 95\% showed hyperallometric fecundity scaling with mass. This new contribution to growth literature now introduces a new dimension to the general life history problem and optimising reproductive output - given that fish benefit in fecundity by waiting to grow larger, when is the optimal time to mature? Under this paradigm, the equation 3 now takes the form:
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho}
+\end{align}
+As this has no closed-form solution, it is not possible to analytically derive asymptotic mass for a general $\rho$. However, despite being unable to facorise out $m$ from $b$ and $c$, we know that if $\rho > 1$, asymptotic size $< [a/(b+c)]^4$. Numerical simulations confirm this, and also reveal interesting properties of the model. Interestingly, at sufficiently large maturity ages ($\alpha$) and scaling values ($\rho$), the model equation produces theoretically shrinking fish (i.e. $\frac{dm}{dt} < 0$) until supply and cost then become equal again (as $\frac{dm}{dt} \rightarrow 0$). 
+
+\section{``Missing'' Energy?}
+We know fish do not shrink over ontogeny. They must be compensating this energy loss to reproduction. We hypothesise that this comes from scaling of intake rate across different resource environments and foraging dimensions, as found by \cite{Pawar2012}. We know that at any time $t$, organisms consume resources:
+\begin{align}
+    C(t) &= C_{0}m^{\gamma}
+\end{align}
+To calculate total intake in a given time period (i.e. foraging bout) we can integrate equation 7 with respect to time:
+\begin{align}
+    \int_{t_{0}}^{t_{1}}C(t)dt &= C_{0}m^{\gamma}t
+\end{align}
+We assume that, like many other biological rates, foraging time also scales with mass to some scaling exponent i.e. $t = t_{0}m^{\psi}$. Equation (8) now becomes
+\begin{align}
+    &= C_{0}m^{\gamma}t_{0}m^{\psi} \\
+    &= C_{0}m^{\gamma + \psi}
+\end{align}
+Assuming that fish begin to allocate to growth \textbf{after} a foraging bout (or at least growth is negligible during a bout due to disconnect in timescales), then this total intake term is biologically identical to $a$ in equation (3). Assimilation of nutrients via digestion can never be 100\% efficient and we hence add an efficieny term, $\epsilon$ to our equation, becoming $\epsilon C_{0}m^{\gamma + \psi}$. Thus we can substitute this for a into equation (3), arriving at:
+\begin{align}
+    \frac{dm}{dt} &= I_{0}t_{0}\epsilon am^{\gamma + \psi}\Big(m^{-\frac{1}{4}}\Big) - bm - cm^{\rho}
+\end{align}
+\newpage
+
+
+
+\newpage
 \begin{align*}
     B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\ \\
     B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \\ \\
@@ -137,10 +195,9 @@ Multiply by mass of cell $m_{c}$ to get rate of growth for whole oraganism on LH
 Change in mass is how many cells you can grow with your energy $\frac{B}{E_c}$ X the mass of a single cell $m_c$ minus maintenance 
 % Problem 
 \endgroup
+\end{multicols}
 %%% Bibliography %%%
 \addcontentsline{toc}{section}{Bibliography}
 \newpage\let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
 
-\end{multicols}
-\end{document}\grid
-
+\end{document}
