@@ -151,16 +151,31 @@ To calculate total intake in a given time period (i.e. foraging bout) we can int
 We assume that, like many other biological rates, foraging time also scales with mass to some scaling exponent i.e. $t = t_{0}m^{\psi}$. Equation (8) now becomes
 \begin{align}
     &= C_{0}m^{\gamma}t_{0}m^{\psi} \\
-    &= C_{0}m^{\gamma + \psi}
+    &= C_{0}t_{0}m^{\gamma + \psi}
 \end{align}
-Assuming that fish begin to allocate to growth \textbf{after} a foraging bout (or at least growth is negligible during a bout due to disconnect in timescales), then this total intake term is biologically identical to $a$ in equation (3). Assimilation of nutrients via digestion can never be 100\% efficient and we hence add an efficieny term, $\epsilon$ to our equation, becoming $\epsilon C_{0}m^{\gamma + \psi}$. Thus we can substitute this for a into equation (3), arriving at:
+Assuming that fish begin to allocate to growth \textbf{after} a foraging bout (or at least growth is negligible during a bout due to disconnect in timescales), then this total intake term is biologically identical to $a$ in equation (3). Assimilation of nutrients via digestion can never be 100\% efficient and we hence add an efficieny term, $\xi$ to our equation, bounded $[0,1]$. Thus equation (10) becomes $\xi C_{0}t_{0}m^{\gamma + \psi}$. The origin of the $3/4$ intake scaling in equation (3) is one of the fundamental axioms of metabolic theory \autocite{West1997a,West2001} which states the resource delivery to cells is constrained by the fractal-like structure of a branching capillary network, invoking the geometry of fractal dimensions. However, \cite{West2001} assume basal metabolic rates and that $B$ is a constant, satisfied energy influx. In other words, energy delivered to cells is constrained only by the fractal structure but energy into the fractal structure itself is constant ($a$). We challenge this assumption with the scaling of energy intake/consumption rate in equation (10). Thus we must first find the distribution ``efficiency'' per unit mass of energy moving around the fractal network, ${am^{3/4}}/m = am^{-1/4}$. We can now multiply this distribution term by our total energy intake term from equation (10):
 \begin{align}
-    \frac{dm}{dt} &= I_{0}t_{0}\epsilon am^{\gamma + \psi}\Big(m^{-\frac{1}{4}}\Big) - bm - cm^{\rho}
+    \frac{dm}{dt} &= C_{0}t_{0}\xi am^{\gamma + \psi}\Big(m^{-\frac{1}{4}}\Big) - bm - cm^{\rho}
 \end{align}
-\newpage
+Let our new intake term, $a_0 = C_{0}t_{0}\xi a$ and multiply out our new energy intake term:
+\begin{align}
+    \frac{dm}{dt} &= a_{0}m^{\gamma + \psi -\frac{1}{4}} - bm - cm^{\rho}
+\end{align}
+One can now observe that if consumption rate scales with mass for amount and time as $3/4$, as MTE would suggest (limited by resting metabolic rate), intake rate would scale superlinearly:
+\begin{align}
+    \frac{dm}{dt} &= a_{0}m^{\frac{3}{4} + \frac{3}{4} -\frac{1}{4}} - bm - cm^{\rho} \\
+    \frac{dm}{dt} &= a_{0}m^{\frac{5}{4}} - bm - cm^{\rho}
+\end{align}
+Further, it has also been shown that the assumption of resting metabolic rate scaling may also be false in consumption rate scaling, as active MR has been shown to scale more steeply. If it is the case that consumption scales with active MR then it is likely that the total exponent value for $a_{0}m^\phi$ may be even larger.
 
-
-
+\section{Optimising Life History}
+We assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you. However, it is assumed that fish can optimise the proportion of their mass that they allocate to reproduction, $c$. This optimisation invokes life history theory, which assumes that all organisms optimise their strategy to maximise reproductive output. At any time $t$, fish allocate $m_{t}$ of their total mass to reproduction, $= cm^{\rho}$. Thus their lifetime reproductive output as mass is the integral over the time period in which they are reproducing. (We assume for intake that they put growth on pause which would include reproduction, but over the timescale of the lifetime it can be assumed that they are effectively allocating to growth and reproduction continuously). Reproduction at time $t$ also has a probability associated with it since there is a probability of organism being alive at time $t$. We denote this as the survivorship probability, $l_{t}$. Thus lifetime reproduction is calculated as:
+\begin{align}
+    R_{0} &= \int_{\alpha}^{\infty}L_{t}m_{t} dt 
+\end{align}
+To maximise this quantity, given a likelihood of being alive, fish can either choose to mature early, which is preferable if their probability of being alive is decreasing sharply, or delay maturity and invest energy in growth in order to benefit from the hyperallometric scaling of fecundity with mass. Thus they can optimise age $\alpha$ or $c$.
+\columnbreak
+\vfill\null
 \newpage
 \begin{align*}
     B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\ \\
