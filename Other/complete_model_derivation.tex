@@ -1,4 +1,4 @@
-\documentclass[a3paper]{article} % twoside for paper submission but remove for electronic submission
+\documentclass[a4paper]{article} % twoside for paper submission but remove for electronic submission
 \title{Reconciling Resource Supply and Hyperallometric Fecundity Scaling in Ontogenetic Growth Models}
 \author{Luke Joseph Vassor}
 
@@ -27,6 +27,7 @@
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{soul}
+\usepackage{tabularx}
 % Citation packages
 \usepackage[maxcitenames=2, backend=biber, style=imperialharvard]{biblatex}
     \addbibresource{../Write-Up/CMEE_Thesis.bib}
@@ -73,12 +74,12 @@
     %	TITLE SECTION
     %----------------------------------------------------------------------------------------
     \makeatletter
-    \vspace{4cm}
+    % \vspace{4cm}
     \linespread{1.5} % controls line spacing of title
         {\huge{RECONCILING RESOURCE SUPPLY AND \\ HYPERALLOMETRIC FECUNDITY SCALING IN \\ ONTOGENETIC GROWTH MODELS}\par} % leave \par here
-    \vspace{2.5cm}
+    \vspace{2cm}
         {\huge\bfseries{COMPLETE MODEL DERIVATION}\par}
-    \vspace{2.5cm} % Title of your document
+    \vspace{2cm} % Title of your document
 
     %----------------------------------------------------------------------------------------
     %	DESCRIPTION SECTION
@@ -99,11 +100,34 @@
     \vfill % Fill the rest of the page with whitespace
     
 \end{titlepage}
+% \begingroup
+% \Large
+\begin{tabularx}{\linewidth}{|X|X|X|X|X|}
+    \hline
+    Parameter           & Description                                               & Units                     & Value                                         & Bounds    \\ \hline
+    $\frac{dm}{dt}$     & $am^{0.75} - bm$ growth equation before maturity          & Grams/Time                &                                               &           \\ \hline
+    $\frac{dm}{dt}$     & $am^{0.75} - bm - cm^{\rho}$ growth equation after maturity          & Grams/Time                &                                               &           \\ \hline
+    $m$                 & Body mass                                                      & Grams                     &                                               &           \\ \hline
+    $a$                 & coefficient for energy/resource intake/acquisition        &                           &                                               &            \\ \hline
+    $b$                 & coefficient for maintenance                               &                           &                                               &            \\ \hline
+    $c$                 & proportion of mass devoted to reproduction                & Mass/Time                           & $0.1$ \autocite{peters1983,Blueweiss1978}    &            \\ \hline
+    $y$                 & mass scaling exponent for energy intake                   &                           & $0.75$                                        &                     \\ \hline
+    $z$                 & mass scaling exponent for maintenance                     &                           & $1.00$                                        &                     \\ \hline
+    $\rho$              & mass scaling exponent for reproduction                    &                           & $1.29$ \autocite{Barneche2018d}               & [1.20,1.38] 95CI                    \\ \hline
+    $\alpha$            & age at maturity (onset of reproduction)                   & Time             &                                               &             \\ \hline
+    $C(t)$              & Consumption rate                   & Mass/Time             &                                               &             \\ \hline
+    $\gamma$            & mass scaling exponent for consumption rate                    &              &                                               & [0.75,1.06] \autocite{Pawar2012}            \\ \hline
+    $\psi$            & mass scaling exponent for foraging time (bout length)                   & Time             & $0.75$                                              &             \\ \hline
+    $m_{\alpha}$        & mass at maturity                                          & Grams                     &                                               &             \\ \hline
+    $M$ or $m_{\infty}$ & asymptotic/terminal size                                  & Grams                     &                                               &             \\ \hline
+    $L_t$               & Probability of survival to time $t$                       &                           &                                               &             \\ \hline
+    $Z(t)$              & Intantaneous mortality rate at time $t$                     & 1/Time                           &                                               &             \\ \hline
+    GSI                 & Gonadosomatic Index; proportion body mass given to repro per year & 1/Time                           &                                               &             \\ \hline
+\end{tabularx}
 
+\newpage
 %% Begin derivation from master equation %%
-\begin{multicols}{2}
-\begingroup
-\Large
+
 \section{Energy balance}
 Ontogenetic development is fuelled by metabolism and occurs primarily by cell division. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During growth, some fraction of this energy is allocated to the production ofnew tissue. Thus, the rate ofenergy transformation is the sum of two terms, one of which represents the maintenance of existing tissue, and the other, the creation of new tissue. This is expressed by the conservation of energy equation:
 \begin{align}
@@ -129,7 +153,7 @@ This equation excludes reproduction and would result in sigmoid growth to an asy
     \frac{dm}{dt} &= am^{3/4} - (b+c)m
 \end{align}
 
-\columnbreak
+
 where $c \cdot m$ is the reproductive allocation. The asymptotic size has been shifted downward from $m_2$ to $m_{\infty}$ ($= [a/(b+c)]^4$). Thus, lifetime growth reflects production and the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
 
 \section{Recent addition}
@@ -169,13 +193,16 @@ One can now observe that if consumption rate scales with mass for amount and tim
 Further, it has also been shown that the assumption of resting metabolic rate scaling may also be false in consumption rate scaling, as active MR has been shown to scale more steeply. If it is the case that consumption scales with active MR then it is likely that the total exponent value for $a_{0}m^\phi$ may be even larger.
 
 \section{Optimising Life History}
-We assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you. However, it is assumed that fish can optimise the proportion of their mass that they allocate to reproduction, $c$. This optimisation invokes life history theory, which assumes that all organisms optimise their strategy to maximise reproductive output. At any time $t$, fish allocate $m_{t}$ of their total mass to reproduction, $= cm^{\rho}$. Thus their lifetime reproductive output as mass is the integral over the time period in which they are reproducing. (We assume for intake that they put growth on pause which would include reproduction, but over the timescale of the lifetime it can be assumed that they are effectively allocating to growth and reproduction continuously). Reproduction at time $t$ also has a probability associated with it since there is a probability of organism being alive at time $t$. We denote this as the survivorship probability, $l_{t}$. Thus lifetime reproduction is calculated as:
+We assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you. However, it is assumed that fish can optimise the proportion of their mass that they allocate to reproduction, $c$. This optimisation invokes life history theory, which assumes that all organisms optimise their strategy to maximise reproductive output. At any time $t$, fish allocate $b_{t}$ of their total mass to reproduction, $= cm^{\rho}$. Thus their lifetime reproductive output as mass is the integral over the time period in which they are reproducing. (We assume for intake that they put growth on pause which would include reproduction, but over the timescale of the lifetime it can be assumed that they are effectively allocating to growth and reproduction continuously). 
+Reproduction at time $t$ also has a probability associated with it since there is a probability of organism being alive at time $t$. We denote this as the survivorship probability, $l_{t}$, which decays as as an exponential function of time. Thus lifetime reproduction is calculated as:
 \begin{align}
-    R_{0} &= \int_{\alpha}^{\infty}L_{t}m_{t} dt 
+    R_{0} &= \int_{\alpha}^{\infty}l_{t}b_{t} dt
+\end{align}
+However, fish live in two different phases - immature and mature, which invoke different survivorship probabilities. For juveniles from birth to maturity, $l_t = e^{-\int_{0}^{\alpha}Z(t)dt}$ and for adults \textbf{relative to when maturity is reached}, $l_{t} = e^{-Z(t-\alpha)}$. 
+\begin{align}
+    R_{0} &\propto (e^{-\int_{0}^{\alpha}Z(t)dt})\int_{\alpha}^{\infty}e^{-Z(t-\alpha)}b_{t} dt
 \end{align}
 To maximise this quantity, given a likelihood of being alive, fish can either choose to mature early, which is preferable if their probability of being alive is decreasing sharply, or delay maturity and invest energy in growth in order to benefit from the hyperallometric scaling of fecundity with mass. Thus they can optimise age $\alpha$ or $c$.
-\columnbreak
-\vfill\null
 \newpage
 \begin{align*}
     B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\ \\
@@ -200,8 +227,7 @@ To maximise this quantity, given a likelihood of being alive, fish can either ch
     \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \\ \\
 \end{align*}
 
-% \vfill\null
-\columnbreak
+
 %%%%%% SECOND COLUMN %%%%%%%%
 Energy transformation is the sum of maintenance (number of cells X metabolic rate of each cell) + rate of new tissue creation (metabolic energy required to create 1 cell X rate of new cells) \\ \\ \\ \\ \\ \\ \\ \\
 % \vspace{3cm}
@@ -209,8 +235,7 @@ Rearrange for rate of new cells growth. Explicitly, growth comes \textbf{after} 
 Multiply by mass of cell $m_{c}$ to get rate of growth for whole oraganism on LHS - number of cells X mass of cells $N_{c}m_{c}$ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
 Change in mass is how many cells you can grow with your energy $\frac{B}{E_c}$ X the mass of a single cell $m_c$ minus maintenance 
 % Problem 
-\endgroup
-\end{multicols}
+% \endgroup
 %%% Bibliography %%%
 \addcontentsline{toc}{section}{Bibliography}
 \newpage\let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
