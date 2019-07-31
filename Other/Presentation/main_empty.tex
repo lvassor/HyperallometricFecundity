@@ -1,0 +1,184 @@
+\documentclass[handout]{beamer}
+%\documentclass[presentation]{beamer}
+
+\usecolortheme{Imperial}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage[UKenglish]{babel}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{pgfplots}
+
+% complying UK date format, i.e. 1 January 2001
+\usepackage{datetime}
+\let\dateUKenglish\relax
+\newdateformat{dateUKenglish}{\THEDAY~\monthname[\THEMONTH] \THEYEAR}
+
+% Imperial College Logo, not to be changed!
+\institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.pdf}}
+
+% -----------------------------------------------------------------------------
+
+
+
+
+%Information to be included in the title page:
+\title{Explicitly incorporating resource supply into an Ontogenetic Growth Model}
+
+\subtitle{Theoretical Ecology}
+
+\author{Luke Vassor \\ \textit{M.Sc. CMEE}}
+
+\date{\today}
+
+
+
+\begin{document}
+ 
+\frame{\titlepage}
+
+
+\begin{frame}
+	\frametitle{Background - Growth}
+	\begin{itemize}
+		\item Organisms grow from birth to an asymptotic size, typically sigmoidal
+		\item Metabolic Theory: Growth rate slows because as we grow larger, we need to maintain more and more cells
+		\item Maintenance rate scales more steeply than energy supply
+		\item Growth ``scope'' is what energy is left over
+		\item Different growth schedules:
+		\begin{itemize}
+			\item Determinate - eventually usage = supply
+			\item Indeterminate - usage tends towards supply
+		\end{itemize}
+	\end{itemize}
+	% \begin{table}[h]
+	% 	\centering
+	% 	\begin{tabular}{p{0.2\textwidth} p{0.7\textwidth}} 
+	% 		\toprule
+	% 		\multicolumn{2}{p{0.9\textwidth}}{TableTitle} \\
+	% 		\midrule
+	% 		CapA       & lots of examplesA \\
+
+	% 		CapB       & lots of examplesB \\
+			
+	% 		CapC       & lots of examplesC \\
+	% 		\bottomrule
+	% 	\end{tabular} 
+	% \end{table}
+
+	\begin{block}{General model}
+		\begin{align*}
+			\frac{dm}{dt} = am^{3/4} - bm
+		\end{align*}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Scaling of Metabolic Rate \& Intake Rate}
+	\begin{columns}[b]
+		\column{0.0125\textwidth}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{determinate.pdf} \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Determinate growth}
+			\end{figure}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{indeterminate.pdf} \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Indeterminate growth}
+			\end{figure}
+		\column{0.0125\textwidth}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Background - Life History Theory}
+	\begin{itemize}
+		\item Life History Theory assumes that evolution will select for the strategy which maximises fitness - i.e. optimising the timing and magnitude of life history events.
+		\item Lifetime reproductive output is a direct measure of fitness
+		\item Organism dedicates a fraction of mass to fecundity at time $t$, $b(t)$ and has a $\mathbb{P}$(Survival to $t$), $L(t)$
+		\item Maximising fitness means maximising the quanitity:
+	\end{itemize}
+	\begin{equation*}
+		R_0 = \int_{\alpha}^{\infty}L(t)b(t) dt
+	\end{equation*}
+
+	% \begin{columns}[]
+	
+	% 	\column{0.0125\textwidth}
+	% 	\column{0.4875\textwidth}
+	% 		\centering
+	% 		\begin{figure}
+	% 			\includegraphics[draft,width=\textwidth]{fooC.pdf} \
+	% 			% remove the 'draft' keyword, when replacing with final figure!
+	% 			\caption{Caption of Figure C}
+	% 		\end{figure}
+	% 	\column{0.4875\textwidth}
+	% 		Some text and a bullet point list
+	% 		\begin{itemize}
+	% 			\item ItemA
+	% 			\item ItemB
+	% 			\item ItemC
+	% 			\item ItemD
+	% 		\end{itemize}			
+	% 	\column{0.0125\textwidth}
+	% \end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Fitness - Lifetime Reproductive Output}
+	\bigskip
+	\begin{figure}
+		\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{fecundity.pdf}
+		% remove the 'draft' keyword, when replacing with final figure!
+		\caption{Lifetime reproductive output from maturity to $t_{\infty}$}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{How can you maximise this?}
+	\bigskip
+	\begin{itemize}
+		\item Adjust $\alpha$ - maturity age, but $\alpha Z$ invariant
+		\item Adjust $c$ - allocation to reproduction
+		\item Adjust $\rho$ - scaling of reproduction with mass
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{``Missing'' Energy}
+	\begin{columns}[]
+		\column{0.0125\textwidth}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[draft,width=\textwidth]{fooC.pdf} \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Caption of Figure C}
+			\end{figure}
+		\column{0.4875\textwidth}
+			\begin{itemize}
+				\item When we incorporate reproductive hyperallometry into our model simulation, we get shrinking fish
+				\item Where is the energy shortfall coming from?
+				\item Intake rate mass scaling laws
+			\end{itemize}			
+		\column{0.0125\textwidth}
+	\end{columns}
+\end{frame}
+
+\end{document}
+
