@@ -1,5 +1,62 @@
 # Global Thesis Notes
 
+## Meeting 11/6/19
+## Optimisation
+* Target dataset could be $m_alpha$
+* Or could be rho optimisation
+* 1 = integral, steady state - life histories evened out
+    * solve for r - growth fitness
+* Implicitly needs redefining what LH need to be optimised
+* lxmx = mortality*fecundity - resource supply not
+* add in bucket shaped Z - use exponential decay with time
+* Assume that very young and old ages have another mortality rate - so different trade-off scaling.
+* Can do a sensitivity analysis
+* Can use delta as a step function - i.e. hybrid function
+* Once solved - can we potentially get data on age at maturation?
+* It's easier to optimise exponent on cm term - keep energy intake fixed
+    * optimise repro output
+* scaling of Lt at any given age?
+* At any given mass can numerically integrate reproductive output - cumulative integral from alpha to infinity
+* Size-dependent fecundity equation
+* scaling beyond age won't hold
+* scaling equation fecundity - as function of mass - write-out optimisation parts
+
+## Method
+* We can use a piece-wise approach
+* Development rate equation
+* a priori alpha size - integrating twice
+* Juveniles/adults have different foraging strategies
+* This offers rationale (?) for two-piece (but West argues alpha is relatively so low that you can just use the second equation)
+* alpha at different times (intake rate as alpha at this point)
+* juvenile scaling != adult scaling
+* optimise scaling given supply?
+* go as far as we can analytically
+
+## Meeting 23/7/19
+* table for parameter values
+* could use diego's data - could actually show hypo - lxmx curve. scaling of peak * fecundity?
+* decline in fecundity after that is - scaling of fecundity relate to LH curve - which * part of their LH are we looking at here? Model output
+* peak fecundity curve is a function
+* emerges as consequence of survivorship 
+
+* master equation
+* optimisation equation
+* relate two together
+* solved it by simultqneously doing numerical integration, and plugging back in
+
+* check carefully for mistake by including mx in such a way - mx should be a curve which * peaks then declines
+* fecundity curves with lx curve 
+* dont worry about van's sol on the board
+* how is optimisation going to be done
+* survivorship curve dominates - 
+* bounds on parameters in table
+* conceptualise what we do/dont have data for - we know this doesnt do anything
+
+* prioritise writing mathematical forumlation and dimensions
+* master -> parameters -> dimensions
+* scaling equations - no params needed
+
+
 ## Van's Visit - 8/7/19
 ### Day 1
 1. Can keep $b = q\cdot c$
@@ -174,9 +231,59 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * $R_0 = \int_{\alpha}^{\infty} l_{x}b_{x}dx$
 * let $l_x = l_{\alpha}e^{-Z(x-\alpha)}$
 * and $l_{\alpha} = \int_{0}^{\alpha}e^{-Z_{J}\alpha}dx = e^{-Z_{J}\alpha}$
-* $\therefore R_0 = \int_{\alpha}^{\infty}e^{-Z_{J}\alpha}dx$
+* $\therefore R_0 = \int_{\alpha}^{\infty}e^{-Z_{J}\alpha}e^{-Z(x-\alpha)}bx dx$
+* $R_0 = e^{-Z_{J}\alpha}\int_{\alpha}^{\infty}e^{-Z(x-\alpha)}bx dx$
+* $l_{\alpha}$ effectively becomes a scaling term - how many juveniles make it to the $\alpha$ timepoint - height of fecundity*survivorship curve
+* We explore $b_x$ using a decay rate parameter $\kappa$
+* $b_x = b_{pk}e^{-\kappa(x-\alpha)}$
 
+### Recent notes - Objectives
+* Discuss resource supply problem right from outset - context of master equation
+* Problem with resource supply
+* might explain recent finding...
+* Write units in-line
+* $Z(x)$ is a constant factor
+* Easiest option: assume within survivorship, fecundity is constant (not decaying) - increasing output with no trade-off
+* fix $\kappa = 0$ and output optimisation surfaces for $c$ and $\rho$
 
+### Fecundity function
+* $R_0 = \int_{\alpha}^{\infty} cm^{\rho}e^{-\kappa(x-\alpha)}\cdot L_t dt$
+* $b_x = cm^{\rho}h(t)$ where $h(t)$ is like an efficiency term
+* $b_x = cm^{\rho}e^{-\kappa(t-\alpha)}$
+* $\alpha\cdot Z$ invariant
+* $0 < \kappa < 0.1$
+* $dm/dt = am^x - bm - (cm^{\rho})h(t)$ - **BUT** is this correct? Mathematically you are still losing **less** energy as you get older, allowing more for growth
+* $R_0 = \int cm^{\rho}h(t) \cdot L_t dt$
+* $R_0 = \int cm^{\rho}(t)^{\rho}e^{-\kappa(t-\alpha)}\cdot l_{\alpha}e^{-Z(t-\alpha)}dt$
+* $R_0 = c\cdot l_{\alpha}\int m(t)^{\rho}e^{-\kappa(t-\alpha)}\cdot^{-Z(t-\alpha)}dt$
+* $R_0 = c\cdot l_{\alpha}\int m(t)^{\rho}e^{-(\kappa + Z)(t-\alpha)}dt$
+* $R_0 = c\cdot \int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho}e^{-(\kappa + Z)(t-\alpha)}dt$
+* Define two new constants
+  * $q_1 = \alpha \cdot Z$
+  * $q_2 = \frac{\int_{\alpha}^{\infty}b(t)dt}{L}$ "lifetime fecundity output as a proportion of lifespan"
+
+### Alex's help with rearranging West *et al.* sum
+* $B = \sum_{c}\Big[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \Big]$
+* $B = \sum_{c} \Big[N_{c}B_{c} \Big] + \sum_{c} \Big[ E_{c}\frac{dN_{c}}{dt} \Big]$
+* $B - \sum_{c} \Big[N_{c}B_{c} \Big] = \sum_{c} E_{c} * \sum_{c}\frac{dN_{c}}{dt}$
+* $\sum_{c}\frac{dN_{c}}{dt} \geq \frac{B - \sum_{c} \Big[N_{c}B_{c} \Big]}{\sum_{c}E_{c}}$
+* $\because a_{1}b_{1} + a_{2}b_{2} \leq (a_{1}a_{2})(b_{1}b_{2})$
+
+### Presentation feedback
+* Superlinear scaling possible
+* Growth dependent on component
+* LH in methods not intro - means to an end
+* Intro: people have ignored resource supply
+* Not *too* much emphasis
+* Diego's result is a two-line mention at most... "which means that if we ignore.... we get shrinking fish" - consequence vs rationale
+* Less focus on the specific results of Pawar *et al.* - focus is on energy supply and Pawar *et al.* is a good example
+* Results: Max fitness $\rightarrow$ Measure $R_0 \rightarrow$ equations
+
+### Lyon poster notes
+* $M = \Big(\frac{a}{b+c}\Big)^4$
+* Equation is always finite, $m$ won't go $\rightarrow \infty$ in finite time
+* Gonzalez-Forereo PLoS comp. He says do a phase portrait since high $\rho$ value may cause bifurcation
+* Fisher (1950) - size of offspring/size of population rule
 
 
 ## Charnov (2001)
@@ -298,10 +405,11 @@ $w = \sqrt[b-1]{\frac{m}{ab}}$ </br>
 * $V = H \cdot D \cot W = \alpha \cdot L(x) \cdot age$
 * $\frac{dV}{d\alpha} = \frac{dH}{d\alpha}S + H\frac{dS}{d\alpha}$ (product rule $u'v + v'u$)
 
-<figure class="half" style="display:flex">
-    <img src="./survivorship_curve.png" style="display: block; margin-left: auto; margin-right: auto;" width="20%">
-    <img src="./ATR.png" style="display: block; margin-left: auto; margin-right: auto;" width="20%">#
-</figure>
+
+<img src="./survivorship_curve.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">
+
+<img src="./ATR.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">#
+
 
 ## Samraat Dimensionality Paper
 Stages:
@@ -351,12 +459,44 @@ where $\frac{1}{t_h}$ = per-capita handling time/resource mass
 * But consumption also a function of time which can vary - because organisms move between resource depleted and saturated environments and 2D and 3D
 * Thus is type 2 but abundance of resource can actually fluctute through time (abundance of resource is a function of time) 
 
-<figure class="half" style="display:flex">
-    <img src="./risk_resource_abundance.png" style="display: block; margin-left: auto; margin-right: auto;" width="20%">
-    <img src="./type_2_functional_response.png" style="display: block; margin-left: auto; margin-right: auto;" width="20%">#
-</figure>
+<img src="./risk_resource_abundance.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">
+.
+<img src="./type_2_functional_response.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">
 
 
 ## Numpy meshgrid
 * Creates a matrix of repeated $x$ values in $y$ plane and repeated $y$ values in $x$ plane
-* 
+
+## Thesis notes: meeting with Dr Samraat Pawar - 2/4/2019 14:00 - 15:00
+## Modelling Fish Growth
+* Thus far, energy supply is treated as an implicit assumption in growth/fecundity models. Incorporate as an explicit assumption.
+* What do we need to change in the West \& Brown model?
+* Check forward citations of Chernov paper to see other models people have come up with.
+* Problem of resource supply:
+    * governing equations
+    * master equation energy balance
+* Useful to specify master equation in more meaningful way.
+* Diego's results suggest lifehistory must be getting enough resource supply
+
+
+## Thesis notes: meeting with Dr Samraat Pawar
+
+## Option 1: Carbon Flux
+* Stability or volume of carbon eflux from ecosystem
+* Relation to species interactions/does it matter?
+* More focus on microbial networks
+* Talk to Tom Clegg, it involves modelling dynamical systems - interactions effecting dynamics - ODEs
+* individual $\rightarrow$ multiple pops competing with each other for same resource
+
+
+## Option 2: Modelling Fish Growth
+* Find the growth model which is worth pursuing
+*  Reproduction in fish $\rightarrow$ understanding growth in fish.
+* Use symbolic regression to identify what combo works best/explains best
+* Population growth - mass conservation equation
+* Brown equist model - universal model which predicts ecto/endotherm growth rates.
+* Diego's post-doc advisor - carbon economy of the individual
+* Optimisation - write equation for carbon economy to maximise fitness (growth strategy or size)
+* Equation which maximises reproductive output of an individual, energy-balance - maximise remaining energy in organism, left over for reproduction
+*  Richer dataset - more ready things, provide empirical data.
+
