@@ -2,13 +2,13 @@
 
 ## Meeting 11/6/19
 ## Optimisation
-* Target dataset could be $m_alpha$
+* Target dataset could be $m_{\alpha}$
 * Or could be rho optimisation
 * 1 = integral, steady state - life histories evened out
     * solve for r - growth fitness
 * Implicitly needs redefining what LH need to be optimised
-* lxmx = mortality*fecundity - resource supply not
-* add in bucket shaped Z - use exponential decay with time
+* $l_{x}m_{x}$ = mortality*fecundity - resource supply not
+* add in bucket shaped $Z$ - use exponential decay with time
 * Assume that very young and old ages have another mortality rate - so different trade-off scaling.
 * Can do a sensitivity analysis
 * Can use delta as a step function - i.e. hybrid function
@@ -26,7 +26,7 @@
 * Development rate equation
 * a priori alpha size - integrating twice
 * Juveniles/adults have different foraging strategies
-* This offers rationale (?) for two-piece (but West argues alpha is relatively so low that you can just use the second equation)
+* This offers rationale (?) for two-piece (but West argues $\alpha$ is relatively so low that you can just use the second equation)
 * alpha at different times (intake rate as alpha at this point)
 * juvenile scaling != adult scaling
 * optimise scaling given supply?
@@ -38,20 +38,17 @@
 * decline in fecundity after that is - scaling of fecundity relate to LH curve - which * part of their LH are we looking at here? Model output
 * peak fecundity curve is a function
 * emerges as consequence of survivorship 
-
 * master equation
 * optimisation equation
 * relate two together
 * solved it by simultqneously doing numerical integration, and plugging back in
-
 * check carefully for mistake by including mx in such a way - mx should be a curve which * peaks then declines
-* fecundity curves with lx curve 
-* dont worry about van's sol on the board
+* fecundity curves with $l_x$ curve 
+* dont worry about Van's solution on the board
 * how is optimisation going to be done
 * survivorship curve dominates - 
 * bounds on parameters in table
 * conceptualise what we do/dont have data for - we know this doesnt do anything
-
 * prioritise writing mathematical forumlation and dimensions
 * master -> parameters -> dimensions
 * scaling equations - no params needed
@@ -70,7 +67,7 @@
 * $\frac{dm}{dt} = \frac{A(m) - B_{tot}}{E_c}$ where $\frac{A(m)}{E_c} = B_{0}m^{3/4}$
 * across species 1 < $f$ < 10 - through growth within species does slope change?
 * If active + restime have different mass scalings then as you grow, $f$ **must** change
-* **No* evidence for steeper scaling within organism
+* *No* evidence for steeper scaling within organism
 * Across species confound evolutionary effects (species + strategies)
 * Hou *et al.* have $f + \gamma$
 * $f$ partially scales with mass
@@ -127,6 +124,7 @@
 
 ### Day 2
 Right now, $\alpha$ will keep reducing and $\rho$ will keep increasing in optimisation
+
 * Need a constraint
 * Need to make declining suvivorship relative to $\alpha$ thus $t$ becomes $t - \alpha$
 * Now survivorship starts at 1 for any $\alpha$ value
@@ -140,8 +138,11 @@ Tom suggests using:
 if m + dmdt < 0:
     dmdt = -m
 ```
+
 ## Miscellaneous
+
 Approach:
+
 1. Gap in the literature - rationale
 2. Our model - using intake
 3. Results - figures (Hou *et al* figure)
@@ -153,25 +154,27 @@ Approach:
 * Life history traits at different timescales: $\alpha, \rho$
 * Could we fix $\alpha$ and optimise $c$ and $\rho$?
 * Figure $I$ vs $c, \rho$
-* 
-## Diego's Visit - 
-$A(m) = B_{tot} + E_{c}\frac{dm}{dt}$ </br>
-$B_{tot} = B_{maint} + B_{growth}$ where $B_{maint}$ is in W (J/S) and is part of $B_{tot}$</br>
-$B_{0}m^{3/4} = bm + E_{c}\frac{dm}{dt}$ where $b_m$ is in $\frac{J}{s\cdot kg}$ b is $N_{c}B_{maint,c} = \frac{m}{m_c}B_{maint,c}$</br>
-$dm/dt = am^{3/4} - bm$ where $a = \frac{B_0}{m_c}$ and if you take $b/E_c$ units are $1/skg$ </br>
-Does your scope increase as you get bigger? within species
-$A(m) = fB_r + E_{c}\frac{B_r}{E_m}\Big(1-\Big(\frac{m}{M}\Big)^{1-\alpha}\Big)$ where $f = \alpha m$?</br>
-Diego's rate data is within a few bouts </br>
-**NB:** Trade-off between $\psi$ and $I_0$ </br>
-$t_f \rightarrow 0$ get back to basal </br>
-if timescales align then $\psi + \gamma - \frac{1}{4} = \frac{3}{4} + \frac{1}{4} - \frac{1}{4} = \frac{3}{4}$ which is back to basal MR </br>
-Reproduction intervals/frequency </br>
-do $\Delta t_R$ scale same as $\Delta t_f$? Do the two time scales come closer as $m\downarrow$, stretching long $am$ timescale across $cm^{\rho}$ timescale - right way round </br>
-Mortality rate could change so that $\alpha$ changes</br>
-endothermy evolved because of times of no supply</br>
-Determinate growth is result of high maintenance? What is the mechanism here?</br>
-Synchrony between reproductive timescale versus intake i.e. phytoplankton glut</br>
-We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter values for every piece</br>
+
+
+## Diego's Visit
+
+* $A(m) = B_{tot} + E_{c}\frac{dm}{dt}$ 
+* $B_{tot} = B_{maint} + B_{growth}$ where $B_{maint}$ is in W (J/S) and is part of $B_{tot}$
+* $B_{0}m^{3/4} = bm + E_{c}\frac{dm}{dt}$ where $b_m$ is in $\frac{J}{s\cdot kg}$ b is $N_{c}B_{maint,c} = \frac{m}{m_c}B_{maint,c}$
+* $dm/dt = am^{3/4} - bm$ where $a = \frac{B_0}{m_c}$ and if you take $b/E_c$ units are $1/skg$ 
+* Does your scope increase as you get bigger? within species
+* $A(m) = fB_r + E_{c}\frac{B_r}{E_m}\Big(1-\Big(\frac{m}{M}\Big)^{1-\alpha}\Big)$ where $f = \alpha m$?
+* Diego's rate data is within a few bouts 
+* **NB:** Trade-off between $\psi$ and $I_0$ 
+* $t_f \rightarrow 0$ get back to basal 
+* if timescales align then $\psi + \gamma - \frac{1}{4} = \frac{3}{4} + \frac{1}{4} - \frac{1}{4} = \frac{3}{4}$ which is back to basal MR 
+* Reproduction intervals/frequency 
+* do $\Delta t_R$ scale same as $\Delta t_f$? Do the two time scales come closer as $m\downarrow$, stretching long $am$ timescale across $cm^{\rho}$ timescale - right way round 
+* Mortality rate could change so that $\alpha$ changes
+* endothermy evolved because of times of no supply
+* Determinate growth is result of high maintenance? What is the mechanism here?
+* Synchrony between reproductive timescale versus intake i.e. phytoplankton glut
+* We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter values for every piece
 * Models assume 100% $\varepsilon$ and all Carbon is assimulated
 * meaning egestion is purely N and P
 * Carbon-loss not important at individual level
@@ -198,8 +201,9 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * $\text{Total intake} = I_{0}m^{\gamma}*t$
 * $\text{Total intake} = I_{0}m^{\gamma}t_{0}m^{\psi}$
 * $\text{Total intake, } I_{tot} = I_{0}t_{0}m^{\gamma + \psi}$
+  
+Which in effect is "mass-specific intrinsic distribution of resources"
 
-* Which in effect is "mass-specific intrinsic distribution of resources"
 * $\frac{dm}{dt} = I_{tot}\epsilon\Big(am^{-\frac{1}{4}}\Big) - bm - cm^{\rho}$
 * $\frac{dm}{dt} = I_{0}t_{0}m^{\gamma + \psi}\epsilon\Big(am^{-\frac{1}{4}}\Big) - bm - cm^{\rho}$
 * $\frac{dm}{dt} = I_{0}t_{0}\epsilon am^{\gamma + \psi}\Big(m^{-\frac{1}{4}}\Big) - bm - cm^{\rho}$
@@ -219,15 +223,16 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * West *et al.* say add egg term but this increases maintenace only
 * also $t$ estimated to be so small that only 1 equation matters - skip optimisation o $\alpha$ since time period prior to $\alpha$ is negligible
 * $B = \sum\limits_c \Big[N_{c}B_{c} + E_{c}\frac{dN_c}{dt} + E_{e}\frac{dN_e}{dt}\Big]$
-* During spawn, mass of clutch, $m_K = m_e\Delta N_e$ = constant fraction of mass i.ie $= \lambda m$
+* During spawn, mass of clutch, $m_K = m_e\Delta N_e$ = constant fraction of mass i.e. $= \lambda m$
 * $\therefore E_e\frac{dN_e}{dt} \approx E_e\frac{\Delta N_e}{\Delta t} \approx \frac{\lambda E_{e}m}{m_{e}t_{s}}$
 * energy density is similar s.t. $\frac{E_e}{m_e} \approx \frac{E_c}{m_c}$
 * $\therefore \frac{E_{e}dN_{e}}{dt} \approx \lambda \big(\frac{E_c}{t_s}\big)N_c$
-* so $B_c$ becomes $\Big(B_c + \lambda \frac{E_c}{t_s}\Big) and maintenance goes up i.e. same as Charnov's trade-off but with first principles logic
+* so $B_c$ becomes $\Big(B_c + \lambda \frac{E_c}{t_s}\Big)$ and maintenance goes up i.e. same as Charnov's trade-off but with first principles logic
 * Charnov says GSI = c and $GSI/Z$ invariant $\approx 0.6$ - tie this to West *et al.*'s comment on short immaturity period
 
 ## Our model's Life History
 ### Survivorship
+
 * $R_0 = \int_{\alpha}^{\infty} l_{x}b_{x}dx$
 * let $l_x = l_{\alpha}e^{-Z(x-\alpha)}$
 * and $l_{\alpha} = \int_{0}^{\alpha}e^{-Z_{J}\alpha}dx = e^{-Z_{J}\alpha}$
@@ -238,6 +243,7 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * $b_x = b_{pk}e^{-\kappa(x-\alpha)}$
 
 ### Recent notes - Objectives
+
 * Discuss resource supply problem right from outset - context of master equation
 * Problem with resource supply
 * might explain recent finding...
@@ -247,6 +253,7 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * fix $\kappa = 0$ and output optimisation surfaces for $c$ and $\rho$
 
 ### Fecundity function
+
 * $R_0 = \int_{\alpha}^{\infty} cm^{\rho}e^{-\kappa(x-\alpha)}\cdot L_t dt$
 * $b_x = cm^{\rho}h(t)$ where $h(t)$ is like an efficiency term
 * $b_x = cm^{\rho}e^{-\kappa(t-\alpha)}$
@@ -263,6 +270,7 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
   * $q_2 = \frac{\int_{\alpha}^{\infty}b(t)dt}{L}$ "lifetime fecundity output as a proportion of lifespan"
 
 ### Alex's help with rearranging West *et al.* sum
+
 * $B = \sum_{c}\Big[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \Big]$
 * $B = \sum_{c} \Big[N_{c}B_{c} \Big] + \sum_{c} \Big[ E_{c}\frac{dN_{c}}{dt} \Big]$
 * $B - \sum_{c} \Big[N_{c}B_{c} \Big] = \sum_{c} E_{c} * \sum_{c}\frac{dN_{c}}{dt}$
@@ -270,6 +278,7 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * $\because a_{1}b_{1} + a_{2}b_{2} \leq (a_{1}a_{2})(b_{1}b_{2})$
 
 ### Presentation feedback
+
 * Superlinear scaling possible
 * Growth dependent on component
 * LH in methods not intro - means to an end
@@ -280,6 +289,7 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * Results: Max fitness $\rightarrow$ Measure $R_0 \rightarrow$ equations
 
 ### Lyon poster notes
+
 * $M = \Big(\frac{a}{b+c}\Big)^4$
 * Equation is always finite, $m$ won't go $\rightarrow \infty$ in finite time
 * Gonzalez-Forereo PLoS comp. He says do a phase portrait since high $\rho$ value may cause bifurcation
@@ -287,6 +297,7 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 
 
 ## Charnov (2001)
+
 * Develops new evolutionary model for life histories by combining new production-growth model with some general constraints on reproductive allocation
 * invariance across fish species of dimensionless numbers made up from reproductive & timing variables: age at maturity/average lifespan and proportion of mass to repro X E
 * these invariants apply within closely related taxons
@@ -301,26 +312,26 @@ We need data supporting foraging timescales of $t = t_{0}m^{3/4}$ and parameter 
 * Thus, lifetime growth reflects production & timing ($\alpha$) & magnitude ($c\cdot m$) of reproduction
 * If population size is fixed (i.e. not growing) then can calculate $c\cdot m$
 * Evolutionary optimisation argument: $\alpha$ and $c$ chosen to maximise a quantity proportional to lifetime production of offspring in the face of a mortality rate $Z$ which is externally imposed
+* "Under the same growth rate, a larger size requires longer development time, which comes at a cost: delayed reproduction" (p238) 
 
-
-"Under the same growth rate, a larger size requires longer development time, which comes at a cost: delayed reproduction" (p238) </br>
 ### Optimising
+
 * Proportion of energy to growth - determines body size, determinant of production rate
 * Proportion of energy to repro - allocation throughout life defines fitness
 * age at maturity $\alpha$
 * size at maturity $m_{\alpha}$
-
-$R_{0} \propto \int_{\alpha}^{\infty}L(x)m(x)dx$</br>
-Optimising Life history sets $\frac{\partial R_0}{\partial \alpha} = 0$ and $\frac{\partial R_0}{\partial c} = 0$</br>
-$cm$ can be optimised wrt $Z$ but no trade-off between the two i.e. high $cm \neq$ high $Z$</br>
-it's actually the reverse causality, shorter lifespan (high $Z$) selects for greater per unit time ATR (high $c$)</br>
-$c\cdot E$ is average proportion of body mass ATR over average adult lifetime
-GSI/$Z$ ratio is invariant $\approx 60\%$ on average </br>
-Almost always optimal to give 100% growth to repro at age $\alpha$ i.e. $c = a\cdot m_{\alpha}^{-0.25}-b$ (determinate growth schedule) </br>
-Because c/b is a fixed value, assumption leads to lower value for c (than 100) meaning there could be surplus for growth after $\alpha$ (i.e. indeterminate) hence why Charnov believes determinate is unlikely?
+* $R_{0} \propto \int_{\alpha}^{\infty}L(x)m(x)dx$
+* Optimising Life history sets $\frac{\partial R_0}{\partial \alpha} = 0$ and $\frac{\partial R_0}{\partial c} = 0$
+* $cm$ can be optimised wrt $Z$ but no trade-off between the two i.e. high $cm \neq$ high $Z$
+* it's actually the reverse causality, shorter lifespan (high $Z$) selects for greater per unit time ATR (high $c$)
+* $c\cdot E$ is average proportion of body mass ATR over average adult lifetime
+* GSI/$Z$ ratio is invariant $\approx 60\%$ on average 
+* Almost always optimal to give 100% growth to repro at age $\alpha$ i.e. $c = a\cdot m_{\alpha}^{-0.25}-b$ (determinate growth schedule) 
+* Because c/b is a fixed value, assumption leads to lower value for c (than 100) meaning there could be surplus for growth after $\alpha$ (i.e. indeterminate) hence why Charnov believes determinate is unlikely?
 
 
 ### Misc
+
 * Production rate is mediated by mortality + size dependence 
 * Implied that size shapes allometries througjh design constraints 
 * It was realised that interspecific allometries can be phylogeny-dependent
@@ -337,42 +348,47 @@ Because c/b is a fixed value, assumption leads to lower value for c (than 100) m
 * Growth changes size which is determinant of production rate
 
 ## Charnov (2004)
-$R_0 = \int_{\alpha}^{\infty}L_{t}b_{t}dt$ </br>
-$R_0 = \int_{\alpha}^{\infty}L_{t}cm_{t}dt$
+
+* $R_0 = \int_{\alpha}^{\infty}L_{t}b_{t}dt$ 
+* $R_0 = \int_{\alpha}^{\infty}L_{t}cm_{t}dt$
 * $R_t$ = net reproductive rate (mean offspring over lifespan)
 * $L_t$ = chance of being alive at age/time $t$
 * $f_t$ = offspring produced at age $t$
-
-Fixed offspring (egg) size (I)</br>
-$f_t = \frac{cm_t}{I}$ or $f_t \propto cm_t \because$ egg size is fixed so number produced must be proportional to mass allocated</br>
-$b$ = maintenance MR per cell/Cost of building new cell </br>
-$\frac{c}{b} = q$ high $c$ requires high $b$ - multiplier</br>
-$c = bq$ and $\frac{c}{Z}$ quantity</br>
-Optimising Life history sets $\frac{\partial R_0}{\partial \alpha} = 0$ and $\frac{\partial R_0}{\partial c} = 0$</br>
-Instantanteous mortality rate $Z$ high at low $t$ (i.e. high when young) but drops to a constant $Z$ as $t \rightarrow \alpha$
+* Fixed offspring (egg) size (I)
+* $f_t = \frac{cm_t}{I}$ or $f_t \propto cm_t \because$ egg size is fixed so number produced must be proportional to mass allocated
+* $b$ = maintenance MR per cell/Cost of building new cell 
+* $\frac{c}{b} = q$ high $c$ requires high $b$ - multiplier
+* $c = bq$ and $\frac{c}{Z}$ quantity
+* Optimising Life history sets $\frac{\partial R_0}{\partial \alpha} = 0$ and $\frac{\partial R_0}{\partial c} = 0$
+* Instantanteous mortality rate $Z$ high at low $t$ (i.e. high when young) but drops to a constant $Z$ as $t \rightarrow \alpha$
 
 ## Kozlowski (1987)
-Assume a 2-year lifespan </br>
-Fitness measured as lifetime energy allocation to reproduction (or no. offspring produced) for species living at most 2 years and reproducing in both years: </br>
-$L(x)$ = $\mathbb{P}$(surviving to age $x$) </br>
-$m(x)$ = rate of energy allocation to reproduction (or rate of offspring production)</br>
-Measure of fitness is equivalent to the volume of two solids, $V_{1} + V_{2}$
-<img src="./kozlowski_figure.png" style="display: block; margin-left: auto; margin-right: auto;" width="50%">
-$V_{1}$ = reproductive success in first season</br>
-$R_{0} \propto \int_{\alpha}^{\infty}L(x)m(x)dx$</br>
-$V$ takes maximum for times $t_1, t_2$ </br>
-$\frac{dV_1}{dt_1} + \frac{\partial V_2}{\partial t_1} = 0$ and simultaneously $\frac{\partial V_2}{\partial t_2} = 0$
 
-1) $m(x) = 0$ when immature
-2) onset of reproduction at age $t$, size $w$, to the end of the first reproduction with reproductive rate $H(w_1)$ (assume size-dependency of reproduction not age)
-3) then again $m(x) = 0$ throughout winter and part of growing season 2 prior to switch back to reproduction at age $t_2$, size $w_2$
-4) $t_2$ to end of 2nd season, $H(w_2)$
+* Assume a 2-year lifespan 
+* Fitness measured as lifetime energy allocation to reproduction (or no. offspring produced) for species living at most 2 years and reproducing in both years: 
+* $L(x)$ = $\mathbb{P}$(surviving to age $x$) 
+* $m(x)$ = rate of energy allocation to reproduction (or rate of offspring production)
+* Measure of fitness is equivalent to the volume of two solids, $V_{1} + V_{2}$
 
-$V(t_1,t_2) = v_1(t_1) + v_2(t_1, t_2)$ </br>
-Volume of first solid depends only on $t_1$, age at maturity </br>
+<!-- <img src="./kozlowski_figure.png" style="display: block; margin-left: auto; margin-right: auto;" width="50%"> -->
+![Kozlowski's Volume Representation](kozlowski_figure.png "Kozlowski volume")
+
+* $V_{1}$ = reproductive success in first season
+* $R_{0} \propto \int_{\alpha}^{\infty}L(x)m(x)dx$
+* $V$ takes maximum for times $t_1, t_2$ 
+* $\frac{dV_1}{dt_1} + \frac{\partial V_2}{\partial t_1} = 0$ and simultaneously $\frac{\partial V_2}{\partial t_2} = 0$
+
+1. $m(x) = 0$ when immature
+2. onset of reproduction at age $t$, size $w$, to the end of the first reproduction with reproductive rate $H(w_1)$ (assume size-dependency of reproduction not age)
+3. then again $m(x) = 0$ throughout winter and part of growing season 2 prior to switch back to reproduction at age $t_2$, size $w_2$
+4. $t_2$ to end of 2nd season, $H(w_2)$
+
+* $V(t_1,t_2) = v_1(t_1) + v_2(t_1, t_2)$ 
+* Volume of first solid depends only on $t_1$, age at maturity 
 second solid depends on age at maturity, $t_1$ and time of switch from growth to reproduction in second year, $t_2 \therefore$ body size in year 2 depends on sum of growth periods in both years
 
 ### Kozlowski Notes
+
 * Does Kozlowksi assume that growth and repro cannot occur simultaneously?
 * Charnov: he suggests that because Z is different for different species, times for switch from growth to repro should also change. Heavy mortality makes lower $\alpha$ more optimal
 * Charnov's crucial assumption is that animals share the same productivity
@@ -386,12 +402,13 @@ second solid depends on age at maturity, $t_1$ and time of switch from growth to
 * Optimal size, $w = \Big(\frac{m}{ab}\Big)^{\frac{1}{b-1}}$
 * Optimal age at maturity, $\alpha = \frac{1}{a(1-b)}(w^{1-b} - w_{0}^{1-b})$
 
-$\frac{dP(w)}{dw} = baw^{b-1}$ </br>
-$baw^{b-1} = m$</br>
-$w^{b-1} = \frac{m}{ab}$ </br>
-$w = \sqrt[b-1]{\frac{m}{ab}}$ </br>
+* $\frac{dP(w)}{dw} = baw^{b-1}$ 
+* $baw^{b-1} = m$
+* $w^{b-1} = \frac{m}{ab}$ 
+* $w = \sqrt[b-1]{\frac{m}{ab}}$ 
 
 ### Misc Notes
+
 * How do we find how many eggs produced in a lifetime?
 * We know age (x), and energy allocation as function of age $m(x)$
 * If stop growing at $\alpha$, then would assume that you're just allocating to repro?
@@ -406,48 +423,50 @@ $w = \sqrt[b-1]{\frac{m}{ab}}$ </br>
 * $\frac{dV}{d\alpha} = \frac{dH}{d\alpha}S + H\frac{dS}{d\alpha}$ (product rule $u'v + v'u$)
 
 
-<img src="./survivorship_curve.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">
+<!-- <img src="./survivorship_curve.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%"> -->
+![Survivorship curve](survivorship_curve.png "Survivorship")
 
-<img src="./ATR.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">#
+![ATR lifetime curve](ATR.png "ATR")
+
+<!-- <img src="./ATR.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%"># -->
 
 
 ## Samraat Dimensionality Paper
+
 Stages:
+
 * Detection
 * Capture
 * Subjugation
 
 Paper models the biomechanics of searching and attacking
 
-$v_R, v_C \propto m_{C}^{P_{V}}$ </br>
-$P_V$ = scaling exponent for consumer or resource  velocity </br>
-$d \propto (m_{R}m_{c})^{P_d}$ </br>
-$P_d$ = scaling exponent for consumer-resource reaction distance </br>
-$t_h \propto m_{C}^{-\beta}$ - exponent for handling time</br>
-$K_{RC} = \frac{m_R}{m_C}$ = Body mass ratio</br>
-
-$\alpha = s_{D}v_{R}d^{D-1}$ 
+* $v_R, v_C \propto m_{C}^{P_{V}}$ 
+* $P_V$ = scaling exponent for consumer or resource  velocity 
+* $d \propto (m_{R}m_{c})^{P_d}$ 
+* $P_d$ = scaling exponent for consumer-resource reaction distance 
+* $t_h \propto m_{C}^{-\beta}$ - exponent for handling time
+* $K_{RC} = \frac{m_R}{m_C}$ = Body mass ratio
+* $\alpha = s_{D}v_{R}d^{D-1}$
 * $\alpha$ = search rate
 * $s_{D}$ is 2 in 2D and $\pi$ in 3D
 * $v_{R}$ = relative velocity - rate at which c-r pairs converge $v_{R} = \sqrt{v_{R}^2 + v_{C}^2}$
 * $d$ = radius of search space
-
-Power for movement is product of body velocity $v$ and force $f$ applied by locomotory appendages onto medium. Assume MR devoted to locomotion is constant proportion of B: </br>
-$v \propto \frac{B_{0}m^{\beta}}{F}$ </br>
-Force proportional to cross-sectional area of muscle - scales with mass </br>
-$v = v_{0}m^{\beta - \beta_{F}}$</br>
-$v_{0}$ is a constant which depends on locomotory mode and metabolic scaling exponent </br>
-$f(x_{R}) = \frac{\alpha(m_{R}x_{R})^{q+1}}{1 + t_{h}\alpha(m_{R}x_{R})^{q+1}}$
-
+* Power for movement is product of body velocity $v$ and force $f$ applied by locomotory appendages onto medium. Assume MR devoted to locomotion is constant proportion of B: 
+* $v \propto \frac{B_{0}m^{\beta}}{F}$ 
+* Force proportional to cross-sectional area of muscle - scales with mass 
+* $v = v_{0}m^{\beta - \beta_{F}}$
+* $v_{0}$ is a constant which depends on locomotory mode and metabolic scaling exponent 
+* $f(x_{R}) = \frac{\alpha(m_{R}x_{R})^{q+1}}{1 + t_{h}\alpha(m_{R}x_{R})^{q+1}}$
 * Pursue, subdue, ingest 1 resource unit
 * Delay between encounter + completion of ingestion prevents consumers exploiting resource in direct proprotion to availability
 * Type II functional response
-
-as $x_{R} \rightarrow 0$ consumption $\rightarrow \alpha m_{R}x_{R}$ because the 1 in denominator dominates, since second term is multiplied by 0 </br>
-as $x_{R} \rightarrow \infty$, consumption $\rightarrow \frac{1}{t_{h}}$ because 1 becomes negligible so can remove, then the $\alpha m_{R}x_{R}$ terms cancel out, leaving $\frac{1}{t_h}$ </br>
-where $\frac{1}{t_h}$ = per-capita handling time/resource mass
+* as $x_{R} \rightarrow 0$ consumption $\rightarrow \alpha m_{R}x_{R}$ because the 1 in denominator dominates, since second term is multiplied by 0 
+* as $x_{R} \rightarrow \infty$, consumption $\rightarrow \frac{1}{t_{h}}$ because 1 becomes negligible so can remove, then the $\alpha m_{R}x_{R}$ terms cancel out, leaving $\frac{1}{t_h}$ 
+* where $\frac{1}{t_h}$ = per-capita handling time/resource mass
 
 ## Dimensionality and Growth
+
 * $B$ assumes constant rate of energy flow
 * If define $B$ as $f$(energy supply in env) (type II functional response)
 * Suspicion that West **et al.** cherry picked their growth data from lab with idealised conditions
@@ -459,16 +478,21 @@ where $\frac{1}{t_h}$ = per-capita handling time/resource mass
 * But consumption also a function of time which can vary - because organisms move between resource depleted and saturated environments and 2D and 3D
 * Thus is type 2 but abundance of resource can actually fluctute through time (abundance of resource is a function of time) 
 
-<img src="./risk_resource_abundance.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">
-.
-<img src="./type_2_functional_response.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%">
+<!-- <img src="./risk_resource_abundance.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%"> -->
+![Risk vs resource abundance](risk_resource_abundance.png "Risk")
+
+![Type II functional response](type_2_functional_response.png "type2")
+<!-- <img src="./type_2_functional_response.png" style="display: block; margin-left: auto; margin-right: auto;" width="40%"> -->
 
 
 ## Numpy meshgrid
+
 * Creates a matrix of repeated $x$ values in $y$ plane and repeated $y$ values in $x$ plane
 
 ## Thesis notes: meeting with Dr Samraat Pawar - 2/4/2019 14:00 - 15:00
+
 ## Modelling Fish Growth
+
 * Thus far, energy supply is treated as an implicit assumption in growth/fecundity models. Incorporate as an explicit assumption.
 * What do we need to change in the West \& Brown model?
 * Check forward citations of Chernov paper to see other models people have come up with.
@@ -482,6 +506,7 @@ where $\frac{1}{t_h}$ = per-capita handling time/resource mass
 ## Thesis notes: meeting with Dr Samraat Pawar
 
 ## Option 1: Carbon Flux
+
 * Stability or volume of carbon eflux from ecosystem
 * Relation to species interactions/does it matter?
 * More focus on microbial networks
@@ -490,6 +515,7 @@ where $\frac{1}{t_h}$ = per-capita handling time/resource mass
 
 
 ## Option 2: Modelling Fish Growth
+
 * Find the growth model which is worth pursuing
 *  Reproduction in fish $\rightarrow$ understanding growth in fish.
 * Use symbolic regression to identify what combo works best/explains best
@@ -498,5 +524,4 @@ where $\frac{1}{t_h}$ = per-capita handling time/resource mass
 * Diego's post-doc advisor - carbon economy of the individual
 * Optimisation - write equation for carbon economy to maximise fitness (growth strategy or size)
 * Equation which maximises reproductive output of an individual, energy-balance - maximise remaining energy in organism, left over for reproduction
-*  Richer dataset - more ready things, provide empirical data.
-
+* Richer dataset - more ready things, provide empirical data
