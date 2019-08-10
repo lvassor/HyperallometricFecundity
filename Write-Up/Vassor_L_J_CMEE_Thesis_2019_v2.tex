@@ -24,7 +24,7 @@
 
 % Math packages
 \usepackage{amsmath}
-
+% \usepackage{mathpazo}
 % Language packages
 % \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}    % utf8 support       %!!!!!!!!!!!!!!!!!!!!
@@ -42,7 +42,7 @@
 \usepackage{graphicx}
 
 % Citation packages
-\usepackage[maxcitenames=2, backend=biber, style=imperialharvard]{biblatex}
+\usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
     \addbibresource{./CMEE_Thesis.bib}
     % \renewcommand*\finalnamedelim{\addspace\&\space}
 % Force \textit{et al}. to be italicised
@@ -105,7 +105,7 @@
     %----------------------------------------------------------------------------------------
     \makeatletter
     \linespread{1.5} % controls line spacing of title
-        {\huge{RECONCILING RESOURCE SUPPLY AND HYPERALLOMETRIC FECUNDITY SCALING IN ONTOGENETIC GROWTH MODELS}\par} % leave \par here
+        {\huge{RECONCILING RESOURCE SUPPLY AND ONTOGENETIC GROWTH}\par} % leave \par here
     \vspace{2.5cm} % Title of your document
 
     %----------------------------------------------------------------------------------------
@@ -220,56 +220,57 @@
         \end{itemize}
     
     \subsection{Lit review}
-        For over a century, biologists have attempted to understand ontogenetic growth. That is, the pattern of the growth of an individual throughout its developmental lifetime. It has peaked the interests of scientists across the spectrum of Biology, including theorists, field ecologists and applied scientists, in the hope of answering questions about growth. evolutionary life history theorists, game theorists, metabolic theorists, optimal foraging theorists and fisheries scientists. Why do organisms grow at the rate they grow? Why do they stop growing? What causes them to stop growing? Can they control growth? Why would they control growth? What is the optimal size to grow to? When is the optimal age to mature? All valid questions which many would argue require a theoretical understanding of the constraints on growth and how evolution has worked with these constraints to produce the growth patters we see in organisms.
+        For over a century, biologists have attempted to understand ontogenetic growth - how an individual grows throughout its developmental lifetime, and why it does so. At it's most fundamental level, it is a problem of resource allocation and strategy, attracting scientists from a range of biological disciplines including theorists, field ecologists and applied scientists.
+        
+        evolutionary life history theorists, game theorists, metabolic theorists, optimal foraging theorists and fisheries scientists. 
+        
+        Why do organisms grow at the rate they do at certain points in their life? Why do they stop growing? What causes them to stop growing? Can they control growth? Why would they control growth? What is the optimal size to grow to? When is the optimal age to mature? All valid and relevant questions which require a theoretical understanding of the constraints on growth and how evolution has selected the patterns we observe given these constraints.
 
-        The recent migration of biology towards that of a theoretical discipline has seen mathematical biologists attempt to capture growth in the form of sophisticated mathematical equations. In a rapidly changing world, scientific theory will allow us to pierce through the noise in the data we collect and reduce the uncertainty in how the world is constructed and functions. The way in which we do this, traditionally, is to utilise human knowledge to eliminate improbable links from all logical possibilites and suggest the probable value or range of values for a dependent variable. The tools permitting this being quantifiable, mathematisable, testable ideas which are derived from underlying generic principles and built into a predictive framework, called a scientific theory \autocite{peters1983, West2011}. ADD POPPER 1967 and 1972. In order to accurately predict and understand biological phenomena, biology is undergoing a transition towards a discipline whose predictive power is increasingly derived from  biological theory. Mathematical biologists and physicists are now using laws from quantitative disciplines to accurately predict the value of dependent variables, such as laws of geometry \& scaling and laws of thermodynamics \& enzyme kinetics. Geometric laws have become of particular interest to those who seek to model growth, to develop theory and equations which relate an organism's characteristics to its body size. Most body size relations take the form of a power law:
+        We are able to answer questions like these because of the translation of quantifiable, mathematisable, testable ideas which are derived from underlying generic principles and built into a predictive framework, called a scientific theory \autocite{peters1983, West2011}ADD POPPER 1967 and 1972.. The recent migration of biology towards that of a theoretical discipline has seen mathematical biologists attempt to capture growth in the form of sophisticated mathematical models, using laws from quantitative disciplines to accurately predict the value of dependent variables, such as the laws of geometry and laws of thermodynamics \& enzyme kinetics. Geometric scaling laws have become of particular interest to those who seek to model growth and develop equations which relate an organism's characteristics to its body size. Most body size relations take the form of a power law:
 
         \begin{equation}
             Y = Y_0 M^b
         \end{equation}
 
-        where $Y$ is the biological characteristic to be predicted, $M$ is animal body mass, and $Y_0$ and $b$ are empirically derived constants. The use of power laws in biology has a venerable history and these laws are writted an ``allometric" equations. If $b = 1$, the scaling is said to be ``isometric", while if $b \neq 1$, the relationship is called allometric, and plots as a curve on linear axes \autocite{brown2000-scaling-book}
+        where $Y$ is the biological characteristic to be predicted, $M$ is body mass, and $Y_0$ and $b$ are empirically derived constants. The use of power laws in biology has a venerable history and are formalised into ``allometric" equations. If $b = 1$, the scaling is said to be ``isometric", while if $b \neq 1$, the relationship is called allometric, and plots as a curve on linear axes \autocite{brown2000-scaling-book}
 
         Concern with growth and body size relations is well-founded, especially given the decline of the state of the Earth's biosphere. Given this decline, never has it been so crucial for ecologists to make prudent, accurate predictions about what will happen to life on Earth and prioritise what life to conserve as resources become increasingly stretched and time is of the essence. Ontogenetic growth gives rise to different, ecologically-distinct stages across the lifetime of an organism. Knowledge and powerful theory which allows us to ascertain which stages are most crucial to an organism's conservation, such as ontogenetic growth models and (st)age-based models will allow us to direct resources to conserving not only organisms themselves, but the stages of ontogeny within those organisms which are most crucial to the species' survival. To quote \cite{Bartholomew1981} ``It is only a slight overestimate to say that the most important attribute of an animal, both physiologically and ecologically, is its size.'' The variety of size plays a central role in the fantastic spectrum of niches we can see across the surface of the planet, since most key physiological, ecological and evolutionary life history parameters covary with body size \autocite{peters1983, brown2000-scaling-book,schmidt1984scaling,Marshall2019b}. Larger organisms have lower mass-specific metabolic rates i.e. demand less energy per unit body mass, tend to live for longer and sleep for longer than smaller organisms. They have lower intrinsic rates of increase and population sizes and slower rates of evolution. 
 
-        Ontogenetic growth, the rate of change of size per unit time, has see many quantitative biologists attempt to explain this by relating growth rate to fundamental life history events or to fundamental cellular processes. Ontogenetic growth models typically take the form of a ODE:
+        Quantitative biologists have developed ontogenetic growth models by relating growth rate to fundamental life history events or to fundamental cellular processes. Fundamentally, growth models consider the balance of some energy currency. In essence, an organism garners energy from its environment, which it then expends on its own maintenance (e.g. tissue). Any surplus energy remaining after this expenditure, can then be used to synthesise new biomass for growth (ELHT). Thus, growth models typically take the structure of an Ordinary Differential Equation which includes an energy-intake term and an energy-loss (maintenance) term:
 
         \begin{equation}
             \frac{dm}{dt} = am^y - bm^z
         \end{equation}
-                
+        
+        This provides a logical conceptual framework for the evolution of different growth schedules: determinate and indeterminate. Essentially, as an organism's expenditure on maintenance tends toward the amount of energy it can sequester from the environment, its growth rate will begin to slow (since the surplus is less). When these values reach equivalence, the individual is ``spending'' energy as quickly as it can acquire it, thus leaving no surplus for growth. At this point the organism has reached it's asymptotic mass. This is the mechanism behind the classic sigmoidal growth trajectory of a determinately growing organism. For the case of an indeterminate grower, there is a theoretical asymptotic size, due to the finite nature of energy resource, but this is never reached in the timescale of its lifetime. 
+        DISCUSS DIFFERENT SCALINGS
+        Power laws have the convenient property of the exponent being equal to the slope when undergoing a logarithmic transformation. i.e. $log(am^y) = y\cdot log(am$), thus allowing us to plot this concept.
+
+        \includegraphics{../Other/Presentation/determinate.pdf}
+        \includegraphics{../Other/Presentation/indeterminate.pdf}
+
+        GRAPH: SIGMOIDAL
+
+        \subsubsection{Bottom-Up Mechanistic Approaches}
+            The earliest attempt to mathematise growth, which has since provided the foundation for many extant growth models to be built from, was the P\"{u}tter balance equation, now associated with the von Bertalanffy growth function (VGBF), which estimates the rate of increase in mass as the difference between anabolism and catabolism per unit time. \autocite{Putter1920, vonBert1938, VonBertalanffy1957,Marshall2019b}
+            von Bertalanffy: ``there will be growth so long as building up prevails over breaking down; the organism reaches a steady state if and when both processes are equal. Through time, the mechanistic interpretation of the VBGF has varied, now broadly being considered as the difference in rates of energy assimilation and expenditure or the flow of energy in minus energy use for maintenance of existing tissues (metabolism). Implicit in these models is the assumption that surplus energy is optimally allocated to growth \textit{after} non-negotiable maintenance of existing cells. This is derived from rearranging the conservation of energy equation presented by \cite{West2001}:
+
+            \begin{align}
+                B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\
+                \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \\
+                \text{Rate of new cells} &= \frac{\text{Surplus energy}}{\text{Cost of creating single cell}}
+            \end{align}
+            
+            The VGBF triggered a model-construction philosophy that focuses on ``bottom-up'' drivers of growth, typically based on fundamental laws previously established in other sciencies, such as thermodynamics and enzyme kinetics, combining biological knowledge, intuition and mathematics to explain observed ecological phenomena. Within this paradigm, body size is the end result of mechanistic constraints on resource supply and demand and the flow of free energy. This has given rise to well-known frameworks, such as Dynamic Energy Budget (DEB) theory, Metabolic Theory of Ecology (MTE) \& the Ontogenetic Growth Model (OGM) and Pauly's limiting gill surface model (LGSM). Although having different foci, each model is predicated on the assumption that the size scaling of resource acquisition is shallower than that of resource use, such that these two relationships eventually converge on a terminal size and growth ceases, when an organism is ``spending'' as much energy as it is acquiring. 
+            
+            What is puzzling, however, is that despite being an uncontroversially fundamental life history event, the VBGF, and the majority of models which have evolved from it do not consider reproduction. It has was indicated more than 20 years ago that mechanistic inferences made from the results of these models are problematic since they do not account for reproduction \autocite{Day1997, Marshall2019b}. Reproduction incurs large energetic costs and increases an organism's mortality risk, with some highly fecund vertebrates consisting of 75\% reproductive tissue \autocite{Parker2018}. Sexual maturity and the consequent onset of reproduction therefore sees different mechanistic dynamics play out relative to those in the preceding juvenile phase as resources are shunted from growth to reproduction \autocite{Day1997}. The lack of an explicit term in most mechanistic models to represent allocation of energy to reproduction consequently means they make a simple but critical assumption: that reproduction is proportionate to body size - in other words, reproduction energy output scales isometrically with size. These models assume that loss of energy to reproduction occurs from birth to death ($t_0 \rightarrow t_{\infty}$) as a part of energy loss to maintenance ($-bm^z$), which scales with mass to an exponent of 1, meaning reproduction remains a constant fraction of total body size throughout ontogeny.
+
         \subsection{Understanding Growth and Reproduction}
         Broadly, theory bifurcates into two major branches: mechanistic (``bottom-up'') and phenomenological (``top-down''). Both branches have seen many attempts to understand ontogentic changes in body size.  
         
         Evolutionary life history and game theorists, concerned with growth from a coarser-level, life history perspective, have typically employed optimisation techniques to solve for the optimal age and size values of given life history events, for example age-at-maturation or the onset of reproduction to maximise lifetime reproductive output, e.g. fecundity, given an age/time-dependent mortality constraint. Converseley, metabolic theorists, concerned with growth at a granular level have used laws from thermodynamics and enzyme kinetics as a first-principles approach to growth problems through the lens of Metabolic Theory and Dynamic Energy Budget (DEB). Under these paradigms, everything an organism does in its lifetime, including how it grows, is ultimately governed by the metabolic energy that flows into its system. 
 
-        \subsubsection{Bottom-Up Mechanistic Approaches}
-        The most venerable theory, which has since provided the foundation for many extant growth models to be built from, was the P\"{u}tter balance equation, now commonly associated with the von Bertalanffy growth function, which estimates the rate of increase in mass as the difference between anabolism and catabolism per unit time. \autocite{Putter1920, vonBert1938, VonBertalanffy1957,Marshall2019b}
-        von Bertalanffy: ``there will be growth so long as building up prevails over breaking down; the organism reaches a steady state if and when both processes are equal. We may express this in a general formula: 
-        \begin{equation}
-            \frac{dW}{dt} = \eta W^m - \kappa W^n \text{\qquad ''}
-        \end{equation}
-
-        Through time, the mechanistic interpretation of the VBGF has varied, now broadly being considered as the difference in rates of energy assimilation and expenditure or the flow of energy in minus energy use for maintenance of existing tissues (metabolism). Implicit in these models is the assumption that surplus energy is optimally allocated to growth \textit{after} non-negotiable maintenance of existing cells. This is derived from rearranging the conservation of energy equation presented by \cite{West2001}:
-
-        \begin{align}
-            B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\
-            \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \\
-            \text{Rate of new cells} &= \frac{\text{Surplus energy}}{\text{Cost of creating single cell}}
-        \end{align}
-
-        \begin{itemize}            
-            \item $B$ = incoming rate of energy flow, which is the average resting metabolic rate of the whole organism at time $t$
-            \item $B_c$ = the metabolic rate of a single cell
-            \item $E_c$ = the metabolic energy required to create a cell
-            \item $N_c$ = the total number of cells
-            \item $\sum\limits_c$ = over all types of tissue, assuming a typical cell as the fundamental unit
-        \end{itemize}
         
-        The VGBF triggered a model-construction philosophy that focuses on ``bottom-up'' drivers of growth, typically based on fundamental laws previously established in other sciencies, such as thermodynamics and enzyme kinetics, combining biological knowledge, intuition and mathematics to explain observed ecological phenomena. Within this paradigm, body size is the end result of mechanistic constraints on resource supply and demand and the flow of free energy. This has given rise to well-known frameworks, such as Dynamic Energy Budget (DEB) theory, Metabolic Theory of Ecology (MTE) \& the Ontogenetic Growth Model (OGM) and Pauly's limiting gill surface model (LGSM). Although having different foci, each model is predicated on the assumption that the size scaling of resource acquisition is shallower than that of resource use, such that these two relationships eventually converge on a terminal size and growth ceases, when an organism is ``spending'' as much energy as it is acquiring. 
-        
-        What is puzzling, however, is that despite being an uncontroversially fundamental life history event, the VBGF, and the majority of models which have evolved from it do not consider reproduction. It has was indicated more than 20 years ago that mechanistic inferences made from the results of these models are problematic since they do not account for reproduction \autocite{Day1997, Marshall2019b}. Reproduction incurs large energetic costs and increases an organism's mortality risk, with some highly fecund vertebrates consisting of 75\% reproductive tissue \autocite{Parker2018}. Sexual maturity and the consequent onset of reproduction therefore sees different mechanistic dynamics play out relative to those in the preceding juvenile phase as resources are shunted from growth to reproduction \autocite{Day1997}. The lack of an explicit term in most mechanistic models to represent allocation of energy to reproduction consequently means they make a simple but critical assumption: that reproduction is proportionate to body size - in other words, reproduction energy output scales isometrically with size. These models assume that loss of energy to reproduction occurs from birth to death ($t_0 \rightarrow t_{\infty}$) as a part of energy loss to maintenance ($-bm^z$), which scales with mass to an exponent of 1, meaning reproduction remains a constant fraction of total body size throughout ontogeny.
-
         \subsubsection{Top-Down Life History Approaches}
         Life-history theory assumes fundamentally that evolution maximises an organism's reproductive output, and that strategies concerning the timing of life-history events are the product of optimising trade-offs among different traits which compete for limited resources \autocite{Day1997, Stearns1989, stearns1992evolution}.      
 
