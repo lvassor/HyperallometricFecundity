@@ -62,20 +62,13 @@
     \clearfield{eprinttype}
 }
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
+
+
 \begin{document}
 
 \begin{titlepage}
-    % Square brackets control size of vertical gap AFTER group
-    %----------------------------------------------------------------------------------------
-    %	LOGO SECTION
-    %----------------------------------------------------------------------------------------
-    
-    \includegraphics[width=4cm]{../Write-Up/Images/logo.png}\\%[1cm] % Include a department/university logo - this will require the graphicx package
-     
-    %----------------------------------------------------------------------------------------
-    
-    \center % Center everything on the page
-    
     
     %----------------------------------------------------------------------------------------
     %	TITLE SECTION
@@ -83,29 +76,16 @@
     \makeatletter
     % \vspace{4cm}
     \linespread{1.5} % controls line spacing of title
-        {\huge{ADDRESSING RESOURCE SUPPLY IN \\ ONTOGENETIC GROWTH MODELS}\par} % leave \par here
+    {\huge\bfseries\textcolor{blue}{SUPPLEMENTARY INFORMATION}\par}
+    \vspace{0.1cm}
+    \hrule
+    \vspace{0.1cm}
+    \hrule
+    \center % Center everything on the page   
     \vspace{2cm}
-        {\huge\bfseries{COMPLETE MODEL DERIVATION}\par}
+        
     \vspace{2cm} % Title of your document
-
-    %----------------------------------------------------------------------------------------
-    %	DESCRIPTION SECTION
-    %----------------------------------------------------------------------------------------
-    % If you want consistent line spacing then need to typeset paragraphy as a single {} group and use \\ for line break
-    % Strangely, you need to leave the \ character at the end of the group so that the spacing of the last line from the penultimate line in a group remains constant
-    % textsc command sets small capitals (sc)
-    \textsc{A thesis component in partial fulfilment \\ of the requirements for the degree of \\ Master of Science at Imperial College London \\ by \\ \ }\\[2.5cm]
-    \textsc{\Large \@author}\\[2.5cm]
-    \textsc{Completed for the \\ M.Sc. Computational Methods in Ecology \& Evolution \ }\\[2cm]
-
-    %----------------------------------------------------------------------------------------
-    %	HEADING SECTIONS
-    %----------------------------------------------------------------------------------------
-    \textsc{Department of Life Sciences \\ Imperial College London \\ \ }\\[1cm]
-    \textsc{\today}\\[2cm] % Date, change the \today to a set date if you want to be precise
-    
-    \vfill % Fill the rest of the page with whitespace
-    
+    \tableofcontents
 \end{titlepage}
 % \begingroup
 % \Large

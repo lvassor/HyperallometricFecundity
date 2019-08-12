@@ -1,0 +1,11 @@
+Concern with growth and body size relations is well-founded, especially given the decline of the state of the Earth's biosphere. Given this decline, never has it been so crucial for ecologists to make prudent, accurate predictions about what will happen to life on Earth and prioritise what life to conserve as resources become increasingly stretched and time is of the essence. Ontogenetic growth gives rise to different, ecologically-distinct stages across the lifetime of an organism. Knowledge and powerful theory which allows us to ascertain which stages are most crucial to an organism's conservation, such as ontogenetic growth models and (st)age-based models will allow us to direct resources to conserving not only organisms themselves, but the stages of ontogeny within those organisms which are most crucial to the species' survival.
+
+Larger organisms have lower mass-specific metabolic rates i.e. demand less energy per unit body mass, tend to live for longer and sleep for longer than smaller organisms. They have lower intrinsic rates of increase and population sizes and slower rates of evolution. 
+
+\subsubsection{A glitch in the matrix}
+
+        The biological literature suggests that both branches typically assume that reproductive output scales isometrically with body size, e.g. a single 2kg female has the same reproductive output as two 1kg females. However, a recent meta-analysis of marine fishes covering 342 species and 15 orders has contradicted this assumption, with larger mothers reproducing disproportionately more for 95\% of species, i.e. reproductive hyperallometry whereby a single 2kg female reproduces more than two 1kg females \autocite{Barneche2018d}. It has since been argued that reproductive hyperallometry profoundly challenges mechanistic theories of growth, which should be revised accordingly, and that this hyperallometry drives growth trajectories in ways largely unanticipated by current theories PLAG \autocite{Marshall2019b}. In their opinion paper, \cite{Marshall2019b} correctly proclaim that these recent results beg two questions:
+        \begin{enumerate}
+            \item How reasonable is an assumption of isometric reproductive output (isometric reproductive scaling)?
+            \item If reproduction is not isometric, how does this alter our understanding of growth?
+        \end{enumerate}
