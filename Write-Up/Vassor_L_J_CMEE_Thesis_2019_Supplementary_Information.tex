@@ -6,7 +6,13 @@
 % Page Formatting packages
 \usepackage[margin=2cm]{geometry}
 \usepackage{lipsum} % Generates dummy text
-
+\usepackage{float} % here for H placement parameter
+\usepackage{fancyhdr} % rule line and current section displayed at top of pages % \thispagestyle{empty} removes it on desired pages
+    \pagestyle{fancy}
+    \renewcommand{\sectionmark}[1]{\markboth{\textbf{\textcolor{blue}{SUPPLEMENTARY INFORMATION}}}{}} % set the \leftmark to section name
+    \fancyhead[R]{\nouppercase{\leftmark}} %  sets the right head element ONLY EVER section name, otherwise mark is section/subsection/subsubsection
+    \fancyhead[L]{} % sets the left head element to the page number if you use \thepage as argument
+    \fancyfoot[C]{\thepage} % sets footer as page number
 % Math packages
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -37,7 +43,7 @@
 \newcolumntype{m}{>{\hsize=1\hsize}X}
 % Citation packages
 \usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
-    \addbibresource{../Write-Up/CMEE_Thesis.bib}
+    \addbibresource{./CMEE_Thesis.bib}
     % \renewcommand*\finalnamedelim{\addspace\&\space}
 % Force \textit{et al}. to be italicised
 \usepackage{xpatch}
@@ -306,9 +312,59 @@ Rearrange for rate of new cells growth. Explicitly, growth comes \textbf{after} 
 Multiply by mass of cell $m_{c}$ to get rate of growth for whole oraganism on LHS - number of cells X mass of cells $N_{c}m_{c}$ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
 Change in mass is how many cells you can grow with your energy $\frac{B}{E_c}$ X the mass of a single cell $m_c$ minus maintenance 
 % Problem 
+\newpage
+%%% Table of literature %%%
+\section{Ontogenetic Growth Model Literature}
+
+\begin{table}[H]
+    \caption{Model literature for Ontogenetic Growth including discipline of origin and reproductive scaling}
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Study}                          & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} & \textbf{Refs} \\ \hline
+    \autocite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                        & (40)          \\ \hline
+    \autocite{Roff1983}                     & Life history              & Isometric        & Assumption                        & (41)          \\ \hline
+    \autocite{Roff1984}                     & Life history              & Isometric        & Assumption                        & (42)          \\ \hline
+    \autocite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                        & (43)          \\ \hline
+    \autocite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                        & (44)          \\ \hline
+    \autocite{kozlowski1996}                & Life history              & Variable         & Prediction                        & (45)          \\ \hline
+    \autocite{West2001}                     & Mechanistic               & Isometric        & Assumption                        & (46)          \\ \hline
+    \autocite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                        & (47)          \\ \hline
+    \autocite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                        & (48)          \\ \hline
+    \autocite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (49)          \\ \hline
+    \autocite{Roff2006}                     & Life history              & Isometric        & Assumption                        & (50)          \\ \hline
+    \autocite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (51)          \\ \hline
+    \autocite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                        & (51)          \\ \hline
+    \autocite{Pecquerie2009}                & Life history              & Isometric        & Assumption                        & (52)          \\ \hline
+    \autocite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                        & (53)          \\ \hline
+    \autocite{Arendt2011}                   & Life history              & Isometry         & Assumption                        & (54)          \\ \hline
+    \autocite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                        & (55)          \\ \hline
+    \autocite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                        & (56)          \\ \hline
+    \autocite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                        & (57)          \\ \hline
+    \autocite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (58)          \\ \hline
+    \autocite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                        & (59)          \\ \hline
+    \autocite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                        & (60)          \\ \hline
+    \autocite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                        & (61)          \\ \hline
+    \autocite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                        & (62)          \\ \hline
+    \autocite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                        & (63)          \\ \hline
+    \autocite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                        & (63)          \\ \hline
+    Beverton and Holt (1957)                & Fisheries                 & Isometric        & Assumption                        & (2)           \\ \hline
+    Scott \textit{et al}. (2006)            & Fisheries                 & Hyperallometric  & Assumption                        & (64)          \\ \hline
+    Jørgensen and Fisken (2006)             & Fisheries                 & Isometric*       & Assumption                        & (65)          \\ \hline
+    Enberg \textit{et al}. (2010)           & Fisheries                 & Isometric        & Assumption                        & (66)          \\ \hline
+    Eikeset \textit{et al}. (2013)          & Fisheries                 & Isometric        & Assumption                        & (67)          \\ \hline
+    Lester \textit{et al}. (2014)           & Fisheries                 & Isometric        & Assumption                        & (68)          \\ \hline
+    Andersen and Beyer (2015)               & Fisheries                 & Isometric        & Assumption                        & (69)          \\ \hline
+    Eikeset \textit{et al}. (2016)          & Fisheries                 & Isometric        & Assumption                        & (70)          \\ \hline
+    Andersen \textit{et al}. (2016)         & Fisheries                 & Isometric        & Assumption                        & (12)          \\ \hline
+    Zimmerman and Jørgensen (2016)          & Fisheries                 & Isometric        & Assumption                        & (71)          \\ \hline
+    Hartvig \textit{et al}. (2011)          & Food web                  & Isometric        & Assumption                        & (72)          \\ \hline
+    Carozza \textit{et al}. (2016)          & Food web                  & Isometric        & Assumption                        & (73)          \\ \hline
+    \end{tabular}
+\end{table}
 
 %%% Bibliography %%%
-\addcontentsline{toc}{section}{Bibliography}
+\newpage\addcontentsline{toc}{section}{Bibliography}
+
 \let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
 
 \end{document}
