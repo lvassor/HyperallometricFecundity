@@ -95,9 +95,9 @@
 \end{titlepage}
 % \begingroup
 % \Large
-\begin{table}
+\section{Paramters and Scaling}
+\begin{table}[H]
     \caption{Details of notation used in this thesis}
-
     \begin{tabularx}{\linewidth}{|l|X|l|X|l|}
     \hline
     Param               & Description                                                       & Units                     & Value                                         & Bounds        \\ \hline
@@ -122,7 +122,8 @@
 \newpage
 %% Begin derivation from master equation %%
 
-\section{Energy balance}
+\section{Ontogenetic Growth Model}
+\subsection{Model derivation from the Energy Balance Equation}
 Ontogenetic development is fuelled by metabolism and occurs \textcolor{red}{primarily by cell division}. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During growth, some fraction of this energy is allocated to the production ofnew tissue. Thus, the rate ofenergy transformation is the sum of two terms, one of which represents the maintenance of existing tissue, and the other, the creation of new tissue. This is expressed by the conservation of energy equation:
 \begin{align}
     B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg]
@@ -148,7 +149,6 @@ At any time $t$ the total body mass is the number of cells multiplied by the mas
 Arriving at equation \eqref{growth_pre_sub} which we can define qualitatively in terms of cellular-level phenomena. The first term is the mass of a single cell divided by the cost of building a cell, dimension mass/joules, i.e. how many units of mass can be built from a single joule of energy. This is multiplied by the energy inflow ($B$) in joules (thus joules units cancel out, left with only mass/time - correct for $dm/dt$). This translates to ``how much mass can I build given the energy ($B$) I have available.'' If maintenance (second term) did not exist, this first term would represent all growth. The second term reresents maintenance. It is the metabolic rate of single cell divided by the cost of building a cell, dimension joules/sec/joules or 1/sec. This is multiplied by mass, thus units are mass/time, correct. i.e. 
 %     \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m
 % \end{align}
-\section{Growth equation}
 Now, an assumption of MTE is that the incoming rate of energy scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is a normalising constant for a given taxon. We can substitute this into equation \ref{growth_pre_sub}.
 \begin{align*}
     \frac{dm}{dt} &= \bm{\Bigg(\frac{m_c}{E_c}\Bigg)B_{0}}m^{3/4} - \bm{\Bigg(\frac{B_{c}}{E_c}\Bigg)}m \\
@@ -162,6 +162,7 @@ At this point we can define two new constants, $a \equiv B_{0}m_{c}/E_{c}$ and $
 \end{equation}
 $a$ translates to the amount of cell matter you can build per unit of energy (mass/joules) multiplies by the rate of inflow of energy (joules/second) = the mass of cells you can build given your energy supply. The 3/4 exponent is well supported by data on mammals, birds, fish, molluscs, and plants. Individual production (growth) prior to the initiation of reproduction is assumed to follow the differential equation.
 
+\subsection{Introducing Reproduction}
 This equation excludes reproduction and would result in sigmoid growth to an asymptotic size, $M$. We can find find this asymptotic size in terms of $a$ and $b$ analytically since change in growth at terminal size, $\frac{dm}{dt} = 0$. Thus we set \eqref{west_model} to 0 as follows:
 \begin{align*}
     am^{3/4} - bm &= 0 \\
@@ -198,14 +199,14 @@ This highlights the cost to growth reproduction introduces. Thus, lifetime growt
     \frac{dm}{dt} &= am^{3/4} - bm - cm \ \ \ \ \ m \geq m_{\alpha}
 \end{align*}
 
-\section{Assumptions regarding Intake Rate}
+\subsection{Assumptions}
 A crucial axiom of the growth model in \eqref{west_model} proposed by \cite{West2001} is that energy intake is simply a function of metabolic rate, which scales with body size ($m$) to an exponent of $0.75$, as predicted by Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. To date, I have found no growth models which consider the scaling of resource supply or intake rate with mass. As with most biological rates, an economy of scale can be observed with size, and resource supply is no exception. Given this assertion, the scaling of resource supply used in extant models, such as \cite{West2001, Charnov2001}, may not abide by the ubiquitous $3/4$ power. This deviation arises for two reasons \autocite{Pawar2012}. Firstly, foraging is controlled by traits, some morphological, ``such as length of locomotory appendages or visual acuity,, which do not scale with metabolic rate. Second, and crucial in the context of growth models, species interactions in the field do not occur under the idealized conditions at which metabolic and ingestion rates are usually measured, in which individuals are not foraging, growing or reproducing. These interactions may scale at values closer to field metabolic rate (exponent > 0.85)''. Since the fundamental structure of growth models, mechanistic or otherwise, is that the scope for growth is determined by the difference between energy supply and energy expenditure, extant models ignore this scaling of supply at their own risk.
 
 Here, I reconcile this gap in the literature by incorporating the mass-scaling of resource supply into the existing \cite{West2001} model (equation \eqref{west_model}). Consequences of agnosticism toward scaling of supply manifest themselves in various literature. Firstly, when \cite{West2001} fit their model as a ``universal'' growth curve to data with mass and time collapsed to dimensionless quantities. Whilst the curve fits the growth data well across species, there are noticeable deviations from it. We hypothesise that this is because energy intake ($am^{3/4}$) is not constant, as implied by the $am^{3/4}$ resource supply term. In fact, consumers switch between resource-saturated and depleted environments as well as dimensions during their lifetime \autocite{Pawar2012}. This ultimately means that the surplus energy available to be allocated to growth is not a fixed scaling of mass throughout ontogeny. Given this supposition, the energy available to grow can change for potentially vast periods of ontogenetic time, hence why organisms' growth trajectories do not fall neatly on this curve.
 
 Another consequence follows from recent findings on fish growth by \cite{Barneche2018d}. Fish fecundity was found to scale hyperallometrically with size (i.e. larger mothers are disproportionately more fecund). However when simulating this model, superlinear scaling of reproduction (introduced at reproduction) dominates the sublinear and linear terms in the equation resulting in shrinking fish i.e. $dm/dt < 0$ (i.e. when $am^{3/4} < bm + cm^{\rho}$). In light of this, consideration of resource supply scaling becomes even more relevant, since this may account for the energy ``shortfall'' causing the shrinkage. (i.e. $\frac{dm}{dt} < 0$) until supply and cost then become equal again (as $\frac{dm}{dt} \rightarrow 0$). 
 
-\section{My new model - incorporating scaling of intake rate}
+\section{Ontogenetic Growth Models}
 At any time $t$, growth rate is considered as the difference between supply and expenditure. Thus we can incorporate intake scaling into this supply term.
 We know that at time $t$, organisms consume resource at a rate proportional to their size:
 \begin{align*}
@@ -251,7 +252,9 @@ One can now observe that if consumption rate scales with mass for amount and tim
 \end{align}
 Further, it has also been shown that the assumption of resting metabolic rate scaling may also be false in consumption rate scaling, as active MR has been shown to scale more steeply. If it is the case that consumption scales with active MR then it is likely that the total exponent value for $a_{0}m^\phi$ may be even larger.
 
-\section{Optimising Life History}
+\section{Life History Optimisation}
+\subsection{Invariant Values}
+\subsection{Lifetime Reproduction}
 We assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you with. However, it is assumed that fish can optimise the proportion of their mass that they allocate to reproduction, $c$. This optimisation invokes life history theory, which assumes that all organisms optimise their strategy to maximise reproductive output. At any time $t$, fish allocate $b_{t}$ of their total mass to reproduction, $= cm^{\rho}h(m)$, where $h(m)$ is an efficiency term describing the lifetime decline in fecundity. 
 
 Thus their lifetime reproductive output as mass is the integral over the time period in which they are reproducing. (We assume for intake that they put growth on pause which would include reproduction, but over the timescale of the lifetime it can be assumed that they are effectively allocating to growth and reproduction continuously). 

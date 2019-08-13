@@ -33,6 +33,7 @@
 % \usepackage{lscape}
 % Math packages
 \usepackage{amsmath}
+\usepackage{amssymb}
 % \usepackage{mathpazo}
 \usepackage{xpatch}
     \xpretocmd{\eqref}{Eq.~}{}{}
@@ -264,25 +265,33 @@
         \begin{align*}
             \frac{dm}{dt} &= am^{3/4} - (b+c)m
         \end{align*}
-        \cite{Marshall2019b} draw the conclusion that their model, derived from the results of \cite{Barneche2018d}, which includes a seperate, explicit term to represent the hyperallometric scaling of reproduction with mass fits age-at-size fish data as well as the VGBF and \cite{West2001} OGM. Here they take a philosophical stance, since all models fit the data equally well but their's considers a phenomenon which others do not.
+        \cite{Marshall2019b} draw the conclusion that their model \eqref{marshall_model}, derived from the results of \cite{Barneche2018d}, which includes a seperate, explicit term to represent the hyperallometric scaling of reproduction with mass, fits age-at-size fish data as well as the VGBF and \cite{West2001} OGM. They use this as evidence of a better model (?), under the presupposition that an equally good fit, with the extra parameter derived from empirical data, makes the model more correct. 
             \begin{equation}
-                \frac{dm}{dt} = am^{3/4} - bm - cm^{\rho} \label{marshall_model}
-            \end{equation}
-            where $\rho > 1$.
-
-        The problem we seek to investigate here is that \cite{Marshall2019b} are inadvertently reconciling two incompatible quantities. The units of all terms in the OGM are in mass/second in continuous time (see SI for full derivation and unit explanation). However, the acclaimed hyperallometric fecundity data reported by \cite{Barneche2018d} were for batch spawning events, since the method of data collection is to catch a fish and take gonadal measurements at that point in time. Collecting this data for different sized fish of the same species is not mathematically equivalent to a continuous rate of allocation of resources to reproduction. As such \cite{Malerba2019} may be premature in their claims and constructing the model in \eqref{marshall_model}.
-
-        In fact, when we simulate this model and examine the resulting growth curves, depending on the age of maturtiy and reproductive coefficient and exponent, we observe shrinking fish (see figure...). This results from the sudden introduction of the $cm^{\rho}$ term at age $\alpha$, and the extra diversion of energy to gonads. In some cases, when maturity is late and a large mass has been reached, this term can cause the rate of growth $dm/dt$ to drop below zero, hence shrinking. Whilst fish may chance size seasonally, we know over ontogeny that fish do not grow to a large mass and then shed a substantial amount of weight to undergo reproduction. In the case of models which implicitly assume isometric reproduction averaged across lifetime, this is the problem they avoid, as the cost of reproduction is implicitly assumed to begin from age 0. It is my suspicion that 3 things could be occurring here:
+                \frac{dm}{dt} = am^{3/4} - bm - cm^{\rho} \ \ \ \ \ \rho > 1, m > m_{\alpha} \label{marshall_model}
+            \end{equation}        
+        \subsection{Rationale}
+        The problem here is that upon deriving the units of the quantities in this equation, it becomes apparent that \cite{Marshall2019b} are inadvertently reconciling two incompatible quantities. The units of all terms in the OGM are in mass/second in continuous time (see SI for full derivation and unit explanation). However, the (acclaimed hyperallometric) fecundity data reported by \cite{Barneche2018d} were for discrete, batch spawning events, and the typical method of data collection is to catch and dissect a fish and take gonadal measurements at that point in time. Collecting this data for different sized fish of the same species is not mathematically equivalent to a continuous rate of allocation of resources to reproduction. To this end, \cite{Marshall2019b} are inferring continuous rate data from discrete time data, and, as such, may be premature in their claims and construction of \eqref{marshall_model}. In fact, when I simulated this model numerically and examine the resulting growth curves, in a certain parameter space (depending on the age of maturtiy ($\alpha$) and reproduction ($c, \rho$)), I observed shrinking fish (see figure...). This results from the extra diversion of energy to gonads at the introduction of $- cm^\rho$ to the model. In these cases, when maturity is late and a large mass has been reached, since the loss terms are a function mass, the rate of growth $dm/dt < 0$, hence shrinking occurs. Whilst fish may chance size seasonally, over ontogeny fish do not grow to a large mass and then shed a substantial amount of weight to undergo reproduction. In the case of models which implicitly assume isometric reproduction averaged across lifetime, shrinking is not observed in simulations, as the cost of reproduction is implicitly assumed to begin from birth ($t_0$), resulting only a lower asymptotic size. It is my suspicion that several things could be occurring here:
             \begin{enumerate}
-                \item The fecundity data \autocite{Barneche2018d} overestimate the allometric scaling of reproduction given that they are for batch events, and in fact, in continuous time, reproduction is isometric
-                \item The assumptions made about intake rate scaling are incorrect. The \cite{West2001} model assume that intake rate is scaling with resting metabolic rate. However, it has been shown that..
-                \item three
+                \item The fecundity data \autocite{Barneche2018d} overestimate the allometric scaling of reproduction given that they are for batch events, and in fact, in continuous time, reproduction is hyperallometric but a smaller scaling exponent, isometric, or even hypoallometric
+                \item The assumptions made about intake rate scaling are incorrect. The \cite{West2001} model assume that intake rate is scaling with resting metabolic rate. However, it has been shown that \autocite{Pawar2012} etc etc so the missing energy comes from there
             \end{enumerate}
-
+        
 %%% Methods %%%
-\section{Methods}\thispagestyle{empty}
-\lipsum
-
+\section{The Model}\thispagestyle{empty}
+I tested the validity of the claim that fecundity scales hyperallometrically with mass using a biphasic, hybrid model. In order to test whether the continuous rate of energy allocation to reproduction is, in-fact, hyperallometric, I used an ODE numerical integrater in Julia v1.1.1 \autocite{Bezanson2017} to solve the biphasic model presented in \eqref{marshall_model}, which introduces a fecundity term at maturity age $\alpha$. 
+\begin{align*}
+    \frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha} \\
+    \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \ \ \ \ \ m \geq m_{\alpha}
+\end{align*}
+The model is hybrid as I allowed the fecundity parameters $c$ and $\rho$ to vary in order to maximise lifetime reproduction, $R_0$ which is calculated using a life history model, developed from \cite{Charnov2001}. At any time $t$, $b_{t}$ is the \textit{effective} energy allocated by fish to reproduction, the product of the intended allocation, $cm^{\rho}$ and an efficiency term $h(m)$ representing reproductive senescence, the natural decline in fecundity as fish age. This decline begins at maturity ($\alpha$) and is controlled by a rate parameter $\kappa$. Fish also experience an extrinsic mortality rate, contained in a surivorship function, $l_t$, which is effectively a declining $\mathbb{P}(survival to t)$. Thus, the instanteous reproductive output at time $t$ is the product $l_{t}b_{t}$ and the lifetime reproductive output is:
+\begin{equation}
+    R_{0} = \int_{\alpha}^{\infty}l_{t}b_{t} dt
+\end{equation}
+Since fish live in a juvenile and adult phase, they are subject to different mortality rates through ontogeny. Juvenile mortality ($t_0 \rightarrow t_{\alpha}$) controls how many fish are recruited into the adult phase and thus acts as a scaling factor for adult mortality ($t_{\alpha} \rightarrow t_{\infty}$). $\rho$ and $c$ vary in order to maximise the quantity:
+\begin{equation}
+    R_{0} = c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt
+\end{equation}
+See SI for full derivation.
 %%% Results %%%
 \section{Results}\thispagestyle{empty}
 \lipsum
@@ -301,6 +310,6 @@
 
 %%% SI %%%
 \addcontentsline{toc}{section}{Supplementary Information}
-% \includepdf[pages=-]{Vassor_L_J_CMEE_Thesis_2019_Supplementary_Information.pdf}
+\includepdf[pages=-]{Vassor_L_J_CMEE_Thesis_2019_Supplementary_Information.pdf}
 
 \end{document}
