@@ -1,0 +1,324 @@
+\documentclass[a4paper]{article} % twoside for paper submission but remove for electronic submission
+\title{Reconciling Resource Supply and Ontogenetic Growth (Models)}
+\author{Luke Joseph Vassor}
+
+%%%% Packages %%%
+
+% Page Formatting packages
+\usepackage[margin=2cm]{geometry}
+\usepackage{lipsum} % Generates dummy text
+\usepackage{titlesec}
+    \titleformat*{\section}{\LARGE\bfseries}
+    \titleformat*{\subsection}{\Large\bfseries}
+    \titleformat*{\subsubsection}{\large\bfseries}
+    \titleformat*{\paragraph}{\large\bfseries}
+    \titleformat*{\subparagraph}{\large\bfseries}
+    \newcommand{\sectionbreak}{\newpage} % forces new page for each section
+    \titlespacing*{\section}
+{0pt}{20cm plus 1ex minus .2ex}{4.3ex plus .2ex}
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+\usepackage{fancyhdr} % rule line and current section displayed at top of pages % \thispagestyle{empty} removes it on desired pages
+    \pagestyle{fancy}
+    \renewcommand{\sectionmark}[1]{\markboth{#1}{}} % set the \leftmark to section name
+    \fancyhead[L]{\nouppercase{\leftmark}} %  sets the left head element ONLY EVER section name, otherwise mark is section/subsection/subsubsection
+    \fancyhead[R]{} % sets the right head element to the page number if you use \thepage as argument
+    \fancyfoot[C]{\thepage} % sets footer as page number
+
+\usepackage{pdfpages}
+% \usepackage{lscape}
+% Math packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{mathpazo}
+\usepackage{xpatch}
+    \xpretocmd{\eqref}{Eq.~}{}{}
+% Language packages
+% \usepackage[english]{babel}
+\usepackage[utf8]{inputenc}    % utf8 support       %!!!!!!!!!!!!!!!!!!!!
+\usepackage[T1]{fontenc}       % code for pdf file  %!!!!!!!!!!!!!!!!!!!!
+% \usepackage{listings}
+
+% Other packages
+\usepackage{hyperref}
+    \hypersetup{colorlinks=false}
+% \usepackage[colorinlistoftodos]{todonotes}
+
+% Plotting packages
+% \usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+% Citation packages
+\usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
+    \addbibresource{./CMEE_Thesis.bib}
+    % \renewcommand*\finalnamedelim{\addspace\&\space}
+
+% Force \textit{et al}. to be italicised
+
+    \xpatchbibmacro{name:andothers}{%
+        \bibstring{andothers}%
+    }{%
+    \bibstring[\emph]{andothers}%
+    }
+    \xpatchbibmacro{Name}{%
+        \bibstring{name}
+    }{%
+    \bibstring[\textbf]{name}%
+    }{}{} % leave these empty arguments here, seem to cause issues when ommited
+    
+% Kill "Accessed on" lines in bibliography
+\AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{doi}
+    \clearfield{url}
+    \clearfield{eprint}
+    \clearfield{eprinttype}
+}
+
+
+\begin{document}
+
+\begin{titlepage}
+    % Square brackets control size of vertical gap AFTER group
+    %----------------------------------------------------------------------------------------
+    %	LOGO SECTION
+    %----------------------------------------------------------------------------------------
+    
+    \includegraphics[width=4cm]{./Images/logo.png}\\%[1cm] % Include a department/university logo - this will require the graphicx package
+     
+    %----------------------------------------------------------------------------------------
+    
+    \center % Center everything on the page
+    
+    
+    %----------------------------------------------------------------------------------------
+    %	TITLE SECTION
+    %----------------------------------------------------------------------------------------
+    \makeatletter
+    \linespread{1.5} % controls line spacing of title
+        {\huge{RECONCILING RESOURCE SUPPLY AND ONTOGENETIC GROWTH}\par} % leave \par here
+    \vspace{2.5cm} % Title of your document
+
+    %----------------------------------------------------------------------------------------
+    %	DESCRIPTION SECTION
+    %----------------------------------------------------------------------------------------
+    % If you want consistent line spacing then need to typeset paragraphy as a single {} group and use \\ for line break
+    % Strangely, you need to leave the \ character at the end of the group so that the spacing of the last line from the penultimate line in a group remains constant
+    % textsc command sets small capitals (sc)
+    \textsc{A thesis submitted in partial fulfilment \\ of the requirements for the degree of \\ Master of Science at Imperial College London \\ by \\ \ }\\[2.5cm]
+    \textsc{\Large \@author}\\[2.5cm]
+    \textsc{Submitted for the \\ M.Sc. Computational Methods in Ecology \& Evolution \\ Formatted in the journal style of the Potato Journal \\ \ }\\[2cm]
+
+    %----------------------------------------------------------------------------------------
+    %	HEADING SECTIONS
+    %----------------------------------------------------------------------------------------
+    \textsc{Department of Life Sciences \\ Imperial College London \\ \ }\\[1cm]
+    \textsc{\today}\\[2cm] % Date, change the \today to a set date if you want to be precise
+    
+    \vfill % Fill the rest of the page with whitespace
+    
+\end{titlepage}
+
+%%% Declaration %%%
+\section*{Declaration of Originality}\thispagestyle{empty}
+    Declaration: The first page inside the cover must provide a brief declaration of the contributions
+    made by you and by others to your project. Key points to address are:
+    \begin{itemize}
+        \item Was the data provided to you or did you collect or assemble it?
+        \item Were you responsible for data processing or cleaning, if required?
+        \item Were any mathematical models developed by you or by your supervisor?
+        \item What role, if any, did your supervisor play in developing the analyses presented?
+    \end{itemize}
+    I certify that this thesis, and the research to which it refers, are the product of my own work, conducted during the current year of the \emph{M.Sc. Computational Methods in Ecology \& Evolution} at Imperial College London. Any ideas or quotations from the work of other people, published or otherwise, or from my own previous work are fully acknowledged in accordance with the standard referencing practices of the discipline and this institution.
+
+    \textbf{Contributions:} Dr Samraat Pawar, Dr Diego Barneche, Dr Van Savage and Tom Clegg conceived the study. Diego Barneche compiled data on fish growth. S.P., T.C. and L.V. developed the idea.
+    \vspace{3cm}
+    \begin{flushright}
+        Luke Joseph Vassor \\
+        \today
+    \end{flushright}
+
+%%% Abstract %%%
+\section*{Abstract}\thispagestyle{empty}
+    Your abstract goes here. The abstract is a very brief summary of the dissertation's contents. It should be about half a page long. Somebody unfamiliar with your project should have a good idea of what it's about having read the abstract alone and will know whether it will be of interest to them.
+
+%%% Acknowledgements %%%
+\section*{Acknowledgements}\thispagestyle{empty}
+    It is usual to thank those individuals who have provided particularly useful assistance, technical or otherwise, during your project. \\
+    Samraat \\
+    Dustin - useful conversations \\
+    Tom - ditto \\
+    Francis - code help \\
+    Pawarlab - conversations and environment \\
+    Alex - maths \\
+    Course members \\
+
+%%% Table of Contents %%%
+\newpage\tableofcontents\thispagestyle{empty}
+
+%%% List of Figures %%%
+\newpage\listoffigures\thispagestyle{empty}
+\addcontentsline{toc}{section}{List of Figures}
+
+%%% Listof Tables %%%
+\newpage\listoftables\thispagestyle{empty}
+\addcontentsline{toc}{section}{List of Tables}
+
+%%% Notation %%%
+\newpage\section*{Notation}\thispagestyle{empty}
+\addcontentsline{toc}{section}{Notation}
+\begin{itemize}    
+    \item $\frac{dm}{dt}$ = change in mass with (continuous) time
+    \item $m$ = mass
+    \item $a$ = coefficient (proportion of body mass) for energy/resource intake/acquisition
+    \item $b$ = coefficient for maintenance
+    \item $c$ = coefficient for reproduction
+    \item $y$ = mass scaling exponent for energy intake (almost always = 0.75 (MTE))
+    \item $z$ = mass scaling exponent for maintenance (almost always = 1)
+    \item $\rho$ = mass scaling exponent for reproduction
+    \item $\alpha$ = age at maturity (onset of reproduction)
+    \item $m_{\alpha}$ = mass at maturity
+    \item $M$ = asymptotic/terminal size
+    \item $L(x)$ or $L_x$ = Probability of survival to age $x$
+    \item ATR = allocation to reproduction
+\end{itemize}
+
+%%% Introduction %%%
+\newpage
+\section{Introduction}\thispagestyle{empty}
+    \subsection{The problem of growth}
+        For over a century, biologists have attempted to understand ontogenetic growth - how an individual grows throughout its developmental lifetime, and why it does so. \textit{Why do organisms grow at the rate they do at certain points in their life? Why do they stop growing? What causes them to stop growing? Can they control growth? Why would they control growth? What is the optimal size to grow to? When is the optimal age to mature?} All valid and relevant questions which require a theoretical understanding of the constraints on growth and how evolution has selected for the patterns we observe given these constraints. At its most fundamental level, growth is a problem of resource allocation and strategy, attracting scientists from a range of biological disciplines including theorists, field ecologists and applied scientists. Questions like these are answered via the translation of quantifiable, mathematisable, testable ideas which are derived from underlying generic principles and built into a predictive framework, called a scientific theory \autocite{popper1962,popper1972,peters1983, West2011}. Mathematical biologists have attempted to capture growth in the form of sophisticated mathematical models, using laws from quantitative disciplines, such as the laws of geometry and laws of thermodynamics \& enzyme kinetics, to accurately predict the value of size over ontogeny. Geometric scaling laws have become of particular interest to those who seek to model growth and develop equations which relate an organism's characteristics to its body size, since many biological traits covary with body size. The variety of sizes within and across species plays a central role in the fantastic spectrum of niches across the surface of the planet, since most key physiological, ecological and evolutionary life history parameters covary with body size \autocite{peters1983, brown2000-scaling-book,schmidt1984scaling,Marshall2019b}. To quote \cite{Bartholomew1981} ``It is only a slight overestimate to say that the most important attribute of an animal, both physiologically and ecologically, is its size''. 
+
+        Most body size relations take the form of a power law:
+        \begin{equation*}
+            Y = Y_0 M^b
+        \end{equation*}
+        where $Y$ is the biological characteristic to be predicted, $M$ is body mass, and $Y_0$ and $b$ are empirically derived constants. The use of power laws in biology has a venerable history and they are formalised into ``allometric" equations. If $b = 1$, the scaling is said to be ``isometric", while if $b \neq 1$, the relationship is called allometric, and plots as a curve on linear axes \autocite{brown2000-scaling-book}.
+
+    \subsection{Theoretical Approaches to Understanding Growth}
+        The modelling approaches used to understand the problem of ontogenetic growth have historically bifurcated into two major branches. Evolutionary Life History Theory (LHT) relates growth, phenomenologically, to fundamental life history events and the Metabolic Theory of Ecology (MTE) relates growth, mechanistically, to fundamental cellular and energetic processes.
+        
+        \subsubsection{Evolutionary Life History Theory}
+        Evolutionary life history and game theorists, concerned with growth from a coarser-level, life history perspective, have typically employed optimisation techniques to solve for the optimal age and size values of given life history events, for example age-at-maturation, which maximise lifetime reproductive output. The \textit{modus operandi} is to assume that evolution maximises this quantity, and that strategies concerning the timing of life-history events are the product of evolution optimising trade-offs among competing traits \autocite{Day1997, Stearns1989, stearns1992evolution}. As such, life-history theory (LHT hereafter) typically makes simplifying assumptions with regard to mechanisms \autocite{Day1997, Kozowski1987-indeterminate}, for instance, those which cause energy distribution and metabolism to scale with body size \autocite{peters1983,Werner1988,brown2000-scaling-book}. Models are driven by selection on body size, and the underlying physiology is thought to evolve in response to those selection pressures - the external context is the focus. To this end, size-at-maturity is predicted to be inversely related to mortality rate under a simple life-history model \autocite{stearns1992evolution}.
+        
+        \subsubsection{Metabolic Theory}
+        Converseley, metabolic theorists, concerned with growth at a granular level, utilise laws from thermodynamics and enzyme kinetics as a first-principles approach to growth problems through the lens of the Metabolic Theory of Ecology (MTE hereafter), combining biological knowledge, intuition and mathematics to explain observed ecological phenomena \autocite{Brown2004}. Paradigmatically, everything an organism does in its lifetime, including how it grows, is governed by the metabolic energy that flows into its system and how it is distributed and transformed. The chain of causality in the scientific approaches of MTE and LHT are the inverse of one another. LHT asks: ``given that these mechanisms exist and scale, what is the predicted optimum strategy?'' whereas MTE asks: ``given that these strategies have evolved to be optimal, what are the energetic mechanisms that explain them?''.
+        
+        \subsubsection{Hybrids}\label{hybrids}
+        Whilst these two branches of theory tend to operate in isolation, several attempts have been made at combining them. Broadly classed as biphasic models, they attempt to account for mechanisms which drive growth, during different life history stages (reviewed in \autocite{Wilson2018}), typically pre- and post-maturity, through seperate equations. A minority have attempted the same concept via the use of a discontinuous step function. In either case a new energy loss term representing diversion of energy to reproduction is introduced maturity. Hybrids maximise explanatory potential by blending both philosophies in understanding how and why organisms grow \autocite{Marshall2019b}.
+
+    \subsection{Model structure - Energy Balance}
+        Fundamentally, mechanistic growth models consider the balance of energy expenditure. In essence, an organism garners energy from its environment, which it then expends on some internal maintenance process, thus ``losing'' energy which it could use for growing. Any surplus energy remaining after this expenditure, can then be used to synthesise new biomass for growth.  Thus, growth models seek to capture an energy ``profit'', i.e. costs deducted from revenue. As such, models typically take the structure of an Ordinary Differential Equation which includes an energy-intake term and an energy-loss term:
+        \begin{equation}
+            \frac{dm}{dt} = am^y - bm^z \label{difference_equation}
+        \end{equation}        
+        where $a$ and $y$ are the mass-scaling coefficient and exponent for energy intake, respectively, and $b$ and $z$ are the mass-scaling coefficient and exponent for maintenance, respectively. As an organism's expenditure tends toward the amount of energy it can sequester from the environment, as it gets larger, its growth rate will begin to slow (since the surplus reduces). When these values reach equivalence, the individual is ``spending'' energy via metabolism as quickly as it can acquire it, thus leaving no surplus for growth. At this point the organism has reached asymptotic mass and cannot grow any larger, which is the mechanisms behind the classic sigmoidal growth trajectory of a determinately growing organism (see \ref{logistic_growth}).  The earliest attempt to model growth using this difference in rates, which has since provided the foundation for many extant growth models to be built from, was the P\"{u}tter balance equation, now associated with the von Bertalanffy growth function (VGBF), which estimates the rate of increase in mass as the difference between ``anabolism'' and ``catabolism'' per unit time \autocite{Putter1920, vonBert1938, VonBertalanffy1957}. To quote von Bertalanffy: ``there will be growth so long as building up prevails over breaking down; the organism reaches a steady state if and when both processes are equal''. Through time, the mechanistic interpretation of the VBGF has varied, now broadly being considered as the difference in rates of energy assimilation and expenditure on cellular maintenance, or metabolism. As one gets larger, there is more tissue to maintain, hence growth rate (energy surplus) reduces.
+        
+        The fundamental mechanistic explanation for why growth rate slows at larger sizes is linked to the power laws in the scaling of energy intake and metabolism with mass, represented by $y$ and $z$ in \eqref{difference_equation}. Whilst there is a range of derived values of $y$ from $\frac{2}{3}$ to 1, it is agreed amongst the literature that $y < z$, meaning that energy intake scales less steeply that cell maintenance rate, thus as mass increases, maintenance rate approaches intake rate. Since power laws have the convenient property of the exponent being equal to the slope on logarithmic axes, $\log{(am^y)} = y\cdot \log{(am)}$, these scalings can be understood more intuitively plotted in \ref{determinate}, \ref{indeterminate}.  Implicit in these models is the assumption that surplus energy is optimally allocated to growth \textit{after} non-negotiable maintenance of existing cells. This is derived from rearranging the conservation of energy equation presented by \cite{West2001}:
+        
+        Logically, this provides a conceptual framework for the evolution of different growth schedules: determinate and indeterminate. Determinate growth evolves from having energy intake and maintenance rates which eventually intercept \ref{determinate}. Indeterminate growers do, in fact, have a theoretical asymptotic size, due to the finite nature of energy resource, but this is never reached in the timescale of its lifetime, thus they appear to grow limitlessly.
+    
+        \begin{center}
+            \begin{minipage}{0.33\linewidth}
+            \includegraphics[width=\linewidth]{../Other/Presentation/determinate.pdf}
+            \label{determinate}
+            \captionof{figure}{Determinate growth}
+            \end{minipage}%
+            % \hfill
+            \begin{minipage}{0.33\linewidth}
+            \includegraphics[width=\linewidth]{../Other/Presentation/indeterminate.pdf}  
+            \label{indeterminate}
+            \captionof{figure}{Indeterminate growth}
+            \end{minipage}\\
+            \begin{minipage}{0.7\linewidth}
+                \includegraphics[width=\linewidth]{../Other/Presentation/logistic_growth_curve.pdf}  
+                \label{logistic_growth}
+                \captionof{figure}{Logistic Growth}
+                \end{minipage}
+        \end{center}
+        The VGBF initiated a model-construction philosophy focused on ``bottom-up'' drivers of growth - the mechanistic constraints on resource supply and demand and the flow of free energy i.e. \textit{why} energy use scales steeper than acquisition. In 2001, \cite{West2001} published a general ontogenetic growth model (OGM) derived from first principles of energy flow, which takes the form of \eqref{difference_equation} and predicts that energy intake scales with mass to an exponent of $3/4$.  
+        \begin{equation}
+            \frac{dm}{dt} = am^{3/4} - bm \label{west_ogm}
+        \end{equation}
+        In previous work \autocite{West1997}, they explain that, fundamentally, distribution of energy to cells is limited by the fractal architecture of a hierarchical, branching supply network whose geometry has evolved due to natural selection optimising energy transport. Energy intake scales to the $3/4$ exponent of mass due to the scaling of the number of terminal units, e.g. capillaries, in the network with size. That is, bigger entities do not evolve bigger networks, but the networks become more deeply nested with child branches \autocite{West1997}. The self-similarity of the network at decreasing levels approximates a fractal, which is mathematically considered to have a non-integer dimension \autocite{Hausdorff1918, Mandelbrot1982}, hence the derivation of the $3/4$ power. 
+        
+        \includegraphics{../Other/Presentation/branching_network.pdf}
+        
+        Hence the different scalings of acquisition and use, since the network geometry constrains the number of supply branches to scale differently (less steeply) from the total number of cells supplied. This is the reasoning behind Kleiber's law that, for the vast majority of animals, resting metabolic rate scales hypoallometrically to the $3/4$ power of the animal's mass \autocite{Kleiber1947}. 
+
+        Intriguingly, despite being an uncontroversially fundamental life history event, the VBGF, and the majority of models which have evolved from it, such as \cite{West2001}, appear, at least explicitly, to be agnostic to reproduction. It was indicated over 20 years ago that mechanistic inferences made from the results of these models are problematic since they do not account for reproduction \autocite{Day1997, Marshall2019b}. Reproduction incurs large energetic costs and increases an organism's mortality risk, with some highly fecund vertebrates consisting of 75\% reproductive tissue \autocite{Parker2018}. At the onset of reproduction, different mechanistic dynamics emerge relative to those in the preceding juvenile phase as energetic resources are shunted from growth to reproduction \autocite{Day1997}. As such, it is crucial that models account for reproduction.
+
+        \cite{West2001} addressed the issue of implied lifetime reproduction by estimating the premature, juvenile phase in fish to be short enough to be considered negligible, i.e. they effectively spend their entire life as a mature fish and such their growth can be considered by their model. They also discuss the onset of reproduction and how it can be considered to be a higher maintenance cost based on energetic principles, since the energy density of egg and somatic cells are similar, thus maintenance term $b$ becomes $b + \lambda$ and asymptotic size reduces to $a/(b+\lambda)$ as the energy scope is reduced. \cite{Charnov2001} attempted to solve for optimal life history parameters by extending the \cite{West2001} framework into a biphasic model, introducing reproduction post-maturation (i.e. hybrid model, see \ref{hybrids}) and utilising dimensionless life history invariants \autocite{Charnov1993}.
+        \begin{equation}
+            \frac{dm}{dt} = am^{3/4} - bm - cm \label{charnov_ogm}
+        \end{equation}
+        This, however, is mathematically equivalent to elevating maintenance cost in the same way as \cite{West2001}, since the maintenance and new reproduction term have equivalent mass-scaling exponents:
+        \begin{align*}
+            \frac{dm}{dt} &= am^{3/4} - (b+c)m
+        \end{align*}
+
+        Secondly, extant models also fail to consider variable, or environment-dependent, scaling of energy intake rate. ``By assuming a simple relationship between consumption rate (energy acqisition) and resting metabolic rate (energy use), most studies assume that per-capita consumption rates scale with consumer body size (m) to an exponent of approximately 0.75, irrespective of taxon, environment or dimensionality7–13. Deviations from quarter-power scaling can arise for at least two reasons. First, foraging is constrained by traits, such as length of locomotory appendages or visual acuity, that do not scale directly with metabolic rate8,17–20. Second, species interactions in the field donot occur under the idealized conditions at which metabolic and ingestion rates are usually measured, in which individuals are not foraging (food is provided \textit{ad libitum}), growing or reproducing8,18,19. Therefore, consumption-rate scaling may be more closely tied to field or maximal metabolic rate (exponent greater than 0.85), rather than resting metabolic rate (exponent ofapproximately 0.75)8,21However, by using the scaling of resting metabolic rate, this implicitly assumes the idealised conditions of RMR measurements''. As is clear from attempts to instantiate reproduction into growth models, it seems erroneous to simulatenously estimate energy intake rates based on resting metabolic rate, which does not involve reproduction. Even if reproduction were not a concern, organisms do not spend their life under these idealised conditions so using RMR is still wrong. Since growth rate is determined by the energy ``scope'' of the individual, it is crucial that these rates are accurate to field conditions in order to make accurate predictions of growth.
+
+        \cite{Marshall2019b}, in a recent review of OGMs, took particular issue the assumption of isometric mass scaling of reproduction, since the results of a new, large meta-study across 324 species of fish were published, which concluded that total fish fecundity, considering clutch size, egg volume and egg energy content, scales hyperallometrically with mass (mean scaling exponent = 1.29; 95\% CI 1.20 to 1.38) \autocite{Barneche2018d}. \cite{Marshall2019b} claim that these results reset theoretical assumptions because they highlight a simple but critical assumption of prior models which do not explicitly account for loss of energy to reproduction: that reproduction is proportionate to, or scales \textit{isometrically} with, body size. This is because the lack of a reproduction term implicitly assumes that reproduction simply elevates maintenance cost, by increasing absolute value of the maintenance loss term coefficient, $b$, a cost which scales with mass to an exponent of 1, isometrically. In some sense this is biologically correct, since development of the gonads at maturation means a fish is expending more joules of energy per second in maintaining this new tissue. However, this can lead to one of two new assumptions. 
+        
+        If the the model is not biphasic, and is general across lifetime, implicitly it assumes that the allocation of energy to reproduction is spread across the ontogenetic lifetime of the individual, from birth to death ($t_0 \rightarrow t_{\infty}$), which has been argued to be true via allocation to the ``dissipative processes of maturation'' during the juvenile phase \autocite{Kearney2019}. \cite{West2001} discuss this and avoid this problem by estimating that the 
+        
+        \cite{Marshall2019b} draw the conclusion that their model \eqref{marshall_model}, derived from the results of \cite{Barneche2018d}, which includes a seperate, explicit term to represent the hyperallometric scaling of reproduction with mass, fits age-at-size fish data as well as the VGBF and \cite{West2001} OGM. They use this as evidence of a better model (?), under the presupposition that an equally good fit, with the extra parameter derived from empirical data, makes the model more correct. 
+            \begin{equation}
+                \frac{dm}{dt} = am^{3/4} - bm - cm^{\rho} \ \ \ \ \ \rho > 1, m > m_{\alpha} \label{marshall_model}
+            \end{equation}        
+        The problem here is that upon deriving the units of the quantities in this equation, it becomes apparent that \cite{Marshall2019b} are inadvertently reconciling two incompatible quantities. The units of all terms in the OGM are in mass/second in continuous time (see SI for full derivation and unit explanation). However, the (acclaimed hyperallometric) fecundity data reported by \cite{Barneche2018d} were for discrete, batch spawning events, where the typical method of data collection is to catch and dissect a fish and take gonadal measurements at that point in time (Barneche, 2019, pers comm). Collecting this data for different sized fish of the same species is not mathematically equivalent to a continuous rate of allocation of resources to reproduction. To this end, \cite{Marshall2019b} are inferring continuous rate scaling from discrete time data, and, as such, may be premature in their claims and construction of \eqref{marshall_model}. 
+        
+        In this paper I explore the mass-scaling of reproductive allocation and its consequences for ontogenic growth in fish, in order to test the claim that reproduction mass-scaling is hyperallometric. Using the model in \eqref{marshall_model}, I explore the possible parameter space for $c$ and $\rho$ and determine the optimum value for each. To this end, I used simulations to reveal whether hyperallometry ($\rho > 1$) is possible. 
+        
+        In fact, when I simulated this model numerically and examine the resulting growth curves, in a certain parameter space (depending on the age of maturtiy ($\alpha$) and reproduction ($c, \rho$)), I observed shrinking fish (see figure...). This results from the extra diversion of energy to gonads at the introduction of $- cm^\rho$ to the model. In these cases, when maturity is late and a large mass has been reached, since the loss terms are a function mass, the rate of growth $dm/dt < 0$, hence shrinking occurs. Whilst fish may chance size seasonally, over ontogeny fish do not grow to a large mass and then shed a substantial amount of weight to undergo reproduction. In the case of models which implicitly assume isometric reproduction averaged across lifetime, shrinking is not observed in simulations, as the cost of reproduction is implicitly assumed to begin from birth ($t_0$), resulting only a lower asymptotic size. It is my suspicion that several things could be occurring here:
+            \begin{enumerate}
+                \item The fecundity data \autocite{Barneche2018d} overestimate the allometric scaling of reproduction given that they are for batch events, and in fact, in continuous time, reproduction is hyperallometric but a smaller scaling exponent, isometric, or even hypoallometric
+                \item The assumptions made about intake rate scaling are incorrect. The \cite{West2001} model assume that intake rate is scaling with resting metabolic rate. However, it has been shown that \autocite{Pawar2012} etc etc so the missing energy comes from there
+            \end{enumerate}
+        
+%%% Methods %%%
+\section{The Model}\thispagestyle{empty}
+I tested the validity of the claim that fecundity scales hyperallometrically with mass using a biphasic, hybrid model which utilises LHT and MTE. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature. At $\alpha$, a reproduction term is introduced where c is the proportion of body mass allocated to reproduction (GSI) and $\rho$ is how reproduction scales with mass,.
+\begin{align*}
+    \frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha} \\
+    \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \ \ \ \ \ m \geq m_{\alpha}
+\end{align*}
+The model is half based on the LHT concept that natural selection optimises strategies which maximise lifetime reproductive output ($R_0$). To this end, the model was tested via simulations which allowed the fecundity parameters $c$ and $\rho$ to vary in order to maximise $R_0$, which is calculated using a life history model, developed from \cite{Charnov2001}. At any time $t$, $b_{t}$ is the \textit{effective} energy allocated by fish to reproduction, the product of the intended allocation, $cm^{\rho}$ and an efficiency term $h(m)$ representing reproductive senescence, the natural decline in fecundity as fish age \autocite{Benoit2018, Vrtilek2018}. This decline begins at maturity ($\alpha$) and is controlled by a rate parameter $\kappa$. Fish also experience an extrinsic mortality rate, or actuarial senescence, contained in a surivorship function, $l_t$, which is effectively a declining $\mathbb{P}(survival to t)$ \autocite{Benoit2018, Laird2010, Reznick2002, Reznick2006}. Thus, the instanteous reproductive output at time $t$ is the product $l_{t}b_{t}$ and the lifetime reproductive output is:
+\begin{equation}
+    R_{0} = \int_{\alpha}^{\infty}l_{t}b_{t} dt
+\end{equation}
+Since fish live in a juvenile and adult phase, they are subject to different mortality rates through ontogeny. Juvenile mortality ($t_0 \rightarrow t_{\alpha}$) controls how many fish are recruited into the adult phase and thus acts as a scaling factor for adult mortality ($t_{\alpha} \rightarrow t_{\infty}$). $\rho$ and $c$ vary in order to maximise the quantity:
+\begin{equation}
+    R_{0} = c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt
+\end{equation}
+A common utility in comparative life histories in fish is the invariance of dimensionless quantities derived from the timing of LH events. That is, across species within a taxon, certain ratios appear invariant. It has been shown for fish that the ratio of age-at-maturity and mortality rate, $\alpha\cdot Z \approx 2$ \autocite{charnov1993}. As such I employed a rearrangement of this to calculate mortality rate for a given $\alpha$ value.
+See SI for full derivation.
+
+Growth trajectory simulations and life history optimisations were run using an ODE numerical integrater in Julia v1.1.1 \autocite{Bezanson2017} to solve the biphasic model.
+%%% Results %%%
+\section{Results}\thispagestyle{empty}
+\lipsum
+
+%%% Discussion %%%
+\section{Discussion}\thispagestyle{empty}
+\lipsum
+
+%%% Conclusion %%%
+\section{Conclusion}\thispagestyle{empty}
+\lipsum
+
+%%% Bibliography %%%
+\addcontentsline{toc}{section}{Bibliography}
+\newpage\let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
+
+%%% SI %%%
+\addcontentsline{toc}{section}{Supplementary Information}
+% \includepdf[pages=-]{Vassor_L_J_CMEE_Thesis_2019_Supplementary_Information.pdf}
+
+\end{document}
