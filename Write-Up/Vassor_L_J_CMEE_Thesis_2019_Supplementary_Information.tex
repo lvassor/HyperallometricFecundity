@@ -36,6 +36,13 @@
 \usepackage{multicol}
 \usepackage{soul}
 \usepackage{tabularx}
+\usepackage{array}
+
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
 \usepackage{xcolor}
 \usepackage{lscape}
 \newcolumntype{s}{>{\hsize=1\hsize}X}
@@ -98,26 +105,27 @@
 % \Large
 \section{Paramters and Scaling}
 \begin{table}[H]
-    \caption{Details of notation used in this thesis}
+    \caption{Parameterisations for the scaling relationships underlying the growth model. All units are in SI.}
     \begin{tabularx}{\linewidth}{Xlllll}
-    \hline
-    \textbf{Description}                                                            & \textbf{Symbol}      & \textbf{Value $\pm$ 95\% CI}   & \textbf{Units}     & \textbf{Range}   & \textbf{Source}   \\ \hline
-    Body mass                                                                       & $m$                  &                                & \textsc{grams}     &                  &                   \\ \hline
-    energy intake/acquisition                                                       & $am$                 &                                & \textsc{grams/sec} &                  &                   \\ \hline
-    maintenance metabolic rate of each cell divided by cost of building a new cell  & $b$                  &                                & \textsc{grams/sec} &                  &                   \\ \hline
-    reproduction allocation                                                         & $cm$                 & \textsc{variable}              & \textsc{grams/sec} &                  &                   \\ \hline %\autocite{peters1983,Blueweiss1978}
-    mass scaling exponent for energy intake                                         & $y$                  & $0.75$                         & \textsc{}          &                  &                   \\ \hline
-    mass scaling exponent for maintenance                                           & $z$                  & $1.00$                         & \textsc{}          &                  &                   \\ \hline
-    mass scaling exponent for reproduction                                          & $\rho$               & \textsc{variable}              & \textsc{}          & [1.20,1.38]      &                   \\ \hline %$1.29$ \autocite{Barneche2018d}
-    age at maturity (onset of reproduction)                                         & $\alpha$             &                                & \textsc{days}      &                  &                   \\ \hline
-    Consumption rate                                                                & $C(t)$               &                                & \textsc{grams/sec} &                  &                   \\ \hline
-    mass scaling exponent for consumption rate                                      & $\gamma$             &                                & \textsc{}          & [0.75,1.06]      &                   \\ \hline
-    mass scaling exponent for foraging time (bout length)                           & $\psi$               & $0.75$                         & \textsc{sec}       &                  &                   \\ \hline
-    mass at maturity                                                                & $m_{\alpha}$         &                                & \textsc{grams}     &                  &                   \\ \hline
-    asymptotic/terminal size                                                        & $M$ or $m_{\infty}$  &                                & \textsc{grams}     &                  &                   \\ \hline
+    \thickhline
+    \textbf{Description}                                                            & \textbf{Symbol}      & \textbf{Value}                 & \textbf{Units}     & \textbf{Range}   & \textbf{Source}   \\ \thickhline
+    Body mass                                                                       & $m$                  & 0.2                            & g    &                  &                   \\ \hline
+    Energy Intake/Acquisition Rate                                                  & $a$                   & $a/(M)^{0.25}$                & g $\cdot$ s$^{-1}$ &                  &                   \\ 
+                                                                                    & $y$                  & $0.75$                         & \textsc{}          &                  &                   \\ \hline
+    Maintenance Metabolic Rate                                                      & $b$                  &                                & g $\cdot$ s$^{-1}$ &                  &                   \\ 
+                                                                                    & $z$                  & $1.00$                         & \textsc{}          &                  &                   \\ \hline
+    Rate of allocation to reproduction                                              & $cm$                 & \textsc{variable}              & g $\cdot$ s$^{-1}$ & 0.001 - 0.4      &                   \\  %\autocite{peters1983,Blueweiss1978}
+                                                                                    & $\rho$               & \textsc{variable}              & \textsc{}          & 0.001 - 1.25     &                   \\ \hline %$1.29$ \autocite{Barneche2018d}
+    Age at maturity (onset of reproduction)                                         & $\alpha$             &                                & \textsc{days}      &                  &                   \\ \hline
+    Consumption rate                                                                & $C(t)$               &                                & g $\cdot$ s$^{-1}$ &                  &                   \\ \hline
+                                                                                    & $\gamma$             &                                & \textsc{}          & 0.75 - 1.06      &                   \\ \hline
+    Foraging length                                                                 & $t_0$               & $0.75$                          & s      &                  &                   \\
+                                                                                    & $\psi$               & $0.75$                         & s       &                  &                   \\ \hline
+    mass at maturity                                                                & $m_{\alpha}$         &                                & g     &                  &                   \\ \hline
+    asymptotic/terminal size                                                        & $M$ or $m_{\infty}$  &                                & g     &                  &                   \\ \hline
     Probability of survival to time $t$                                             & $L_t$                &                                & \textsc{}          &                  &                   \\ \hline
     Rate of instantaneous mortality                                                 & $Z$                  &                                & \textsc{}          &                  &                   \\ \hline
-    Gonadosomatic Index; proportion of somatic body mass given to repro per year    & GSI                  &                                & \textsc{}          &                  &                   \\ \hline
+    Gonadosomatic Index; proportion of somatic body mass given to repro per year    & GSI                  &                                & \textsc{}          &                  &                   \\ \thickhline
     \end{tabularx}
 \end{table}
 \newpage
@@ -217,7 +225,7 @@ Since fish live in a juvenile and adult phase, they are subject to varying morta
           &= cL_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
           &= c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \numberthis \label{LHT_optimisation}
 \end{align*}
-The perform this optimisation, the analytical goal would be to solve \eqref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
+To perform this optimisation, the analytical goal would be to solve \eqref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
 
 \section{Incorporating Consumption Rate}
 At any time $t$, growth rate is considered as the difference between supply and expenditure. Thus we can incorporate intake scaling into this supply term.
@@ -271,47 +279,47 @@ Further, it has also been shown that the assumption of resting metabolic rate sc
 
 \begin{table}[H]
     \caption{Model literature for Ontogenetic Growth including discipline of origin and reproductive scaling}
-    \begin{tabular}{|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|l|}
     \hline
-    \textbf{Study}                          & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} & \textbf{Refs} \\ \hline
-    \autocite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                        & (40)          \\ \hline
-    \autocite{Roff1983}                     & Life history              & Isometric        & Assumption                        & (41)          \\ \hline
-    \autocite{Roff1984}                     & Life history              & Isometric        & Assumption                        & (42)          \\ \hline
-    \autocite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                        & (43)          \\ \hline
-    \autocite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                        & (44)          \\ \hline
-    \autocite{kozlowski1996}                & Life history              & Variable         & Prediction                        & (45)          \\ \hline
-    \autocite{West2001}                     & Mechanistic               & Isometric        & Assumption                        & (46)          \\ \hline
-    \autocite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                        & (47)          \\ \hline
-    \autocite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                        & (48)          \\ \hline
-    \autocite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (49)          \\ \hline
-    \autocite{Roff2006}                     & Life history              & Isometric        & Assumption                        & (50)          \\ \hline
-    \autocite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (51)          \\ \hline
-    \autocite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                        & (51)          \\ \hline
-    \autocite{Pecquerie2009}                & Life history              & Isometric        & Assumption                        & (52)          \\ \hline
-    \autocite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                        & (53)          \\ \hline
-    \autocite{Arendt2011}                   & Life history              & Isometry         & Assumption                        & (54)          \\ \hline
-    \autocite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                        & (55)          \\ \hline
-    \autocite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                        & (56)          \\ \hline
-    \autocite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                        & (57)          \\ \hline
-    \autocite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                        & (58)          \\ \hline
-    \autocite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                        & (59)          \\ \hline
-    \autocite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                        & (60)          \\ \hline
-    \autocite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                        & (61)          \\ \hline
-    \autocite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                        & (62)          \\ \hline
-    \autocite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                        & (63)          \\ \hline
-    \autocite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                        & (63)          \\ \hline
-    Beverton and Holt (1957)                & Fisheries                 & Isometric        & Assumption                        & (2)           \\ \hline
-    Scott \textit{et al}. (2006)            & Fisheries                 & Hyperallometric  & Assumption                        & (64)          \\ \hline
-    Jørgensen and Fisken (2006)             & Fisheries                 & Isometric*       & Assumption                        & (65)          \\ \hline
-    Enberg \textit{et al}. (2010)           & Fisheries                 & Isometric        & Assumption                        & (66)          \\ \hline
-    Eikeset \textit{et al}. (2013)          & Fisheries                 & Isometric        & Assumption                        & (67)          \\ \hline
-    Lester \textit{et al}. (2014)           & Fisheries                 & Isometric        & Assumption                        & (68)          \\ \hline
-    Andersen and Beyer (2015)               & Fisheries                 & Isometric        & Assumption                        & (69)          \\ \hline
-    Eikeset \textit{et al}. (2016)          & Fisheries                 & Isometric        & Assumption                        & (70)          \\ \hline
-    Andersen \textit{et al}. (2016)         & Fisheries                 & Isometric        & Assumption                        & (12)          \\ \hline
-    Zimmerman and Jørgensen (2016)          & Fisheries                 & Isometric        & Assumption                        & (71)          \\ \hline
-    Hartvig \textit{et al}. (2011)          & Food web                  & Isometric        & Assumption                        & (72)          \\ \hline
-    Carozza \textit{et al}. (2016)          & Food web                  & Isometric        & Assumption                        & (73)          \\ \hline
+    \textbf{Study}                          & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} \\ \hline
+    \autocite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                     \\ \hline
+    \autocite{Roff1983}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \autocite{Roff1984}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \autocite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                     \\ \hline
+    \autocite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                     \\ \hline
+    \autocite{kozlowski1996}                & Life history              & Variable         & Prediction                     \\ \hline
+    \autocite{West2001}                     & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \autocite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \autocite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \autocite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \autocite{Roff2006}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \autocite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \autocite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                     \\ \hline
+    \autocite{Pecquerie2009}                & Life history              & Isometric        & Assumption                     \\ \hline
+    \autocite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                     \\ \hline
+    \autocite{Arendt2011}                   & Life history              & Isometry         & Assumption                     \\ \hline
+    \autocite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                     \\ \hline
+    \autocite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \autocite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \autocite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \autocite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                     \\ \hline
+    \autocite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \autocite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \autocite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                     \\ \hline
+    \autocite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \autocite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    Beverton and Holt (1957)                & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Scott \textit{et al}. (2006)            & Fisheries                 & Hyperallometric  & Assumption                     \\ \hline
+    Jørgensen and Fisken (2006)             & Fisheries                 & Isometric*       & Assumption                     \\ \hline
+    Enberg \textit{et al}. (2010)           & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Eikeset \textit{et al}. (2013)          & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Lester \textit{et al}. (2014)           & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Andersen and Beyer (2015)               & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Eikeset \textit{et al}. (2016)          & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Andersen \textit{et al}. (2016)         & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Zimmerman and Jørgensen (2016)          & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Hartvig \textit{et al}. (2011)          & Food web                  & Isometric        & Assumption                     \\ \hline
+    Carozza \textit{et al}. (2016)          & Food web                  & Isometric        & Assumption                     \\ \hline
     \end{tabular}
 \end{table}
 
