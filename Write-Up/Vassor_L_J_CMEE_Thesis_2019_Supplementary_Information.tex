@@ -47,6 +47,7 @@
     % \renewcommand*\finalnamedelim{\addspace\&\space}
 % Force \textit{et al}. to be italicised
 \usepackage{xpatch}
+\xpretocmd{\eqref}{Eq.~}{}{}
     \xpatchbibmacro{name:andothers}{%
         \bibstring{andothers}%
     }{%
@@ -98,46 +99,45 @@
 \section{Paramters and Scaling}
 \begin{table}[H]
     \caption{Details of notation used in this thesis}
-    \begin{tabularx}{\linewidth}{|l|X|l|X|l|}
+    \begin{tabularx}{\linewidth}{Xlllll}
     \hline
-    Param               & Description                                                       & Units                     & Value                                         & Bounds        \\ \hline
-    $m$                 & Body mass                                                         & Grams                     &                                               &               \\ \hline
-    $a$                 & coefficient for energy/resource intake/acquisition                &                           &                                               &               \\ \hline
-    $b$                 & coefficient for maintenance                                       &                           &                                               &               \\ \hline
-    $c$                 & proportion of mass devoted to reproduction                        & Mass/Time                 & $0.1$ \autocite{peters1983,Blueweiss1978}     &                \\ \hline
-    $y$                 & mass scaling exponent for energy intake                           &                           & $0.75$                                        &               \\ \hline
-    $z$                 & mass scaling exponent for maintenance                             &                           & $1.00$                                        &               \\ \hline
-    $\rho$              & mass scaling exponent for reproduction                            &                           & $1.29$ \autocite{Barneche2018d}               & [1.20,1.38]   \\ \hline
-    $\alpha$            & age at maturity (onset of reproduction)                           & Time                      &                                               &               \\ \hline
-    $C(t)$              & Consumption rate                                                  & Mass/Time                 &                                               &               \\ \hline
-    $\gamma$            & mass scaling exponent for consumption rate                        &                           &                                               & [0.75,1.06]   \\ \hline
-    $\psi$              & mass scaling exponent for foraging time (bout length)             & Time                      & $0.75$                                        &               \\ \hline
-    $m_{\alpha}$        & mass at maturity                                                  & Grams                     &                                               &               \\ \hline
-    $M$ or $m_{\infty}$ & asymptotic/terminal size                                          & Grams                     &                                               &               \\ \hline
-    $L_t$               & Probability of survival to time $t$                               &                           &                                               &               \\ \hline
-    $Z(t)$              & Intantaneous mortality rate at time $t$                           & 1/Time                    &                                               &               \\ \hline
-    GSI                 & Gonadosomatic Index; proportion body mass given to repro per year & 1/Time                    &                                               &               \\ \hline
-\end{tabularx}
+    \textbf{Description}                                                            & \textbf{Symbol}      & \textbf{Value $\pm$ 95\% CI}   & \textbf{Units}     & \textbf{Range}   & \textbf{Source}   \\ \hline
+    Body mass                                                                       & $m$                  &                                & \textsc{grams}     &                  &                   \\ \hline
+    energy intake/acquisition                                                       & $am$                 &                                & \textsc{grams/sec} &                  &                   \\ \hline
+    maintenance metabolic rate of each cell divided by cost of building a new cell  & $b$                  &                                & \textsc{grams/sec} &                  &                   \\ \hline
+    reproduction allocation                                                         & $cm$                 & \textsc{variable}              & \textsc{grams/sec} &                  &                   \\ \hline %\autocite{peters1983,Blueweiss1978}
+    mass scaling exponent for energy intake                                         & $y$                  & $0.75$                         & \textsc{}          &                  &                   \\ \hline
+    mass scaling exponent for maintenance                                           & $z$                  & $1.00$                         & \textsc{}          &                  &                   \\ \hline
+    mass scaling exponent for reproduction                                          & $\rho$               & \textsc{variable}              & \textsc{}          & [1.20,1.38]      &                   \\ \hline %$1.29$ \autocite{Barneche2018d}
+    age at maturity (onset of reproduction)                                         & $\alpha$             &                                & \textsc{days}      &                  &                   \\ \hline
+    Consumption rate                                                                & $C(t)$               &                                & \textsc{grams/sec} &                  &                   \\ \hline
+    mass scaling exponent for consumption rate                                      & $\gamma$             &                                & \textsc{}          & [0.75,1.06]      &                   \\ \hline
+    mass scaling exponent for foraging time (bout length)                           & $\psi$               & $0.75$                         & \textsc{sec}       &                  &                   \\ \hline
+    mass at maturity                                                                & $m_{\alpha}$         &                                & \textsc{grams}     &                  &                   \\ \hline
+    asymptotic/terminal size                                                        & $M$ or $m_{\infty}$  &                                & \textsc{grams}     &                  &                   \\ \hline
+    Probability of survival to time $t$                                             & $L_t$                &                                & \textsc{}          &                  &                   \\ \hline
+    Rate of instantaneous mortality                                                 & $Z$                  &                                & \textsc{}          &                  &                   \\ \hline
+    Gonadosomatic Index; proportion of somatic body mass given to repro per year    & GSI                  &                                & \textsc{}          &                  &                   \\ \hline
+    \end{tabularx}
 \end{table}
 \newpage
 %% Begin derivation from master equation %%
 
 \section{Ontogenetic Growth Model}
 \subsection{Model derivation from the Energy Balance Equation}
-Ontogenetic development is fuelled by metabolism and occurs \textcolor{red}{primarily by cell division}. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During growth, some fraction of this energy is allocated to the production ofnew tissue. Thus, the rate ofenergy transformation is the sum of two terms, one of which represents the maintenance of existing tissue, and the other, the creation of new tissue. This is expressed by the conservation of energy equation:
+\cite{West2001} develop their prior work \autocite{West1997} to capture growth. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogenty, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the creation of new tissue. This is expressed by the dynamic conservation of energy equation presented by:
 \begin{align}
-    B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg]
+    B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \label{master_balance}
 \end{align}
-The incoming rate of energy flow, $B$, is the \textcolor{red}{resting metabolic rate} of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell (joules/sec), $E_c$ is the metabolic energy required to create a cell (joules) and $N_c$ is the total number of cells; the sum is over all types of tissue. Possible differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power needed to sustain the \textcolor{red}{activities of each cell (maintenance metabolism)}, as a single metabolic unit, whereas the second is the power allocated to production of new cells and therefore to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$, are assumed to be independent of $m$ remaining constant throughout growth and development. Equation (1) can be rearranged to find the rate of cell growth at time $t$: 
-\begin{align*}
-    B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}
-    \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \numberthis \label{cell_rate}
-\end{align*}
-This rearrangement reveals a crucial assumption of the model which is that growth of new cells is derived from \textit{surplus} metabolic energy remaining after cellular processes have been addressed. I.e. they are non-negotiable:
+The incoming rate of energy flow, $B$, is the resting metabolic rate of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell (\textsc{joules/sec}), $E_c$ is the metabolic energy required to create a single cell (\textsc{joules}) and $N_c$ is the total number of cells; the sum is over all types of tissue. Differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power (\textsc{watts or joules/sec} needed to maintain the total biomass of the organsim, or background maintenance, a resting metabolic process. The second is the power allocated to production of new cells and therefore to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$, (\textsc{grams}) are assumed to be independent of $m$ remaining constant throughout growth and development. \eqref{master_balance} can be rearranged to find the rate of cell growth at time $t$: 
+\begin{align}
+    \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \label{cell_rate}
+\end{align}
+This rearrangement reveals a crucial assumption of the model which is that growth of new cells is derived from \textit{surplus} metabolic energy remaining after cellular processes have been addressed ($N_{c}B_{c}$). That is, these processes are non-negotiable:
 \begin{align*}    
     \frac{dN_{c}}{dt} &= \frac{\textsc{Surplus energy}}{\textsc{Cost of creating single cell}}
 \end{align*}
-At any time $t$ the total body mass is the number of cells multiplied by the mass of a single cell, $m = N_{c}m_{c}$. Thus, we can multiply equation \eqref{cell_rate} by $m_{c}$ to find the rate of whole-organism growth (change in organism mass $m$) at time $t$. can be re-written to find the continuous change in total body mass as a non-homogenous ODE:
+At any time $t$ the total body mass $m$ is the number of cells multiplied by the mass of a single cell, $m = N_{c}m_{c}$. Thus, we can multiply equation \eqref{cell_rate} by $m_{c}$ to find the rate of whole-organism growth (change in organism mass $m$) at time $t$:
 \begin{align*}
     \Bigg(\frac{dN_{c}}{dt}\Bigg)m_c &= \Bigg(\frac{B - N_{c}B_{c}}{E_{c}}\Bigg)m_c \\
     \Bigg(\frac{dN_{c}}{dt}\Bigg)m_c &= \Bigg(\frac{Bm_c - N_{c}m_{c}B_{c}}{E_c}\Bigg) \\
@@ -146,10 +146,15 @@ At any time $t$ the total body mass is the number of cells multiplied by the mas
     \frac{dm}{dt} &= \Bigg(\frac{Bm_c}{E_c}\Bigg) - \Bigg(\frac{mB_{c}}{E_c}\Bigg) \\
     \frac{dm}{dt} &= \Bigg(\frac{m_c}{E_c}\Bigg)B - \Bigg(\frac{B_{c}}{E_c}\Bigg)m \numberthis \label{growth_pre_sub}
 \end{align*}
-Arriving at equation \eqref{growth_pre_sub} which we can define qualitatively in terms of cellular-level phenomena. The first term is the mass of a single cell divided by the cost of building a cell, dimension mass/joules, i.e. how many units of mass can be built from a single joule of energy. This is multiplied by the energy inflow ($B$) in joules (thus joules units cancel out, left with only mass/time - correct for $dm/dt$). This translates to ``how much mass can I build given the energy ($B$) I have available.'' If maintenance (second term) did not exist, this first term would represent all growth. The second term reresents maintenance. It is the metabolic rate of single cell divided by the cost of building a cell, dimension joules/sec/joules or 1/sec. This is multiplied by mass, thus units are mass/time, correct. i.e. 
+We can define \eqref{growth_pre_sub} qualitatively in terms of cellular-level phenomena. The first term is the mass of a single cell divided by the energy required to build a single cell, (\textsc{mass/joules}), i.e. how many individual cells can be built from a single \textsc{joule} of energy. This is multiplied by the energy inflow ($B$) (\textsc{joules/sec}), thus \textsc{joules} units cancel out, left with only \textsc{mass/time}. Qualitatively this tells us: ``how much mass can I build per second given the energy ($B$) I have available per second.'' If maintenance (second term) did not exist, this first term would represent all growth. The second term represents the metabolic rate of single cell (\textsc{joules/sec}) divided by the energetic cost of building a cell (\textsc{joules}), which is all multiplied by mass, thus units are (\textsc{mass/time}).
+\begin{align*}
+    \frac{\textsc{mass}}{\textsc{sec}} &= \frac{\textsc{mass}}{\textsc{joules}}\cdot\frac{\textsc{joules}}{\textsc{sec}} - \frac{\frac{\textsc{joules}}{\textsc{sec}}}{\textsc{joules}}\cdot\textsc{mass} \\
+    \frac{\textsc{mass}}{\textsc{sec}} &= \frac{\textsc{mass}}{\textsc{\st{joules}}}\cdot\frac{\textsc{\st{joules}}}{\textsc{sec}} - \frac{\frac{\textsc{\st{joules}}}{\textsc{sec}}}{\textsc{\st{joules}}}\cdot\textsc{mass} \\
+    \frac{\textsc{mass}}{\textsc{sec}} &= \frac{\textsc{mass}}{\textsc{sec}} - \frac{\textsc{mass}}{\textsc{sec}} \\
+\end{align*}
 %     \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m
 % \end{align}
-Now, an assumption of MTE is that the incoming rate of energy scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is a normalising constant for a given taxon. We can substitute this into equation \ref{growth_pre_sub}.
+Now, MTE states that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is a normalising constant for a given taxon. This substitution leads to the general growth equation \eqref{growth_pre_sub}.
 \begin{align*}
     \frac{dm}{dt} &= \bm{\Bigg(\frac{m_c}{E_c}\Bigg)B_{0}}m^{3/4} - \bm{\Bigg(\frac{B_{c}}{E_c}\Bigg)}m \\
 \end{align*}
@@ -160,53 +165,61 @@ At this point we can define two new constants, $a \equiv B_{0}m_{c}/E_{c}$ and $
 \begin{equation}
     \frac{dm}{dt} = am^{3/4} - bm \label{west_model}
 \end{equation}
-$a$ translates to the amount of cell matter you can build per unit of energy (mass/joules) multiplies by the rate of inflow of energy (joules/second) = the mass of cells you can build given your energy supply. The 3/4 exponent is well supported by data on mammals, birds, fish, molluscs, and plants. Individual production (growth) prior to the initiation of reproduction is assumed to follow the differential equation.
-
-\subsection{Introducing Reproduction}
 This equation excludes reproduction and would result in sigmoid growth to an asymptotic size, $M$. We can find find this asymptotic size in terms of $a$ and $b$ analytically since change in growth at terminal size, $\frac{dm}{dt} = 0$. Thus we set \eqref{west_model} to 0 as follows:
 \begin{align*}
-    am^{3/4} - bm &= 0 \\
-    am^{3/4} &= bm \\
-    \frac{am^{3/4}}{m} &= b \\
-    am^{-1/4} &= b \\
-    \frac{a}{m^{1/4}} &= b \\
-    m^{1/4} &= \frac{a}{b} \\
-    m &= \Big(\frac{a}{b}\Big)^4
+    aM^{3/4} - bM &= 0 \\
+    aM^{3/4} &= bM \\
+    \frac{aM^{3/4}}{M} &= b \\
+    aM^{-1/4} &= b \\
+    \frac{a}{M^{1/4}} &= b \\
+    M^{1/4} &= \frac{a}{b} \\
+    M &= \Big(\frac{a}{b}\Big)^4
 \end{align*}
-To add reproduction, we note that gonad mass in fish is commonly proportional to body mass; thus, after the onset of reproduction (age $\alpha$) at size $m_{\alpha}$ we introduce a reproduction term so growth follows:
-\begin{align*}
-    \frac{dm}{dt} &= am^{3/4} - bm - cm
-\end{align*}
-where $c \cdot m$ is the reproductive allocation. Since maintenance and reproduction ($bm$ and $cm$) scale linearly with mass, we can factorise the last two terms to predict what will happen to asymptotic size using the same method as above:
-\begin{align*}
-    \frac{dm}{dt} &= am^{3/4} - (b+c)m
-\end{align*}
-In this sense, the onset of reproduction can be viewed mathematically as an increase in maintenance cost since $(b+c)$ is a new constant in its own right. As such, the asymptotic size simply shifts downward - we can calculate this using the same method as above:
-\begin{align*}
-    am^{3/4} - bm - cm &= 0 \\
-    am^{3/4} - (b+c)m &= 0 \\
-    am^{3/4} &= (b+c)m \\
-    \frac{am^{3/4}}{m} &= (b+c) \\
-    am^{-1/4} &= (b+c) \\
-    \frac{a}{m^{1/4}} &= (b+c) \\
-    m^{1/4} &= \frac{a}{(b+c)} \\
-    m &= \Bigg(\frac{a}{(b+c)}\Bigg)^4
-\end{align*}
-This highlights the cost to growth reproduction introduces. Thus, lifetime growth as rate and asymptotic size reflects both the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction, since these two life history events dictate how long for and how much an organism is devoting to energy, respectively. The later a fish begins to reproduce, the later this cost to growth is introduced, thus permitting a greater terminal size to be reached. (Assuming that there is no pre-maturity allocation to reproduction). As a result we arrive at the following pairwise growth equations:
 
+\subsection{Introducing Reproduction}
+To add reproduction, we note that gonad mass in fish is proportional to body mass \autocite{Charnov2001, Roff1983, peters1983, kozlowski1996}; thus, after the onset of reproduction (age $\alpha$) at size $m_{\alpha}$ we introduce a reproduction term so ontogenetic growth follows a biphasic model:
 \begin{align*}
     \frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha} \\
-    \frac{dm}{dt} &= am^{3/4} - bm - cm \ \ \ \ \ m \geq m_{\alpha}
+    \frac{dm}{dt} &= am^{3/4} - bm - cm \ \ \ \ \ m \geq m_{\alpha} \numberthis \label{charnov2001} \\
+    &= am^{3/4} - (b+c)m
 \end{align*}
+where $c \cdot m$ is the reproductive allocation. Since maintenance and reproduction ($bm$ and $cm$) both scale linearly with mass, we can factorise the last two terms to predict that asymptotic size $M$ is now brought down. In this sense, the onset of reproduction can be viewed mathematically as an increase in maintenance cost since $(b+c)$ is a new constant in its own right:
+\begin{align*}
+    aM^{3/4} - (b+c)M &= 0 \\
+    aM^{3/4} &= (b+c)M \\
+    \frac{aM^{3/4}}{M} &= (b+c) \\
+    aM^{-1/4} &= (b+c) \\
+    \frac{a}{M^{1/4}} &= (b+c) \\
+    M^{1/4} &= \frac{a}{(b+c)} \\
+    M &= \Bigg(\frac{a}{(b+c)}\Bigg)^4
+\end{align*}
+This reduction highlights the cost to growth reproduction introduces, since there is less energetic scope for growth after $\alpha$. To this end, the earlier a fish matures, and the more fecund it is, its growth rate and asymptotic size will both reducte, reflecting both the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
 
 \subsection{Assumptions}
-A crucial axiom of the growth model in \eqref{west_model} proposed by \cite{West2001} is that energy intake is simply a function of metabolic rate, which scales with body size ($m$) to an exponent of $0.75$, as predicted by Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. To date, I have found no growth models which consider the scaling of resource supply or intake rate with mass. As with most biological rates, an economy of scale can be observed with size, and resource supply is no exception. Given this assertion, the scaling of resource supply used in extant models, such as \cite{West2001, Charnov2001}, may not abide by the ubiquitous $3/4$ power. This deviation arises for two reasons \autocite{Pawar2012}. Firstly, foraging is controlled by traits, some morphological, ``such as length of locomotory appendages or visual acuity,, which do not scale with metabolic rate. Second, and crucial in the context of growth models, species interactions in the field do not occur under the idealized conditions at which metabolic and ingestion rates are usually measured, in which individuals are not foraging, growing or reproducing. These interactions may scale at values closer to field metabolic rate (exponent > 0.85)''. Since the fundamental structure of growth models, mechanistic or otherwise, is that the scope for growth is determined by the difference between energy supply and energy expenditure, extant models ignore this scaling of supply at their own risk.
+An axiom of the growth model in \eqref{west_model} proposed by \cite{West2001} is that energy intake follows a simple relationship with resting metabolic rate, which scales with body size ($m$) to an exponent of $3/4$, as predicted by \cite{West1997} and used in the Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. The assumptions of resting metabolic rate data are that the study organism is under ``idealised conditions'' i.e. not foraging, reproducing or growing. Consequently, it is puzzling that \cite{West2001} and those who develop their model, use a resting metabolic metric for energy intake, which is an active metabolic process. This is an interesting assumption since for most organisms, garnering energy from the environment involves foraging bouts, an active metabolic activity. 
 
-Here, I reconcile this gap in the literature by incorporating the mass-scaling of resource supply into the existing \cite{West2001} model (equation \eqref{west_model}). Consequences of agnosticism toward scaling of supply manifest themselves in various literature. Firstly, when \cite{West2001} fit their model as a ``universal'' growth curve to data with mass and time collapsed to dimensionless quantities. Whilst the curve fits the growth data well across species, there are noticeable deviations from it. We hypothesise that this is because energy intake ($am^{3/4}$) is not constant, as implied by the $am^{3/4}$ resource supply term. In fact, consumers switch between resource-saturated and depleted environments as well as dimensions during their lifetime \autocite{Pawar2012}. This ultimately means that the surplus energy available to be allocated to growth is not a fixed scaling of mass throughout ontogeny. Given this supposition, the energy available to grow can change for potentially vast periods of ontogenetic time, hence why organisms' growth trajectories do not fall neatly on this curve.
+\section{Life History Optimisation}
+\subsection{Invariant Values}
+Across taxa, certain life history variables representing the timing and magnitude of reproduction form dimensionless, invariant ratios \autocite{Charnov1993}. These are particularly useful for comparative life histories as these numbers typically remain invariant within a given taxon, e.g. fish. I utilise these to parameterise the life history model below which is maximised as part of the simulations. In fish, the quantity representing age at maturity multiplied by mortality rate, $\alpha\cdot Z \approx 2$ \autocite{Charnov2001}. I rearrange this to parameterise mortality rate $Z = 2/{\alpha}$.
 
-Another consequence follows from recent findings on fish growth by \cite{Barneche2018d}. Fish fecundity was found to scale hyperallometrically with size (i.e. larger mothers are disproportionately more fecund). However when simulating this model, superlinear scaling of reproduction (introduced at reproduction) dominates the sublinear and linear terms in the equation resulting in shrinking fish i.e. $dm/dt < 0$ (i.e. when $am^{3/4} < bm + cm^{\rho}$). In light of this, consideration of resource supply scaling becomes even more relevant, since this may account for the energy ``shortfall'' causing the shrinkage. (i.e. $\frac{dm}{dt} < 0$) until supply and cost then become equal again (as $\frac{dm}{dt} \rightarrow 0$). 
+\subsection{Lifetime Reproduction}
+I assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you with. However, optimisation of reproduction parameters invokes life history theory, which assumes that natural selection optimises strategies, or $c$ and $\rho$ to maximise fitness, where lifetime reproductive output can be used as a proxy for fitness, denoted $R_0$, which can be derived from theoretical evolution studies \autocite{Charnov2001, stearns1992evolution}.
 
-\section{Ontogenetic Growth Models}
+At any time $t$, $b_{t}$ is the \textit{effective} energy allocated by fish to reproduction, the product of the physiological allocation of resources, $cm^{\rho}$ and an efficiency term $h(m)$ representing a declining efficiecny of this allocation, known as reproductive senescence, the natural decline in fecundity as fish age \autocite{Stearns2000, Benoit2018, Vrtilek2018}. This decline begins at maturity ($\alpha$) and is controlled by a rate parameter $\kappa$. Fish also experience an extrinsic mortality rate, or actuarial senescence, contained in a surivorship function, $l_t$, which is effectively a declining $\mathbb{P}(survival to t)$ \autocite{Charnov1993, Charnov2001, Benoit2018, Laird2010, Reznick2002, Reznick2006}. Thus, the instanteous reproductive output at time $t$ is the product $l_{t}b_{t}$ and the lifetime reproductive output is:
+\begin{equation}
+    R_{0} = \int_{\alpha}^{\infty}l_{t}b_{t} dt
+\end{equation}
+Since fish live in a juvenile and adult phase, they are subject to varying mortality rates through ontogeny. Juvenile mortality ($t_0 \rightarrow t_{\alpha}$) controls how many fish are recruited into the adult phase and, since it follows an exponential distribution, $l_t = e^{-\int_{0}^{\alpha}Z(t)dt}$ bounded [0,1] it thus acts as a scaling factor, denoted $L_{\alpha}$, for the mature population ($t_{\alpha} \rightarrow t_{\infty}$). For adults survival is \textbf{relative to when maturity is reached}, $l_{t} = e^{-Z(t-\alpha)}$.
+\begin{align*}
+    R_{0} &= \int cm^{\rho}h(t) \cdot L_{t} dt \\
+          &= \int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} L_{\alpha}e^{-Z(t-\alpha)} dt \\
+          &= L_{\alpha}\int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} \cdot e^{-Z(t-\alpha)} dt \\
+          &= cL_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
+          &= c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \numberthis \label{LHT_optimisation}
+\end{align*}
+The perform this optimisation, the analytical goal would be to solve \eqref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
+
+\section{Incorporating Consumption Rate}
 At any time $t$, growth rate is considered as the difference between supply and expenditure. Thus we can incorporate intake scaling into this supply term.
 We know that at time $t$, organisms consume resource at a rate proportional to their size:
 \begin{align*}
@@ -231,7 +244,7 @@ where $C_{tot}$ has dimensions mass. I can assume that fish begin to allocate to
 \begin{align}
     \varepsilon C_{0}t_{0}m^{\gamma + \psi} \label{intake_term}
 \end{align} 
-The origin of the $3/4$ intake scaling in equation (3) is one of the fundamental axioms of metabolic theory \autocite{West1997,West2001} which states the resource delivery to cells is constrained by the fractal-like structure of a branching capillary network, invoking the geometry of fractal dimensions. However, \cite{West2001} assume basal metabolic rates and that $B$ is a constant, satisfied energy influx. In other words, energy delivered to cells is constrained only by the fractal structure but energy into the fractal structure itself is constant ($a$). We challenge this assumption with the scaling of energy intake/consumption rate in equation (10). Thus we must first find the distribution ``efficiency'' per unit mass of energy moving around the fractal network, ${am^{3/4}}/m = am^{-1/4}$. We can now multiply this distribution term by our total energy intake term from equation (10):
+We can now multiply this distribution term by our total energy intake term from equation (10):
 In order to substitute our new term \eqref{intake_term} we must consider the dimensions of the original growth equation \eqref{west_model} on both sides, which must balance out.
 \begin{align}
     \frac{dm}{dt} &= am^{3/4} - bm \\
@@ -252,69 +265,6 @@ One can now observe that if consumption rate scales with mass for amount and tim
 \end{align}
 Further, it has also been shown that the assumption of resting metabolic rate scaling may also be false in consumption rate scaling, as active MR has been shown to scale more steeply. If it is the case that consumption scales with active MR then it is likely that the total exponent value for $a_{0}m^\phi$ may be even larger.
 
-\section{Life History Optimisation}
-\subsection{Invariant Values}
-\subsection{Lifetime Reproduction}
-We assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you with. However, it is assumed that fish can optimise the proportion of their mass that they allocate to reproduction, $c$. This optimisation invokes life history theory, which assumes that all organisms optimise their strategy to maximise reproductive output. At any time $t$, fish allocate $b_{t}$ of their total mass to reproduction, $= cm^{\rho}h(m)$, where $h(m)$ is an efficiency term describing the lifetime decline in fecundity. 
-
-Thus their lifetime reproductive output as mass is the integral over the time period in which they are reproducing. (We assume for intake that they put growth on pause which would include reproduction, but over the timescale of the lifetime it can be assumed that they are effectively allocating to growth and reproduction continuously). 
-Reproduction at time $t$ also has a probability associated with it since there is a probability of organism being alive at time $t$. We denote this as the survivorship probability, $\mathbb{P}$(Survival to $t$) $= l_{t}$, which decays as as an exponential function of time at a rate we denote $\kappa$. Thus lifetime reproduction is calculated as:
-\begin{align}
-    R_{0} &= \int_{\alpha}^{\infty}l_{t}b_{t} dt
-\end{align}
-However, fish live in two different phases - immature and mature, which invoke different survivorship probabilities. For juveniles from birth to maturity, $l_t = e^{-\int_{0}^{\alpha}Z(t)dt}$ and for adults \textbf{relative to when maturity is reached}, $l_{t} = e^{-Z(t-\alpha)}$. Thus, the amount of juveniles which live to maturity is the quantity $l_{\alpha}$
-\begin{align*}
-    R_{0} &= \int cm^{\rho}h(t) \cdot L_{t} dt \\
-          &= \int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} L_{\alpha}e^{-Z(t-\alpha)} dt \\
-          &= L_{\alpha}\int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} \cdot e^{-Z(t-\alpha)} dt \\
-          &= cL_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
-          &= c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
-    R_{0} &= (e^{-\int_{0}^{\alpha}Z(t)dt})\int_{\alpha}^{\infty}e^{-Z(t-\alpha)}b_{t} dt
-\end{align*}
-To maximise this quantity, given a likelihood of being alive, fish can either choose to mature early, which is preferable if their probability of being alive is decreasing sharply, or delay maturity and invest energy in growth in order to benefit from the hyperallometric scaling of fecundity with mass. Thus they can optimise age $\alpha$ or $c$.
-
-Planning ideas:
-Fecundity at time $x$ is function of allocation \textbf{and} $\mathbb{P}$(survival)
-\begin{align*}
-    b_x &= cm^{\rho}e^{-\kappa(t-\alpha)}
-\end{align*}
-Lifetime survivorship changes because in the adult phase, survivorship is a function of time relative to $\alpha$ but in the juvenile phase it is simply a function of time. Hence the number of organisms surviving juvenile phase scales the number of organisms alive at $\alpha$:
-\begin{align*}
-    l_x &= l_{\alpha}e^{-Z(x-\alpha)} \\
-    &= \int_0^{\alpha}e^{-Z(x)}e^{-Z(x-\alpha)} dx
-\end{align*}
-\newpage
-\begin{align*}
-    B &= \sum_c \Bigg[N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt}\Bigg] \\ \\
-    B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \\ \\
-    &= \textsc{No*}\frac{\textsc{Joules}}{\textsc{Second}} + \textsc{Joules*}\frac{\textsc{No}}{\textsc{Second}}\\ \\
-    \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \\
-    &= \frac{\textsc{Surplus energy}}{\textsc{Cost of creating single cell}} \\ \\
-    \Bigg(\frac{dN_{c}}{dt}\Bigg)m_c &= \Bigg(\frac{B - N_{c}B_{c}}{E_{c}}\Bigg)m_c \\ \\
-    \frac{dm}{dt} &= \Bigg(\frac{Bm_c - N_{c}m_{c}B_{c}}{E_c}\Bigg) \\ \\
-    \frac{\textsc{grams}}{\textsc{Second}} &= \frac{\textsc{\st{Joules}*Grams - No*Grams*\st{Joules}}}{\textsc{\st{Joules}}} \\ \\
-    \frac{dm}{dt} &= \Bigg(\frac{Bm_c}{E_c}\Bigg) - \Bigg(\frac{N_{c}m_{c}B_{c}}{E_c}\Bigg) \\ \\
-    \frac{dm}{dt} &= \Bigg(\frac{Bm_c}{E_c}\Bigg) - \Bigg(\frac{m_{tot}B_{c}}{E_c}\Bigg) \\ \\
-    \frac{dm}{dt} &= \Bigg(\frac{m_c}{E_c}\Bigg)B - \Bigg(\frac{B_{c}}{E_c}\Bigg)m_{tot} \\ \\
-    \frac{\textsc{grams}}{\textsc{Second}} &= \frac{\textsc{Grams*Joules}}{\textsc{Joules}} - \frac{\textsc{Joules*Grams}}{\textsc{Joules}} \\ \\
-    \text{sub } B &= B_{0}m^{3/4}  \\ \\
-    \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m_{tot} \\ \\
-    \text{sub } a &= \frac{m_c}{E_c}B_{0}  \\ \\
-    b &= \frac{B_{c}}{E_c} \\ \\
-    \frac{dm}{dt} &= am^{3/4} - bm \\ \\
-    \frac{dm}{dt} &= am^{3/4} - bm - cm \\ \\
-    \frac{dm}{dt} &= am^{3/4} - (b+c)m \\ \\
-    \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \\ \\
-\end{align*}
-
-
-%%%%%% SECOND COLUMN %%%%%%%%
-Energy transformation is the sum of maintenance (number of cells X metabolic rate of each cell) + rate of new tissue creation (metabolic energy required to create 1 cell X rate of new cells) \\ \\ \\ \\ \\ \\ \\ \\
-% \vspace{3cm}
-Rearrange for rate of new cells growth. Explicitly, growth comes \textbf{after} addressing costs \\ \\ \\ \\
-Multiply by mass of cell $m_{c}$ to get rate of growth for whole oraganism on LHS - number of cells X mass of cells $N_{c}m_{c}$ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
-Change in mass is how many cells you can grow with your energy $\frac{B}{E_c}$ X the mass of a single cell $m_c$ minus maintenance 
-% Problem 
 \newpage
 %%% Table of literature %%%
 \section{Ontogenetic Growth Model Literature}
@@ -368,6 +318,6 @@ Change in mass is how many cells you can grow with your energy $\frac{B}{E_c}$ X
 %%% Bibliography %%%
 \newpage\addcontentsline{toc}{section}{Bibliography}
 
-\let\mkbibnamefamily\textsc\printbibliography[title=Bibliography]\thispagestyle{empty} % Sets author names to small caps
+\let\mkbibnamefamily\textsc\printbibliography[title=SI Bibliography]\thispagestyle{empty} % Sets author names to small caps
 
 \end{document}
