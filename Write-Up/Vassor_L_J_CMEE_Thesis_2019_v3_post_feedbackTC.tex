@@ -257,7 +257,7 @@
 
         Intriguingly, despite being an uncontroversially fundamental life history event, the VBGF, and the majority of models which have evolved from it, such as \cite{West2001}, appear, at least explicitly, to be agnostic to reproduction. It was indicated over 20 years ago that mechanistic inferences made from the results of these models are problematic since they do not account for reproduction \autocite{Day1997, Marshall2019b}. Reproduction incurs large energetic costs and increases an organism's mortality risk, with some highly fecund vertebrates consisting of 75\% reproductive tissue \autocite{Parker2018}. At the onset of reproduction, different mechanistic dynamics emerge relative to those in the preceding juvenile phase as energetic resources are shunted from growth to reproduction \autocite{Day1997}. As such, it is crucial that models account for reproduction.
 
-        \cite{West2001} addressed the issue of implied lifetime reproduction by estimating the premature, juvenile phase in fish to be short enough to be considered negligible, i.e. they effectively spend their entire life as a mature fish and such their growth can be considered by their model. They also discuss the onset of reproduction and how it can be considered to be a higher maintenance cost based on energetic principles, since the energy density of egg and somatic cells are similar, thus maintenance term $b$ becomes $b + \lambda$ and asymptotic size reduces to $a/(b+\lambda)$ as the energy scope is reduced. \cite{Charnov2001} attempted to solve for optimal life history parameters by extending the \cite{West2001} framework into a biphasic model, introducing reproduction post-maturation (i.e. hybrid model, see above) and utilising dimensionless life history invariants \autocite{Charnov1993}.
+        \cite{West2001} addressed the issue of implied lifetime reproduction by estimating the premature, juvenile phase in fish to be short enough to be considered negligible, i.e. they effectively spend their entire life as a mature fish and, as such, their growth can be considered by their model. They also discuss the onset of reproduction and how it can be considered to be a higher maintenance cost based on energetic principles, since the energy density of egg and somatic cells are similar, thus maintenance term $b$ becomes $b + \lambda$ and asymptotic size reduces to $a/(b+\lambda)$ as the energy scope is reduced. \cite{Charnov2001} attempted to solve for optimal life history parameters by extending the \cite{West2001} framework into a biphasic model, introducing reproduction post-maturation (i.e. hybrid model, see above) and utilising dimensionless life history invariants \autocite{Charnov1993}.
         \begin{equation}
             \frac{dm}{dt} = am^{3/4} - bm - cm \label{charnov_ogm}
         \end{equation}
@@ -310,6 +310,11 @@ To perform this optimisation, the analytical goal would be to solve \eqref{LHT_o
 
 %%% Results %%%
 \section{Results}\thispagestyle{empty}
+
+\begin{figure}[h]
+    \includegraphics{../Results/single_curve_with_onset.pdf}
+    \caption{Example growth curve showing an inflection at the onset of reproduction, $\alpha = 200$}
+\end{figure}
 
 
 %%% Discussion %%%
