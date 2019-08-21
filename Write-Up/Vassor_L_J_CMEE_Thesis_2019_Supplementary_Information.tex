@@ -9,6 +9,7 @@
 \usepackage{float} % here for H placement parameter
 \usepackage{fancyhdr} % rule line and current section displayed at top of pages % \thispagestyle{empty} removes it on desired pages
     \pagestyle{fancy}
+    \renewcommand{\footrulewidth}{0.4pt}% default is 0pt
     \renewcommand{\sectionmark}[1]{\markboth{\textbf{\textcolor{blue}{SUPPLEMENTARY INFORMATION}}}{}} % set the \leftmark to section name
     \fancyhead[R]{\nouppercase{\leftmark}} %  sets the right head element ONLY EVER section name, otherwise mark is section/subsection/subsubsection
     \fancyhead[L]{} % sets the left head element to the page number if you use \thepage as argument
@@ -25,6 +26,7 @@
 % \usepackage{listings}
 
 % Other packages
+\usepackage{longtable}
 \usepackage{hyperref}
     \hypersetup{colorlinks=false}
 % \usepackage[colorinlistoftodos]{todonotes}
@@ -39,12 +41,12 @@
 \usepackage{array}
 
 \makeatletter
-\newcommand{\thickhline}{%
+\newcommand{\thickhline}{%      % for thick lines in table
     \noalign {\ifnum 0=`}\fi \hrule height 1pt
     \futurelet \reserved@a \@xhline
 }
 \usepackage{xcolor}
-\usepackage{lscape}
+\usepackage{pdflscape}
 \newcolumntype{s}{>{\hsize=1\hsize}X}
 \newcolumntype{b}{>{\hsize=1\hsize}X}
 \newcolumntype{m}{>{\hsize=1\hsize}X}
@@ -103,41 +105,41 @@
 \end{titlepage}
 % \begingroup
 % \Large
-\section{Paramters and Scaling}
+\section{Parameters and Scaling}
 \begin{table}[H]
     \caption{Parameterisations for the scaling relationships underlying the growth model. All units are in SI.}
     \begin{tabularx}{\linewidth}{Xlllll}
     \thickhline
-    \textbf{Description}                                                            & \textbf{Symbol}      & \textbf{Value}                 & \textbf{Units}     & \textbf{Range}   & \textbf{Source}   \\ \thickhline
-    Body mass                                                                       & $m$                  & 0.2                            & g    &                  &                   \\ \hline
-    Energy Intake/Acquisition Rate                                                  & $a$                   & $a/(M)^{0.25}$                & g $\cdot$ s$^{-1}$ &                  &                   \\ 
-                                                                                    & $y$                  & $0.75$                         & \textsc{}          &                  &                   \\ \hline
-    Maintenance Metabolic Rate                                                      & $b$                  &                                & g $\cdot$ s$^{-1}$ &                  &                   \\ 
-                                                                                    & $z$                  & $1.00$                         & \textsc{}          &                  &                   \\ \hline
-    Rate of allocation to reproduction                                              & $cm$                 & \textsc{variable}              & g $\cdot$ s$^{-1}$ & 0.001 - 0.4      &                   \\  %\autocite{peters1983,Blueweiss1978}
-                                                                                    & $\rho$               & \textsc{variable}              & \textsc{}          & 0.001 - 1.25     &                   \\ \hline %$1.29$ \autocite{Barneche2018d}
-    Age at maturity (onset of reproduction)                                         & $\alpha$             &                                & \textsc{days}      &                  &                   \\ \hline
-    Consumption rate                                                                & $C(t)$               &                                & g $\cdot$ s$^{-1}$ &                  &                   \\ \hline
-                                                                                    & $\gamma$             &                                & \textsc{}          & 0.75 - 1.06      &                   \\ \hline
-    Foraging length                                                                 & $t_0$               & $0.75$                          & s      &                  &                   \\
-                                                                                    & $\psi$               & $0.75$                         & s       &                  &                   \\ \hline
-    mass at maturity                                                                & $m_{\alpha}$         &                                & g     &                  &                   \\ \hline
-    asymptotic/terminal size                                                        & $M$ or $m_{\infty}$  &                                & g     &                  &                   \\ \hline
-    Probability of survival to time $t$                                             & $L_t$                &                                & \textsc{}          &                  &                   \\ \hline
-    Rate of instantaneous mortality                                                 & $Z$                  &                                & \textsc{}          &                  &                   \\ \hline
-    Gonadosomatic Index; proportion of somatic body mass given to repro per year    & GSI                  &                                & \textsc{}          &                  &                   \\ \thickhline
+    \textbf{Description}                        & \textbf{Symbol}       & \textbf{Value}            & \textbf{Units}        & \textbf{Range}                    & \textbf{Source}       \\ \thickhline
+    Body mass                                   & $m$                   &                           & g                     &                                   &                       \\ \hline
+    Energy Intake/Acquisition Rate              & $a$                   & 0.2                       & g $\cdot$ day$^{-1}$  & 0.25 - 2.149                      & \cite{West2001}       \\ 
+                                                & $y$                   & $0.75$                    & \textsc{}             & 0.75 - 1.06                       & \cite{Pawar2012}      \\ \hline
+    Maintenance Metabolic Rate                  & $b$                   & $a/(M)^{0.25}$            & g $\cdot$ day$^{-1}$  &                                   & \cite{West2001}       \\ 
+                                                & $z$                   & $1.00$                    & \textsc{}             &                                   &                       \\ \hline
+    Allocation to reproduction Rate             & $c$                   & \textsc{variable}         & g $\cdot$ day$^{-1}$  & 0.001 - 0.4                       & \cite{Charnov2001}    \\  %\autocite{peters1983,Blueweiss1978}
+    (estimated by GSI*)                         & $\rho$                & \textsc{variable}         & \textsc{}             & 0.001 - 1.25                      & \cite{Barneche2018d}                      \\ \hline %$1.29$ \autocite{Barneche2018d}
+    Age at maturity (onset of reproduction)     & $\alpha$              & $2/Z$                     & day                   & 100 - 400                         &                       \\ \hline
+    Consumption rate                            & $C(t)$                &                           & g $\cdot$ s$^{-1}$    &                                   &                       \\ \hline
+                                                & $\gamma$              &                           & \textsc{}             & 0.75 - 1.06                       & \cite{Pawar2012}      \\ \hline
+    Foraging length                             & $t_0$                 & $0.75$                    & s                     &                                   &                       \\
+                                                & $\psi$                & $0.75$                    &                       &                                   &                       \\ \hline
+    Mass at maturity                            & $m_{\alpha}$          &                           & g                     &                                   &                       \\ \hline
+    Asymptotic/terminal size                    & $M$ or $m_{\infty}$   &                           & g                     &                                   &                       \\ \hline
+    Probability of survival to time $t$         & $L_t$                 &                           & \textsc{}             &                                   &                       \\ \hline
+    Rate of instantaneous mortality             & $Z$                   & $2/\alpha$                &                       &                                   &                       \\ \thickhline
     \end{tabularx}
 \end{table}
-\newpage
+*Gonadosomatic Index; proportion of somatic body mass given to repro per year
+
 %% Begin derivation from master equation %%
 
 \section{Ontogenetic Growth Model}
 \subsection{Model derivation from the Energy Balance Equation}
-\cite{West2001} develop their prior work \autocite{West1997} to capture growth. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogenty, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the creation of new tissue. This is expressed by the dynamic conservation of energy equation presented by:
+West \textit{et al.} developed their previous work on allometric scaling laws \autocite{West1997} to capture growth in their ``general model for ontogenetic growth'' \autocite{West2001}. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These networks become more deeply nested with size and are, thus, self-similar, approximating a fractal, constraining the number of capillaries to scale sublinearly with size. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogenty, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the synthesis of new tissue. This is expressed by the dynamic conservation of energy equation:
 \begin{align}
     B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \label{master_balance}
 \end{align}
-The incoming rate of energy flow, $B$, is the resting metabolic rate of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell (\textsc{joules/sec}), $E_c$ is the metabolic energy required to create a single cell (\textsc{joules}) and $N_c$ is the total number of cells; the sum is over all types of tissue. Differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power (\textsc{watts or joules/sec} needed to maintain the total biomass of the organsim, or background maintenance, a resting metabolic process. The second is the power allocated to production of new cells and therefore to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$, (\textsc{grams}) are assumed to be independent of $m$ remaining constant throughout growth and development. \eqref{master_balance} can be rearranged to find the rate of cell growth at time $t$: 
+The incoming rate of energy flow, $B$, is the resting metabolic rate of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell (\textsc{joules/sec}), $E_c$ is the metabolic energy required to create a single cell (\textsc{joules}) and $N_c$ is the total number of cells. Differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power (\textsc{watts} or \textsc{joules/sec}) required to maintain the total existing biomass of the organsim, denoted background maintenance, a resting metabolic process. The second is the power allocated to the production of new cells and, therefore, to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$ (\textsc{grams}), are assumed to be independent of $m$ remaining constant throughout ontogenetic growth, i.e. these quantities do not vary with size. \eqref{master_balance} can be rearranged to find the rate of cell growth at time $t$: 
 \begin{align}
     \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \label{cell_rate}
 \end{align}
@@ -162,11 +164,11 @@ We can define \eqref{growth_pre_sub} qualitatively in terms of cellular-level ph
 \end{align*}
 %     \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m
 % \end{align}
-Now, MTE states that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is a normalising constant for a given taxon. This substitution leads to the general growth equation \eqref{growth_pre_sub}.
+Now, MTE assumes that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \eqref{growth_pre_sub} leads to the general growth equation.
 \begin{align*}
     \frac{dm}{dt} &= \bm{\Bigg(\frac{m_c}{E_c}\Bigg)B_{0}}m^{3/4} - \bm{\Bigg(\frac{B_{c}}{E_c}\Bigg)}m \\
 \end{align*}
-At this point we can define two new constants, $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E{c}$.
+Since $E_c$, $B_c$ and $m_c$ are independent of mass and $B_0$ is constant within a taxon, we can define two new constants: $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E{c}$.
 \begin{align*}
     \textsc{substitute }a, b
 \end{align*}
@@ -204,14 +206,14 @@ where $c \cdot m$ is the reproductive allocation. Since maintenance and reproduc
 This reduction highlights the cost to growth reproduction introduces, since there is less energetic scope for growth after $\alpha$. To this end, the earlier a fish matures, and the more fecund it is, its growth rate and asymptotic size will both reducte, reflecting both the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
 
 \subsection{Assumptions}
-An axiom of the growth model in \eqref{west_model} proposed by \cite{West2001} is that energy intake follows a simple relationship with resting metabolic rate, which scales with body size ($m$) to an exponent of $3/4$, as predicted by \cite{West1997} and used in the Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. The assumptions of resting metabolic rate data are that the study organism is under ``idealised conditions'' i.e. not foraging, reproducing or growing. Consequently, it is puzzling that \cite{West2001} and those who develop their model, use a resting metabolic metric for energy intake, which is an active metabolic process. This is an interesting assumption since for most organisms, garnering energy from the environment involves foraging bouts, an active metabolic activity. 
+An axiom of the growth model in \eqref{west_model} proposed by \cite{West2001} is that energy intake follows a simple relationship with resting metabolic rate, which scales with body size ($m$) to an exponent of $3/4$, as predicted by \cite{West1997} and used in the Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. The assumptions of resting metabolic rate data are that the study organism is under ``idealised conditions'' i.e. not foraging, reproducing or growing. Consequently, it is puzzling that \cite{West2001} and those who develop their model, use a resting metabolic metric for energy intake, which is an active metabolic process. This is a potentially erroneous assumption since for most organisms, garnering energy from the environment involves foraging bouts, an active metabolic activity. 
 
 \section{Life History Optimisation}
 \subsection{Invariant Values}
-Across taxa, certain life history variables representing the timing and magnitude of reproduction form dimensionless, invariant ratios \autocite{Charnov1993}. These are particularly useful for comparative life histories as these numbers typically remain invariant within a given taxon, e.g. fish. I utilise these to parameterise the life history model below which is maximised as part of the simulations. In fish, the quantity representing age at maturity multiplied by mortality rate, $\alpha\cdot Z \approx 2$ \autocite{Charnov2001}. I rearrange this to parameterise mortality rate $Z = 2/{\alpha}$.
+Across taxa, certain life history variables, representing the timing and magnitude of reproduction form, dimensionless, invariant ratios \autocite{Charnov1993}. These are particularly useful for comparative life histories as these numbers typically remain invariant within a given taxon, e.g. fish. I utilise these to parameterise the life history model below which used in growth trajectory simulations. In fish, the quantity representing age at maturity multiplied by mortality rate, $\alpha\cdot Z \approx 2$ \autocite{Charnov2001}. I rearrange this to parameterise mortality rate $Z = 2/{\alpha}$.
 
 \subsection{Lifetime Reproduction}
-I assume that intake cannot be optimised since this is dependent on what the surrounding environment provides you with. However, optimisation of reproduction parameters invokes life history theory, which assumes that natural selection optimises strategies, or $c$ and $\rho$ to maximise fitness, where lifetime reproductive output can be used as a proxy for fitness, denoted $R_0$, which can be derived from theoretical evolution studies \autocite{Charnov2001, stearns1992evolution}.
+I assume that intake cannot be optimised since this is dependent on what the surrounding environment provides. However, optimisation of reproduction parameters invokes life history theory, which assumes that natural selection optimises strategies, or $c$ and $\rho$ to maximise fitness, where lifetime reproductive output can be used as a proxy for fitness, denoted $R_0$, which can be derived from theoretical evolution studies \autocite{Charnov2001, stearns1992evolution}.
 
 At any time $t$, $b_{t}$ is the \textit{effective} energy allocated by fish to reproduction, the product of the physiological allocation of resources, $cm^{\rho}$ and an efficiency term $h(m)$ representing a declining efficiecny of this allocation, known as reproductive senescence, the natural decline in fecundity as fish age \autocite{Stearns2000, Benoit2018, Vrtilek2018}. This decline begins at maturity ($\alpha$) and is controlled by a rate parameter $\kappa$. Fish also experience an extrinsic mortality rate, or actuarial senescence, contained in a surivorship function, $l_t$, which is effectively a declining $\mathbb{P}(survival to t)$ \autocite{Charnov1993, Charnov2001, Benoit2018, Laird2010, Reznick2002, Reznick2006}. Thus, the instanteous reproductive output at time $t$ is the product $l_{t}b_{t}$ and the lifetime reproductive output is:
 \begin{equation}
@@ -225,8 +227,92 @@ Since fish live in a juvenile and adult phase, they are subject to varying morta
           &= cL_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
           &= c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \numberthis \label{LHT_optimisation}
 \end{align*}
-To perform this optimisation, the analytical goal would be to solve \eqref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
+To perform this optimisation, the analytical goal is to solve \eqref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
 
+\newpage
+\begin{landscape}
+\pagestyle{empty}
+\section{Fish Caloric Equivalents Data}
+\begin{longtable}[]{|l|p{1.8cm}|p{2cm}|p{2cm}|p{2.15cm}|p{1.9cm}|l|}
+    \caption{Caloric equivalents data digitised from \cite{Steimle1980} and \cite{Cummins1971}.} \\
+    \hline
+    \textbf{Species}                         & \textbf{No. combustions} & \textbf{Dry weight \% ash} & \textbf{Dry weight KJ/g}     & \textbf{Dry Weight ash-free KJ/g}         & \textbf{Wet weight KJ/g} & \textbf{Source}           \\ \hline
+    \textit{Acanthocybium solanderi}         & 6                            & 6                          & 23.4                          & 24.9                              &                          & Steimle, 1980                \\ \hline
+    \textit{Alosa aestivalis}                & 15                           & 12                         & 22.2                          & 25                                & 7.7                      & Steimle, 1980                \\ \hline
+    \textit{Alosa mediocris}                 & 5                            & 11                         & 21.1                          & 23.8                              & 5.5                      & Steimle, 1980                \\ \hline
+    \textit{Alosa pseudoharengus}            & 24                           & 12                         & 21.7                          & 24.5                              & 6.4                      & Steimle, 1980                \\ \hline
+    \textit{Alosa sapidissima}               & 5                            & 11                         & 19.6                          & 22.1                              & 4.9                      & Steimle, 1980                \\ \hline
+    \textit{Ammodytes americanus}            & 20                           & 12                         & 21.7                          & 24.8                              & 6.8                      & Steimle, 1980                \\ \hline
+    \textit{Anchoa hepsetus}                 & 24                           & 16                         & 19.9                          & 23.6                              & 5.8                      & Steimle, 1980                \\ \hline
+    \textit{Anchoa mitchilli}                & 5                            & 14                         & 21.2                          & 24.6                              & 5.9                      & Steimle, 1980                \\ \hline
+    \textit{Brevoortia tyrannus}             & 10                           & 13                         & 21.4                          & 24.6                              & 7.5                      & Steimle, 1980                \\ \hline
+    \textit{Caranx chrysos}                  & 5                            & 16                         & 17.7                          & 21.1                              & 5.7                      & Steimle, 1980                \\ \hline
+    \textit{Chloroscombrus chrysurus}        & 5                            & 14                         & 23.9                          & 27.9                              & 8.8                      & Steimle, 1980                \\ \hline
+    \textit{Citharichthys arctifrons}        & 5                            & 14                         & 19.4                          & 22.5                              & 4.3                      & Steimle, 1980                \\ \hline
+    \textit{Clupea harengus}                 &                              &                            & 26.61024                      &                                   & 8.062568                 & Cummins, 1971                \\ \hline
+    \textit{Clupea harengus}                 & 20                           & 8                          & 25.1                          & 27.2                              & 10.6                     & Steimle, 1980                \\ \hline
+    \textit{Conger oceanicus}                & 6                            & 8                          & 29.8                          & 32.4                              & 9.8                      & Steimle, 1980                \\ \hline
+    \textit{Cynoscion regalis}               & 4                            & 13                         & 20.1                          & 23                                & 4.8                      & Steimle, 1980                \\ \hline
+    \textit{Enchelyopus cimbrius}            & 5                            & 16                         & 18                            & 21.6                              & 3.6                      & Steimle, 1980                \\ \hline
+    \textit{Etrumeus teres}                  & 17                           & 14                         & 20.4                          & 23.6                              & 5.5                      & Steimle, 1980                \\ \hline
+    \textit{Gadus morhua}                    & 9                            & 16                         & 18.2                          & 21.6                              & 4.2                      & Steimle, 1980                \\ \hline
+    \textit{Hemitripterus americanus}        & 6                            & 16                         & 18.1                          & 21.5                              & 2.5                      & Steimle, 1980                \\ \hline
+    \textit{Hippoglossoides platessoides}    & 3                            & 15                         & 17.7                          & 21                                & 4.1                      & Steimle, 1980                \\ \hline
+    \textit{Leiostomus xanthurus}            & 11                           & 17                         & 20.1                          & 24                                & 7                        & Steimle, 1980                \\ \hline
+    \textit{Limanda ferruginea}              & 12                           & 16                         & 17.6                          & 20.9                              & 4.4                      & Steimle, 1980                \\ \hline
+    \textit{Liopsetta putnami}               & 5                            & 17                         & 17.1                          & 20.7                              & 3.8                      & Steimle, 1980                \\ \hline
+    \textit{Lophius americanus}              & 6                            & 13                         & 18.5                          & 21.3                              & 1.7                      & Steimle, 1980                \\ \hline
+    \textit{Lumpenus maculatus}              & 8                            & 12                         & 20.2                          & 22.2                              & 5.6                      & Steimle, 1980                \\ \hline
+    \textit{Macrozoarces americanus}         & 9                            & 13                         & 19.2                          & 22                                & 4.7                      & Steimle, 1980                \\ \hline
+    \textit{Melanogrammus aeglefinus}        & 4                            & 17                         & 20.3                          & 24.3                              & 4.5                      & Steimle, 1980                \\ \hline
+    \textit{Menidia menidia}                 & 10                           & 13                         & 21.2                          & 24.4                              & 7.3                      & Steimle, 1980                \\ \hline
+    \textit{Merluccius bilinearis}           & 10                           & 13                         & 21.3                          & 24.6                              & 4.6                      & Steimle, 1980                \\ \hline
+    \textit{Myoxocephalus octodecemspinosus} & 5                            & 17                         & 20.8                          & 25.1                              & 5.4                      & Steimle, 1980                \\ \hline
+    \textit{Oecapterus punctatus}            & 5                            & 13                         & 18.8                          & 21.6                              & 6                        & Steimle, 1980                \\ \hline
+    \textit{Oncorhynchus garbusha}           &                              &                            & 15.058216                     &                                   & 6.54796                  & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus garbusha}           &                              &                            & 16.915912                     &                                   & 7.058408                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus keta}               &                              &                            & 15.087504                     &                                   & 6.681848                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus kisutch}            &                              &                            & 14.418064                     &                                   & 5.778104                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus masu}               &                              &                            & 14.493376                     &                                   & 6.552144                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus masu}               &                              &                            & 15.761128                     &                                   & 7.192296                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus nerka}              &                              &                            & 13.99548                      &                                   & 5.405728                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus nerka}              &                              &                            & 14.418064                     &                                   & 5.727896                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus tschawytscha}       &                              &                            & 15.267416                     &                                   & 5.702792                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Ophichthus cruentifier}          & 4                            & 14                         & 19.8                          & 22.9                              & 5.8                      & Steimle, 1980                \\ \hline
+    \textit{Opisthonema oglinum}             & 5                            & 11                         & 24.8                          & 27.7                              & 6.4                      & Steimle, 1980                \\ \hline
+    \textit{Paralichthys oblongus}           & 10                           & 13                         & 22                            & 25.4                              & 5.5                      & Steimle, 1980                \\ \hline
+    \textit{Peprilus alepidotus}             & 5                            & 11                         & 22.9                          & 25.8                              & 6.2                      & Steimle, 1980                \\ \hline
+    \textit{Peprilus triacanthus}            & 25                           & 11                         & 24.2                          & 27.2                              & 6.2                      & Steimle, 1980                \\ \hline
+    \textit{Pollachius virens}               & 5                            & 13                         & 19.2                          & 21.9                              & 5                        & Steimle, 1980                \\ \hline
+    \textit{Pomatomus saltatrix}             & 5                            & 20                         & 20.8                          & 25                                & 4.8                      & Steimle, 1980                \\ \hline
+    \textit{Prionotus carolinus}             & 5                            & 22                         & 17.7                          & 22.7                              & 4.4                      & Steimle, 1980                \\ \hline
+    \textit{Pseudopleuronectes americanus}   & 5                            & 15                         & 16.4                          & 19.4                              & 3.6                      & Steimle, 1980                \\ \hline
+    \textit{Salmo salar}                     &                              &                            & 14.882488                     &                                   & 5.83668                  & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Salmo salar}                     &                              &                            & 15.31344                      &                                   & 6.163032                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Sardinella aurita}               & 5                            & 14                         & 19.9                          & 23.1                              & 6                        & Steimle, 1980                \\ \hline
+    \textit{Scomber japonicus}               & 15                           & 12                         & 21.6                          & 24.4                              & 6.2                      & Steimle, 1980                \\ \hline
+    \textit{Scomberesox saurus}              & 5                            & 9                          & 22.3                          & 24.6                              & 8.5                      & Steimle, 1980                \\ \hline
+    \textit{Scophthalmus aquosus}            & 3                            & 13                         & 22.2                          & 25.4                              & 3.1                      & Steimle, 1980                \\ \hline
+    \textit{Scotnber scombrus}               & 28                           & 8                          & 24.1                          & 26.2                              & 6                        & Steimle, 1980                \\ \hline
+    \textit{Sebastes marinus}                & 15                           & 20                         & 18.5                          & 23.1                              & 4.4                      & Steimle, 1980                \\ \hline
+    \textit{Selar crumenopthalmus}           & 5                            & 14                         & 16.4                          & 19                                & 4.9                      & Steimle, 1980                \\ \hline
+    \textit{Seriola dumerili}                & 3                            & 15                         & 18.4                          & 21.5                              & 4.6                      & Steimle, 1980                \\ \hline
+    \textit{Sphoeroides maculatus}           & 4                            & 15                         & 19.4                          & 22.8                              & 5.1                      & Steimle, 1980                \\ \hline
+    \textit{Stenotomus chrysops}             & 14                           & 16                         & 21.5                          & 25.6                              & 6.1                      & Steimle, 1980                \\ \hline
+    \textit{Symphurus plagiusa}              & 4                            & 16                         & 19                            & 22.7                              & 6.3                      & Steimle, 1980                \\ \hline
+    \textit{Synodus foetens}                 & 5                            & 17                         & 18.3                          & 22.1                              & 4.6                      & Steimle, 1980                \\ \hline
+    \textit{Tautogolabrus adspersus}         &                              &                            & 20.41792                      &                                   & 4.426672                 & Cummins, 1971                \\ \hline
+    \textit{Tautogolabrus adspersus}         & 5                            & 11                         & 22.2                          & 24.9                              & 6.6                      & Steimle, 1980                \\ \hline
+    \textit{Thunnus albacares}               & 6                            &                            & 23.4                          &                                   &                          & Steimle, 1980                \\ \hline
+    \textit{Triglops murrayi}                & 5                            & 16                         & 18.1                          & 21.5                              & 3.6                      & Steimle, 1980                \\ \hline
+    \textit{Triglops nybelini}               & 5                            & 14                         & 19.4                          & 22.5                              & 5.2                      & Steimle, 1980                \\ \hline
+    \textit{Urophycis chuss}                 & 10                           & 14                         & 19.4                          & 22.6                              & 3.8                      & Steimle, 1980                \\ \hline
+    \textit{Urophycis regia}                 & 3                            & 10                         & 21.3                          & 23.6                              & 4.7                      & Steimle, 1980                \\ \hline
+    \textit{Urophycis tenuis}                & 3                            & 14                         & 19.2                          & 22.3                              & 6.3                      & Steimle, 1980                \\ \hline
+    \textit{Xiphias gladius}                 & 59                           & 4                          & 27.5                          & 28.8                              &                          & Steimle, 1980                \\ \hline
+\end{longtable}
+\pagestyle{plain}
+\end{landscape}
 \section{Incorporating Consumption Rate}
 At any time $t$, growth rate is considered as the difference between supply and expenditure. Thus we can incorporate intake scaling into this supply term.
 We know that at time $t$, organisms consume resource at a rate proportional to their size:
@@ -237,7 +323,7 @@ This scales with size, thus we introduce a scaling exponent, $\gamma$:
 \begin{align}
     C(t) &= C_{0}m^{\gamma} \label{time_scaling}
 \end{align}
-Consumption rate takes units individuals/area/time or which is the product of prey encountered (individuals/area) and handling time by the consumer, thus is a function of time. Fish consume resources for a time period, or the duration of a foraging bout. To calculate total intake (mass) in a foraging bout we can integrate \eqref{time_scaling} with respect to time, where $t_0$ is an arbitrary time point at the commencement of a bout, and $t_1$ marks the end of a bout:
+Consumption rate takes units \textsc{individuals/area/time} or which is the product of prey encountered (individuals/area) and handling time by the consumer, thus is a function of time. Fish consume resources for a time period, or the duration of a foraging bout. To calculate total intake (mass) in a foraging bout we can integrate \eqref{time_scaling} with respect to time, where $t_0$ is an arbitrary time point at the commencement of a bout, and $t_1$ marks the end of a bout:
 \begin{align*}
     C_{tot} &= \int_{t_{0}}^{t_{1}}C_{0}m^{\gamma}dt \\
     C_{tot} &= C_{0}m^{\gamma}t \numberthis \label{intake_amount}
@@ -278,53 +364,53 @@ Further, it has also been shown that the assumption of resting metabolic rate sc
 \section{Ontogenetic Growth Model Literature}
 
 \begin{table}[H]
-    \caption{Model literature for Ontogenetic Growth including discipline of origin and reproductive scaling}
+    \caption{Published literature on Ontogenetic Growth Models including discipline of origin and reproductive scaling. Adapted from \cite{Barneche2018d}.}
     \begin{tabular}{|l|l|l|l|}
     \hline
-    \textbf{Study}                          & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} \\ \hline
-    \autocite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                     \\ \hline
-    \autocite{Roff1983}                     & Life history              & Isometric        & Assumption                     \\ \hline
-    \autocite{Roff1984}                     & Life history              & Isometric        & Assumption                     \\ \hline
-    \autocite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                     \\ \hline
-    \autocite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                     \\ \hline
-    \autocite{kozlowski1996}                & Life history              & Variable         & Prediction                     \\ \hline
-    \autocite{West2001}                     & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \autocite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    \autocite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    \autocite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \autocite{Roff2006}                     & Life history              & Isometric        & Assumption                     \\ \hline
-    \autocite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \autocite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                     \\ \hline
-    \autocite{Pecquerie2009}                & Life history              & Isometric        & Assumption                     \\ \hline
-    \autocite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                     \\ \hline
-    \autocite{Arendt2011}                   & Life history              & Isometry         & Assumption                     \\ \hline
-    \autocite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                     \\ \hline
-    \autocite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \autocite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    \autocite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \autocite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                     \\ \hline
-    \autocite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \autocite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \autocite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                     \\ \hline
-    \autocite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \autocite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    Beverton and Holt (1957)                & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Scott \textit{et al}. (2006)            & Fisheries                 & Hyperallometric  & Assumption                     \\ \hline
-    Jørgensen and Fisken (2006)             & Fisheries                 & Isometric*       & Assumption                     \\ \hline
-    Enberg \textit{et al}. (2010)           & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Eikeset \textit{et al}. (2013)          & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Lester \textit{et al}. (2014)           & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Andersen and Beyer (2015)               & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Eikeset \textit{et al}. (2016)          & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Andersen \textit{et al}. (2016)         & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Zimmerman and Jørgensen (2016)          & Fisheries                 & Isometric        & Assumption                     \\ \hline
-    Hartvig \textit{et al}. (2011)          & Food web                  & Isometric        & Assumption                     \\ \hline
-    Carozza \textit{et al}. (2016)          & Food web                  & Isometric        & Assumption                     \\ \hline
+    \textbf{Study}                      & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} \\ \hline
+    \cite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                     \\ \hline
+    \cite{Roff1983}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \cite{Roff1984}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \cite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                     \\ \hline
+    \cite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                     \\ \hline
+    \cite{kozlowski1996}                & Life history              & Variable         & Prediction                     \\ \hline
+    \cite{West2001}                     & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \cite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \cite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \cite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \cite{Roff2006}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \cite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \cite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                     \\ \hline
+    \cite{Pecquerie2009}                & Life history              & Isometric        & Assumption                     \\ \hline
+    \cite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                     \\ \hline
+    \cite{Arendt2011}                   & Life history              & Isometry         & Assumption                     \\ \hline
+    \cite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                     \\ \hline
+    \cite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \cite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \cite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \cite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                     \\ \hline
+    \cite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \cite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \cite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                     \\ \hline
+    \cite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \cite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    Beverton and Holt (1957)            & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Scott \textit{et al}. (2006)        & Fisheries                 & Hyperallometric  & Assumption                     \\ \hline
+    Jørgensen and Fisken (2006)         & Fisheries                 & Isometric*       & Assumption                     \\ \hline
+    Enberg \textit{et al}. (2010)       & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Eikeset \textit{et al}. (2013)      & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Lester \textit{et al}. (2014)       & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Andersen and Beyer (2015)           & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Eikeset \textit{et al}. (2016)      & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Andersen \textit{et al}. (2016)     & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Zimmerman and Jørgensen (2016)      & Fisheries                 & Isometric        & Assumption                     \\ \hline
+    Hartvig \textit{et al}. (2011)      & Food web                  & Isometric        & Assumption                     \\ \hline
+    Carozza \textit{et al}. (2016)      & Food web                  & Isometric        & Assumption                     \\ \hline
     \end{tabular}
 \end{table}
 
 %%% Bibliography %%%
-\newpage\addcontentsline{toc}{section}{Bibliography}
+\newpage\addcontentsline{toc}{section}{SI Bibliography}
 
 \let\mkbibnamefamily\textsc\printbibliography[title=SI Bibliography]\thispagestyle{empty} % Sets author names to small caps
 
