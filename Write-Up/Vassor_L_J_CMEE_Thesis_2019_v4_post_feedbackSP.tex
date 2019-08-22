@@ -261,86 +261,40 @@ Equally, models which do not explicitly consider reproduction (only maintenance,
 
 The $3/4$ scaling of intake rate is set by the relationship between intake rate of energy by individual cells and resting metabolic rate. Resting metabolic rate scales to the $3/4$ exponent of mass due to the fractal architecture of space-filling, hierarchical branching supply networks (e.g. capillaries) whose geometry has evolved due to natural selection optimising energy transport to the cells \autocite{West1997, West2005}. The self-similarity of the network at decreasing levels approximates a fractal, which is mathematically considered to have a non-integer dimension \autocite{Hausdorff1918, Mandelbrot1982}. Larger entities do not evolve bigger networks, but the networks become more deeply nested with child branches, and the number of terminal units scales with mass to an exponent of $3/4$  \autocite{West1997}. This is the mechanism underlying ecology's famous Kleiber's law that, for the vast majority of organisms, resting metabolic rate scales hypoallometrically to the $3/4$ power of the animal's mass \autocite{Kleiber1947, peters1983, niklas1994plant}. Given the restrictive assumptions underlying resting metabolic rate of no foraging (food is provided \textit{ad libitum}), growing or reproducing, it seems far more prudent to relate intake rate to the mass-scaling of field metabolic rate. This is especially so for the second and third, since the fundamental purpose of this exercise is to capture growth, thus fish are, in fact, growing, and since we have developed the model to include reproduction. Therefore, model optimisation was run for intake rate mass exponents $\geq 3/4$.
 
-A second, but crucial, adjustment made to intake rate to advance the \cite{West2001} and \cite{Charnov2001} models further was to its coefficient, $a$. In order to theoretically endorse their model fit results for the value of $a$, \cite{West2001} used fundamental cellular properties to derive an approximate value for $a$. 
-
-Incoming rate of energy, $B$, scales with standard metabolic rate, such that $B = B_{0}m^{3/4}$, where $B_0$ is constant for a given taxon. Thus we get
-\begin{equation}
-    \frac{dm}{dt} = am^{3/4} - bm
-\end{equation}
-where $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E_{c}$. \cite{West2001} claim that: ``Perhaps more significantly, the magnitudes of $a$ and $b$ can be independently determined from fundamental parameters of the cell:'' 
-\begin{itemize}
-    \item The energy content of mammalian tissue $E_T$
-    \item Mass of a single cell $m_c$
-    \item Energy needed to create a cell \textit{in vivo} $E_c$
-    \item Metabolic rate intercept $B_0$
-\end{itemize} 
+A second, but crucial, adjustment made to intake rate to advance the \cite{West2001} and \cite{Charnov2001} models further was to its coefficient, $a$. In order to theoretically endorse their model fit results for the value of $a$, \cite{West2001} used fundamental cellular properties to derive an approximate value of $a$ where $a \equiv B_{0}m_{c}/E_{c}$ (See SI for full derivation). Bioenergetically, $a$ represents the number of cells grown per unit time given the energy available ($\frac{\textsc{joules}}{\textsc{sec}} \cdot \frac{\textsc{mass}}{\textsc{joules}}$). They make the following calculation: Incoming rate of energy, $B$, scales with standard metabolic rate, such that $B = B_{0}m^{3/4}$, where $B_0$ is constant for a given taxon. $E_T$ is the energy content of mammalian tissue $\approx 7 \cdot 10^6 J \cdot Kg^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} g$, thus $E_c$, the energy required to create a cell \textit{in viro} = $E_T \cdot m_c = (7 \cdot 10^6 JKg^{-1})(3 \cdot 10^{-12} Kg) \approx 2.1 \cdot 10^{-5} J$. They take  $B_0 \approx 1.9 \cdot 10^{-2} W$. By substitution:
 \begin{align*}
-    E_T &\approx 7 \cdot 10^6 JKg^{-1} \\
-    m_c &\approx 3 \cdot 10^{-9} g \\
-    E_c &= E_T \cdot m_c \\
-    E_c &= (7 \cdot 10^6 JKg^{-1})(3 \cdot 10^{-12} Kg) \\
-    E_c &\approx 2.1 \cdot 10^{-5} J \\
-    B_0 &\approx 1.9 \cdot 10^{-2} W \\
-    a &\equiv B_{0}m_{c}/E_{c} \\
+    a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
     a &= \frac{(1.9 \cdot 10^{-2} W)(3 \cdot 10^{-9} g)}{2.1 \cdot 10^{-5} J}\\
+    a &= 2.71 \cdot 10^{-6} g^{1/4}s^{-1} \\
+    2.71 \cdot 10^{-6}&g\cdot s^{-1} \cdot 24 \cdot 60 \cdot 60 \ \ \textsc{   seconds to days}\\
     a &\approx 0.25 g^{1/4}day^{-1}
 \end{align*}
-\newpage
-They claim this is in ``good agreement'' with the data in their Table 1 (below), but upon observation, it is only in good agreement for mammals, which makes sense since they used the energy content of mammalian tissue taken from \cite{peters1983}. However, upon further investigation, it became apparent that they had taken their value for $B_0$ for unicellular organnisms, derived from data published by \cite{Hemmingsen1960} which included different slope (scaling) values for unicellulars, poikilotherms and homeotherms (see Fig 5).
-
-\begin{table}[h]
-    \caption{Parameter values for model fitting from \cite{West2001}}
-    \begin{center}
-    \begin{tabular}{|l|l|l|l|l|}
-    \hline
-    Organism            & $a$   & $m_0$   & $M$     & Slope \\ \hline
-    Cow                 & 0.28  & 33.3 kg & 442kg   & 1.08  \\ \hline
-    Pig                 & 0.31  & 0.90 kg & 320kg   & 1.08  \\ \hline
-    Rabbit              & 0.36  & 0.12 kg & 1.35 kg & 1.34  \\ \hline
-    Guinea pig          & 0.21  & 5 g     & 840g    & 0.91  \\ \hline
-    Rat                 & 0.23  & 8 g     & 280g    & 1.07  \\ \hline
-    Shrew               & 0.83  & 0.3 g   & 4.2 g   & 0.98  \\ \hline
-    Heron               & 1.56  & 3 g     & 2.7 kg  & 1.04  \\ \hline
-    Hen                 & 0.47  & 43g     & 2.1 kg  & 0.72  \\ \hline
-    Robin               & 1.9   & 1 g     & 22g     & 1.03  \\ \hline
-    Cod                 & 0.017 & 0.1 g   & 25 kg   & 1.01  \\ \hline
-    Salmon              & 0.026 & 0.01 g  & 2.4 kg  & 1.01  \\ \hline
-    Guppy               & 0.10  & 0.008 g & 0.15 g  & 1.04  \\ \hline
-    Shrimp              & 0.027 & 0.0008g & 0.075g  & 0.82  \\ \hline
-    \end{tabular}
-    \end{center}
-\end{table}
-\begin{center}
-    \begin{minipage}{0.6\linewidth}
-        \includegraphics[width=\linewidth]{../Data/hemmingsen_1960.jpg}
-        \captionof{figure}{Plot published by \cite{Hemmingsen1960}}
-    \end{minipage}
-\end{center}
-
-Since my model is capturing the growth of fish, we can adapt their framework using  accurate fish values for the same cellular parameters. Furthermore, I can see if theoretical calculations predict \cite{West2001}'s $a$ for fish. Energy content caloric equivalents for fish tissue were calculated as average from caloric equivalent values across 70 fish species, converted from $kJ\cdot g^{-1}$ to $JKg^{-1}$ using ``per gram of wet weight'' values \autocite{Steimle1980} (\cite{West2001} also used wet weight). Standard metabolic rate values derived by \cite{Hemmingsen1960} from Figure 5 are:
-\begin{itemize}
-    \item $MR = 4.1m^{0.751}$ (homeotherms)
-    \item $MR = 0.14m^{0.751}$ (poikilotherms)
-    \item $MR = 0.018m^{0.751}$ (unicellular) [used by \cite{West2001} for all animals]
-\end{itemize}
-
-We want to end up with $g\cdot day^{-1}$ so convert masses to $g$ first:
+They claim this is in ``good agreement'' with the data in their Table 1 (below), but brief observation reveals that this claim only holds true for mammals, an intuitive deduction since they used the energy content of mammalian tissue for $E_T$, taken from \cite{peters1983}. However, further investigation makes apparent the intriguing value used for $B_0$. This quantity remains constant within a taxon, and \cite{West2001} chose the value known for unicellular organisms, derived from data published by \cite{Hemmingsen1960} which included different slope (scaling) values for unicellulars, poikilotherms and homeotherms. Since my aim is to model growth and optimise reproduction in fish, this choice is not only of particular interest but is crucial given that this endeavour mandates accurate values for fixed parameters, such as $a$, in order for optimised free parameters to be biologically realistic. To this end, I altered their calculation to include values for the same cellular parameters which are accurate to fish. Tissue energy content $E_T$ for fish was calculated as the average from caloric equivalents across 70 fish species \autocite{Steimle1980}, converted from $kJ\cdot g^{-1}$ to $JKg^{-1}$ using ``per gram of wet weight'' values, the same metric used by \cite{West2001}. Repeating the same calculation: $E_T$ is the energy content of fish tissue $= 5.63 \cdot 10^3 J\cdot g^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} \textsc{g}$, thus $E_c$, the energy required to create a cell \textit{in viro} = $1.69 \cdot 10^{-5} J$. $B_0 \approx 1.4 \cdot 10^{-1} W$ for poikilotherms. By substitution:
 \begin{align*}
-    E_T &= 5.6348018286 \cdot 10^3 J\cdot g^{-1} \\
-    m_c &\approx 3 \cdot 10^{-9} g \\
-    E_c &= E_T \cdot m_c \\
-    E_c &= (5.635 \cdot 10^3 J\cdot g^{-1})(3 \cdot 10^{-9} g) \\
-    E_c &= 1.69 \cdot 10^{-5} J \\
-    B_0 &\approx 1.4 \cdot 10^{-1} W \\
-    a &\equiv B_{0}m_{c}/E_{c} \\
+    a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
     a &= \frac{(1.4 \cdot 10^{-1} W)(3 \cdot 10^{-9} g)}{1.69 \cdot 10^{-5} J}\\
     a &= 2.4867 \cdot 10^{-5}g\cdot s^{-1} \\
     2.4867 \cdot 10^{-5}&g\cdot s^{-1} \cdot 24 \cdot 60 \cdot 60 \ \ \textsc{   seconds to days}\\
     a &= 2.1485 g^{1/4}\cdot day^{-1}
 \end{align*}
-
-
-
+% \begin{table}[h]
+%     \caption{Parameter values for model fitting from \cite{West2001}}
+%     \begin{center}
+%     \begin{tabular}{|l|l|l|l|l|}
+%     \hline
+%     Organism            & $a$   & $m_0$   & $M$     & Slope \\ \hline
+%     Cow                 & 0.28  & 33.3 kg & 442kg   & 1.08  \\ \hline
+%     Pig                 & 0.31  & 0.90 kg & 320kg   & 1.08  \\ \hline
+%     Rabbit              & 0.36  & 0.12 kg & 1.35 kg & 1.34  \\ \hline
+%     Guinea pig          & 0.21  & 5 g     & 840g    & 0.91  \\ \hline
+%     Rat                 & 0.23  & 8 g     & 280g    & 1.07  \\ \hline
+%     Shrew               & 0.83  & 0.3 g   & 4.2 g   & 0.98  \\ \hline
+%     Salmon              & 0.026 & 0.01 g  & 2.4 kg  & 1.01  \\ \hline
+%     Guppy               & 0.10  & 0.008 g & 0.15 g  & 1.04  \\ \hline
+%     Shrimp              & 0.027 & 0.0008g & 0.075g  & 0.82  \\ \hline
+%     \end{tabular}
+%     \end{center}
+% \end{table}
 
 The model is based on the LHT concept that assumes that natural selection optimises strategies, e.g. $c$ and $\rho$, to maximise fitness, where lifetime reproductive output can be used as a proxy for fitness, denoted $R_0$, which can be derived from theoretical evolution studies \autocite{Charnov2001, stearns1992evolution}. To this end, the model was analysed via simulations which allowed the fecundity rate parameters $c$ and $\rho$ to vary in order to maximise $R_0$, which is calculated using a life history model, developed from \cite{Charnov2001}. Since the scope for reproduction is determined by how much energy is available, it follows that the optimal values of $c$ and $\rho$ are dependent on the value and scaling of intake rate $am^{x}$. 
 
