@@ -10,7 +10,7 @@
 	end
 =>PYTHONTEX#jl#default#default#1#c#####41#
 using PyPlot
-=>PYTHONTEX#jl#default#default#2#code#####159#
+=>PYTHONTEX#jl#default#default#2#code#####157#
     x = [1,2,3]
     y = [2,4,1]
     plot(x, y)

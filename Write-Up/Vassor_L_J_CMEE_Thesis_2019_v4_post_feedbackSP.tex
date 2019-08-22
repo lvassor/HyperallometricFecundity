@@ -38,7 +38,7 @@
 \usepackage{amssymb}
 % \usepackage{mathpazo}
 \usepackage{xpatch}
-\usepackage{cleveref}
+
 % Language packages
 % \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}    % utf8 support       %!!!!!!!!!!!!!!!!!!!!
@@ -48,8 +48,6 @@
 % Other packages
 \usepackage{xcolor}
 \usepackage{parskip}
-\usepackage{hyperref}
-    \hypersetup{colorlinks=false}
 \usepackage{tocloft}
     \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
 % \usepackage[colorinlistoftodos]{todonotes}
@@ -88,7 +86,7 @@
     \clearfield{eprint}
     \clearfield{eprinttype}
 }
-
+\usepackage{cleveref}
 
 \begin{document}
 
@@ -259,7 +257,7 @@ At this point my model crucially differs from Charnov, who considered $\rho = 1$
     \frac{dm}{dt} &= am^{3/4} - bm - cm \\
     \frac{dm}{dt} &= am^{3/4} - (b+c)m
 \end{align*}
-Equally, models which do not explicity consider reproduction (only maintenance $-bm$) make the same assumption implicitly, since modelling across ontogeny assumes that organisms progress to maturity, which incurs an energetic cost, simply reflected in higher maintenance cost. This again assumes isometric mass-scaling of reproduction allocation rate. \cite{Marshall2019b}, in a recent review of OGMs, took particular issue with this assumption, given the results published by \cite{Barneche2018d}. Specifically, they take a philosophical stand by fitting a model identical to \cref{luke_model} to fish age-at-size data, which fits as well as the \cite{West2001} and von \cite{vonBert1938} models (although they argue this by curve-overlap rather than using a valid model comparison metric such as Akaike or Baysian Information Criterion.) However, upon deriving the units of the quantities in this equation, it becomes apparent that the \cite{Marshall2019b} model is problematic in that it inadvertently reconciles two incompatible quantities. The units of all terms in the OGM are in \textsc{mass/time} in continuous time (see SI for full derivation and unit explanation). However, the (acclaimed hyperallometric) fecundity data reported by \cite{Barneche2018d} were for discrete, batch spawning events, where the typical method of data collection is to catch and dissect a fish and take gonadal measurements at that point in time (Barneche, 2019, pers comm). Collecting this data for different sized fish of the same species is not mathematically equivalent to a continuous rate of allocation of resources to reproduction which could then be used for a continuous growth rate measure. To this end, \cite{Marshall2019b} are inferring continuous rate scaling from discrete time data, and, as such, may be premature in their claims.    
+Equally, models which do not explicity consider reproduction (only maintenance, $-bm$) make the same assumption implicitly, since modelling across ontogeny or lifespan assumes progression to maturity, which incurs an energetic cost, which must come from maintenance cost. This again assumes isometric mass-scaling of reproduction allocation rate. \cite{Marshall2019b}, in a recent review of OGMs, took particular issue with this, given the results published by \cite{Barneche2018d}. Specifically, they take a philosophical stand by fitting a model identical to \cref{luke_model} to fish age-at-size data, which fits as well as the \cite{West2001} and von \cite{vonBert1938} models (although they argue this by curve-overlap rather than using a valid model comparison metric such as Akaike or Baysian Information Criterion.) However, upon deriving the units present in this equation, it becomes apparent that the \cite{Marshall2019b} model is problematic in that it inadvertently reconciles two incompatible quantities. The units of all terms in the OGM are in \textsc{mass/time} in continuous time (see SI for full derivation and unit explanation). However, the (acclaimed hyperallometric) fecundity data reported by \cite{Barneche2018d} were for discrete, batch spawning events, where the typical method of data collection is to catch and dissect a fish and take gonadal measurements at that point in time (Barneche, 2019, pers comm). Collecting this data for different sized fish of the same species is not mathematically equivalent to a continuous rate of allocation of resources to reproduction which could then be used for a continuous growth rate measure. To this end, \cite{Marshall2019b} are inferring continuous rate scaling from discrete time data, and, as such, may be premature in their claims.    
 
 The $3/4$ scaling of intake rate is set by the relationship between intake rate of energy by individual cell and resting metabolic rate. Resting metabolic rate scales to $3/4$ exponent of mass due to the fractal architecture of space-filling, hierarchical branching supply networks (e.g. capillaries) whose geometry has evolved due to natural selection optimising energy transport to the cells \autocite{West1997, West2005}. The self-similarity of the network at decreasing levels approximates a fractal, which is mathematically considered to have a non-integer dimension \autocite{Hausdorff1918, Mandelbrot1982}. This fractional scaling exists due to the scaling of the number of terminal units, e.g. capillaries, in the network with size. That is, bigger entities do not evolve bigger networks, but the networks become more deeply nested with child branches \autocite{West1997}. This is the mechanism underlying ecology's famous Kleiber's law that, for the vast majority of organisms, resting metabolic rate scales hypoallometrically to the $3/4$ power of the animal's mass \autocite{Kleiber1947, peters1983, niklas1994plant}. Whilst this exponent value is true for the scaling of resting metabolic rate, 
 
