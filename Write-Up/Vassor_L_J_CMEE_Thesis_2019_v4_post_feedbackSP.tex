@@ -46,6 +46,8 @@
 % \usepackage{listings}
 
 % Other packages
+\usepackage{lmodern}% http://ctan.org/pkg/lmodern
+\usepackage{slantsc}
 \usepackage{xcolor}
 \usepackage{parskip}
 \usepackage{tocloft}
@@ -53,11 +55,17 @@
 % \usepackage[colorinlistoftodos]{todonotes}
 
 % Plotting packages
+\makeatletter
+\newcommand{\thickhline}{%      % for thick lines in table
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
 % \usepackage{subfigure}
 \usepackage[pyplot]{juliaplots}
 \usepackage{wrapfig}
 \usepackage{graphicx}
 \usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{tabularx}
 % Citation packages
 \usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
     \addbibresource{./CMEE_Thesis.bib}
@@ -119,7 +127,7 @@
     % textsc command sets small capitals (sc)
     \textsc{A thesis submitted in partial fulfilment \\ of the requirements for the degree of \\ Master of Science at Imperial College London \\ by \\ \ }\\[2.5cm]
     \textsc{\Large \@author}\\[2.5cm]
-    \textsc{Submitted for the \\ M.Sc. Computational Methods in Ecology \& Evolution \\ Formatted in the journal style of \textit{Ecology Letters} \\ \ }\\[2cm]
+    \textsc{Submitted for the \\ M.Sc. Computational Methods in Ecology \& Evolution \\ Formatted in the journal style of \textsl{\textsc{Ecology Letters}} \\ \ }\\[2cm]
 
     %----------------------------------------------------------------------------------------
     %	HEADING SECTIONS
@@ -152,20 +160,13 @@
 
 %%% Abstract %%%
 \section*{Abstract}\thispagestyle{plain}
-    Your abstract goes here. The abstract is a very brief summary of the dissertation's contents. It should be about half a page long. Somebody unfamiliar with your project should have a good idea of what it's about having read the abstract alone and will know whether it will be of interest to them.
+    The amount of metabolic energy an organism can sequester from its environment fundamentally determines its scope for growth and reproduction. Here I use an energetics and life history theoretical model to estimate the optimum mass-proportion and mass-scaling values of fecundity rate in fish, under different energy intake regimes, to test a recent claim that it scales hyperallometrically with mass. Theoretically, I show that a truly continuous rate of allocation to fecundity cannot scale hyperallometrically with size. I also derive and validate the use of a new intake rate value, based on fish energetics data and field metabolic rate mass-scaling, by demonstrating that the onset of reproductive allocation at maturity is only possible given these intake rate values. Overall, the study highlights the importance of correctly characterising growth and the fitness contribution of different sized individuals to a population.
 
-\textbf{Keywords} \\
-
+    \textbf{Keywords} \\
+    Biomass; energetics; productivity; allometry; life history; fisheries
 %%% Acknowledgements %%%
 \section*{Acknowledgements}\thispagestyle{plain}
-    It is usual to thank those individuals who have provided particularly useful assistance, technical or otherwise, during your project. \\
-    Samraat \\
-    Dustin - useful conversations \\
-    Tom - ditto \\
-    Francis - code help \\
-    Pawarlab - conversations and environment \\
-    Alex - maths \\
-    Course members \\
+    Special thanks goes to Dr Samraat Pawar for providing excellent supervision and facilitating  highly-stimulating, always comical, dialogue throughout the 5-month thesis period, and the CMEE course in general. Likewise to Tom Clegg, for his part in this, and his unwavering patience in providing frequent additional support and discussion outside of scheduled meetings. Additional thanks goes to Dr Diego Barneche, Prof Van Savage and Prof Dustin Marshall for allocating time to this problem on their visits to Silwood Park, to Francis Windram and Alex Christensen for coding and mathematics assistance, respectively, to Deraj Wilson-Aggarwal for moral support and Barista skills, and to the remaining members of PawarLab for providing such an open, intellectual and hilarious environment. Lastly, the completion of this thesis, or the degree in general, would not have been possible without the efforts and support of my family, who have assisted in any way possible to make life easier, be that via food or transport, I will always be grateful to them. Nor would it have been possible without the support of my partner, Tiffany, who, despite her passion for a different field, has tolerated my endless utterances and vocalised mental grapplings with metabolic, life history and game theory for the last 5 months - something tells me I should hold on tight.
 
 %%% Table of Contents %%%
 \newpage\tableofcontents\thispagestyle{plain}
@@ -175,25 +176,38 @@
 \addcontentsline{toc}{section}{List of Figures}
 
 %%% Listof Tables %%%
-\newpage\listoftables\thispagestyle{plain}
-\addcontentsline{toc}{section}{List of Tables}
+% \newpage\listoftables\thispagestyle{plain}
+% \addcontentsline{toc}{section}{List of Tables}
 
 %%% Notation %%%
 \newpage\section*{Notation}\thispagestyle{plain}
 \addcontentsline{toc}{section}{Notation}   
-    $\frac{dm}{dt}$ = change in mass with (continuous) time \\
-    $m$ = mass \\
-    $a$ = coefficient (proportion of body mass) for energy/resource intake/acquisition \\
-    $b$ = coefficient for maintenance \\
-    $c$ = coefficient for reproduction \\
-    $y$ = mass scaling exponent for energy intake (almost always = 0.75 (MTE)) \\
-    $z$ = mass scaling exponent for maintenance (almost always = 1) \\
-    $\rho$ = mass scaling exponent for reproduction \\
-    $\alpha$ = age at maturity (onset of reproduction) \\
-    $m_{\alpha}$ = mass at maturity \\
-    $M$ = asymptotic/terminal size \\
-    $L(x)$ or $L_x$ = Probability of survival to age $x$ \\
-    ATR = allocation to reproduction
+\begin{table}[h]
+    % \caption{Parameterisations for the scaling relationships underlying the growth model. All units are in SI.}
+    \begin{tabularx}{\linewidth}{ll}
+    \thickhline
+    \textbf{Description}                        & \textbf{Symbol}       \\ \thickhline
+    Change in body mass with (continuous) time  & $\frac{dm}{dt}$       \\
+    Body mass                                   & $m$                   \\ \hline
+    Energy Intake/Acquisition Rate              & $a$                   \\ 
+                                                & $y$                   \\ \hline
+    Maintenance Metabolic Rate                  & $b$                   \\ 
+                                                & $z$                   \\ \hline
+    Allocation to reproduction Rate             & $c$                   \\  %\autocite{peters1983,Blueweiss1978}
+    (estimated by GSI*)                         & $\rho$                \\ \hline %$1.29$ \autocite{Barneche2018d}
+    ATR = allocation to reproduction            & ATR                   \\ \hline
+    Age at maturity (onset of reproduction)     & $\alpha$              \\ \hline
+    Consumption rate                            & $C(t)$                \\ \hline
+                                                & $\gamma$              \\ \hline
+    Foraging length                             & $t_0$                 \\
+                                                & $\psi$                \\ \hline
+    Mass at maturity                            & $m_{\alpha}$          \\ \hline
+    Asymptotic/terminal size                    & $M$ or $m_{\infty}$   \\ \hline
+    Probability of survival to time $t$         & $L_t$                 \\ \hline
+    Rate of instantaneous mortality             & $Z$                   \\ \thickhline
+    \end{tabularx}
+\end{table}
+*Gonadosomatic Index; proportion of somatic body mass given to repro per year
 
 %%% Introduction %%%
 \newpage
