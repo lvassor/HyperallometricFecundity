@@ -166,7 +166,7 @@
     Biomass; energetics; productivity; allometry; life history; fisheries
 %%% Acknowledgements %%%
 \section*{Acknowledgements}\thispagestyle{plain}
-    Special thanks goes to Dr Samraat Pawar for providing excellent supervision and facilitating  highly-stimulating, always comical, dialogue throughout the 5-month thesis period, and the CMEE course in general. Likewise to Tom Clegg, for his part in this, and his unwavering patience in providing frequent additional support and discussion outside of scheduled meetings. Additional thanks goes to Dr Diego Barneche, Prof Van Savage and Prof Dustin Marshall for allocating time to this problem on their visits to Silwood Park, to Francis Windram and Alex Christensen for coding and mathematics assistance, respectively, to Deraj Wilson-Aggarwal for moral support and Barista skills, and to the remaining members of PawarLab for providing such an open, intellectual and hilarious environment. Lastly, the completion of this thesis, or the degree in general, would not have been possible without the efforts and support of my family, who have assisted in any way possible to make life easier, be that via food or transport, I will always be grateful to them. Nor would it have been possible without the support of my partner, Tiffany, who, despite her passion for a different field, has tolerated my endless utterances and vocalised mental grapplings with metabolic, life history and game theory for the last 5 months - something tells me I should hold on tight.
+    % Special thanks goes to Dr Samraat Pawar for providing excellent supervision and facilitating  highly-stimulating, always comical, dialogue throughout the 5-month thesis period, and the CMEE course in general. Likewise to Tom Clegg, for his part in this, and his unwavering patience in providing frequent additional support and discussion outside of scheduled meetings. Additional thanks goes to Dr Diego Barneche, Prof Van Savage and Prof Dustin Marshall for allocating time to this problem on their visits to Silwood Park, to Francis Windram and Alex Christensen for coding and mathematics assistance, respectively, to Deraj Wilson-Aggarwal for moral support and frequent Barista skills, and to the remaining members of PawarLab for providing such an open, intellectual and hilarious environment. Lastly, the completion of this thesis, or the degree in general, would not have been possible without the efforts and support of my family, who have assisted in any way possible to make life easier, be that via food or transport, I will always be grateful to them. Nor would it have been possible without the support of my partner, Tiffany, who, despite her passion for a different field, has tolerated my endless utterances and vocalised cognitive grapplings with metabolic, life history and game theory for the last 5 months - something tells me I should hold on tight.
 
 %%% Table of Contents %%%
 \newpage\tableofcontents\thispagestyle{plain}
@@ -181,32 +181,35 @@
 
 %%% Notation %%%
 \newpage\section*{Notation}\thispagestyle{plain}
-\addcontentsline{toc}{section}{Notation}   
+\addcontentsline{toc}{section}{Notation}
+
 \begin{table}[h]
+    \centering
     % \caption{Parameterisations for the scaling relationships underlying the growth model. All units are in SI.}
-    \begin{tabularx}{\linewidth}{ll}
+    \begin{tabularx}{0.7\linewidth}{ll}
     \thickhline
-    \textbf{Description}                        & \textbf{Symbol}       \\ \thickhline
-    Change in body mass with (continuous) time  & $\frac{dm}{dt}$       \\
-    Body mass                                   & $m$                   \\ \hline
-    Energy Intake/Acquisition Rate              & $a$                   \\ 
-                                                & $y$                   \\ \hline
-    Maintenance Metabolic Rate                  & $b$                   \\ 
-                                                & $z$                   \\ \hline
-    Allocation to reproduction Rate             & $c$                   \\  %\autocite{peters1983,Blueweiss1978}
-    (estimated by GSI*)                         & $\rho$                \\ \hline %$1.29$ \autocite{Barneche2018d}
-    ATR = allocation to reproduction            & ATR                   \\ \hline
-    Age at maturity (onset of reproduction)     & $\alpha$              \\ \hline
-    Consumption rate                            & $C(t)$                \\ \hline
-                                                & $\gamma$              \\ \hline
-    Foraging length                             & $t_0$                 \\
-                                                & $\psi$                \\ \hline
-    Mass at maturity                            & $m_{\alpha}$          \\ \hline
-    Asymptotic/terminal size                    & $M$ or $m_{\infty}$   \\ \hline
-    Probability of survival to time $t$         & $L_t$                 \\ \hline
-    Rate of instantaneous mortality             & $Z$                   \\ \thickhline
+    \textbf{Description}                                                & \textbf{Symbol}       \\ \thickhline
+    Change in body mass with (continuous) time                          & $\frac{dm}{dt}$       \\
+    Body mass                                                           & $m$                   \\ \hline
+    Energy Intake/Acquisition Rate \textsc{coeff}                       & $a$                   \\ 
+    \textsc{scaling exponent}                                           & $y$                   \\ \hline
+    Maintenance Metabolic Rate \textsc{coeff}                           & $b$                   \\ 
+    \textsc{scaling exponent}                                           & $z$                   \\ \hline
+    Allocation to reproduction Rate (estimated by GSI*)\textsc{coeff}   & $c$                   \\  %\autocite{peters1983,Blueweiss1978}
+    \textsc{scaling exponent}                                           & $\rho$                \\ \hline %$1.29$ \autocite{Barneche2018d}
+    ATR = allocation to reproduction                                    & ATR                   \\ \hline
+    Age at maturity (onset of reproduction)                             & $\alpha$              \\ \hline
+    Consumption rate                                                    & $C(t)$                \\ 
+    \textsc{scaling exponent}                                           & $\gamma$              \\ \hline
+    Foraging length \textsc{coeff}                                      & $t_0$                 \\
+    \textsc{scaling exponent}                                           & $\psi$                \\ \hline
+    Mass at maturity                                                    & $m_{\alpha}$          \\ \hline
+    Asymptotic/terminal size                                            & $M$ or $m_{\infty}$   \\ \hline
+    Probability of survival to time $t$                                 & $L_t$                 \\ \hline
+    Rate of instantaneous mortality                                     & $Z$                   \\ \thickhline
     \end{tabularx}
 \end{table}
+
 *Gonadosomatic Index; proportion of somatic body mass given to repro per year
 
 %%% Introduction %%%
@@ -229,13 +232,13 @@
         \label{growth_schedules}
         \includegraphics[width=0.49\linewidth]{../Other/Presentation/indeterminate.pdf}  
         % \label{indeterminate}
-        \captionof{figure}{Determinate growth evolves from having energy intake and maintenance rates which eventually intercept. Indeterminate growers do have a theoretical asymptotic size, due to the finite nature of energy resource, but this is never reached.}
+        \captionof{figure}{Determinate growth evolves from having energy intake and maintenance rates which intercept before death. Indeterminate growers do have a theoretical asymptotic size, due to the finite nature of energy resource, but this is never reached.}
         \end{minipage}%
         \hfill
         \begin{minipage}{0.45\linewidth}
             \includegraphics[width=\linewidth]{../Other/Presentation/logistic_growth_curve.pdf}  
             \label{logistic_growth}
-            \captionof{figure}{Logistic Growth. Determinate growers reach asymptotic size before death, where indeterminate do not, hence they appear to grow indefinitely.}
+            \captionof{figure}{The logistic growth curve results from the low metabolic costs incurred by a small mass, giving rise to a fast growth rate at small sizes which slows as mass increases. Determinate growers reach an asymptotic size within their lifetime, where growth rate = 0.}
         \end{minipage}
     \end{center}
     Whilst these two branches of theory tend to operate in isolation, several attempts have been made at combining them. To reconcile the two theories, authors have typically derived seperate, energetically-governed growth equations for different ontogenetic stages, e.g. juvenile and mature, to form two-piece or ``biphasic'' models (reviewed in \cite{Wilson2018}) Post-maturity equations usually introduce a new energy loss term representing the rate of energy allocated to reproduction or gonad mass. These hybrids maximise explanatory potential by blending both philosophies to gain a proximate and ultimate understanding of growth \autocite{Marshall2019b}.    
@@ -257,7 +260,7 @@ The \cite{West2001} general model is derived from an organism of wet mass $m$ (g
 \end{align}
 where $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E_{c}$. $B_0$ is a metabolic normalisation constant invariant within a taxon, $m_{c}$ is the mass of a single cell, $E_{c}$ is the energy expended to synthesise a single cell ($J \cdot g^{-1}$) and $B_{c}$ is the metabolic rate of a single cell. $x$ and $y$ are dimensionless mass-scaling exponents which are predicted to take values of $3/4$ and $1$, respectively. The $3/4$ scaling of intake rate is set by the relationship between intake rate of energy by individual cells and resting metabolic rate. Resting metabolic rate scales to the $3/4$ exponent of mass due to the fractal architecture of space-filling, hierarchical branching supply networks (e.g. capillaries) whose geometry has evolved due to natural selection optimising energy transport to the cells \autocite{West1997, West2005}. Larger entities do not evolve bigger networks, but the networks become more deeply nested with child branches. This self-similarity of the network at decreasing levels causes the number of terminal units to scale with mass to an exponent of $3/4$, as this geometry approximates a fractal, which is mathematically considered to have a non-integer dimension \autocite{Hausdorff1918, Mandelbrot1982}. This is the mechanism underlying ecology's famous Kleiber's law that, for the vast majority of organisms, resting metabolic rate scales hypoallometrically to the $3/4$ power of the animal's mass \autocite{Kleiber1947, peters1983, niklas1994plant}. The isometric scaling of maintenance ($y = 1$) is set by the linear increase in cells with mass, i.e. if an organism's mass $= m$, then a size $2m$ organism has twice the cells to maintain.
 
-In order to address the agnosticism of this model to reproduction, \cite{Charnov2001} developed the framework to include a term to represent fecundity allocation rate, in order to solve for optimum life history values. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_ogm}. At $\alpha$, a reproduction term is introduced where c is the proportion of body mass allocated to reproduction and $\rho$ is the reproduction mass-scaling exponent. Crucially, \cite{charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents:
+In order to address the agnosticism of this model to reproduction, \cite{Charnov2001} developed the framework to include a term to represent fecundity allocation rate, in order to solve for optimum life history values. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_ogm}. At $\alpha$, a reproduction term is introduced where c is the proportion of body mass allocated to reproduction and $\rho$ is the reproduction mass-scaling exponent. Crucially, \cite{Charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents:
 \begin{align}
     \frac{dm}{dt} &= am^{3/4} - bm - cm \nonumber \\
     \frac{dm}{dt} &= am^{3/4} - (b+c)m \label{charnov}
@@ -339,7 +342,7 @@ Production of a fecundity-rate feasibility heatmap proved necessary to obtain gr
 \begin{center}
     \begin{minipage}{0.8\linewidth}
         \includegraphics[width=0.8\linewidth]{../Results/single_curve_with_onset.pdf}
-        \captionof{figure}{Example growth curve showing an inflection at maturity when $\alpha = 200$, as opposed to shrinking, which would be rejected by the optimisation algorithm since shrinking in fish is not biologically possible. At maturity, growth rate slows (inflection) due to the diversion of resource to fecundity, leaving less scope for growth. Simultaneously, lifetime reproduction (cumulative) increases to an asymptote, when this quantity is less and less likely to increase given the exponential decay of survivorship probability, $l_t$.} 
+        \captionof{figure}{Growth undergoes an inflection, as it approaches an asymptote, at maturity when $\alpha = 200$, as opposed to shrinking, which would be rejected by the optimisation algorithm since shrinking in fish is not biologically possible. At maturity, growth rate slows (inflection) due to the diversion of resource to fecundity, leaving less scope for growth. Simultaneously, lifetime reproduction (cumulative) increases to an asymptote, when this quantity is less and less likely to increase given the exponential decay of survivorship probability, $l_t$.} 
         \label{growth_curve}
     \end{minipage}\\
 \end{center}
@@ -348,12 +351,12 @@ Production of a fecundity-rate feasibility heatmap proved necessary to obtain gr
 The life history optimisation results show that, theoretically, the continuous rate of reproductive allocation in mature fish does exhibit an allometric scaling relationship with mass ($\rho \neq 1$) however, contrary to \cite{Marshall2019b}'s claim, this is not \textit{hyperallometric}. In fact, results suggest that the relationship is instead hypoallometric, ($\rho < 1$), with a surprisingly low optimum $\rho = 0.06$. Evidently, for the canonical $3/4$ scaling of intake rate and $\alpha$, the fecundity rate parameter space and values themselves which do not elicit shrinking of body mass are both small. This is due to the fact that $3/4$ mass-scaling of intake rate is not large enough to overcome even small values of $\rho$, which dominates the fecundity rate term. As such, when a fish matures, the combined cost of maintenance, and reproduction outweighs intake rate and $dm/dt < 0$. The result for $c$ suggests that the theoretical optimum is to devote 17\% of body mass to feundity per day, which conforms to the existing literature, which suggest 10-25\%. Results also appear unaffected by a changing $\kappa$, suggeting that the decline in fecundity is not does not occur at a large enough magnitude to overcome the investment in reproduction itself.
 \begin{center}
     \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01}.pdf}
+    \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01_tex}.pdf}
     \captionof{figure}{Optimum fecundity rate parameters $\rho,c$ \\ when $am^x = (2.15)m^{0.75}, \kappa = 0.01$}
     \end{minipage}%
     % \hfill
     \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.10}.pdf}  
+    \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.10_tex}.pdf}  
     \captionof{figure}{Optimum fecundity rate parameters $\rho,c$ \\ when $am^x = (2.15)m^{0.75}, \kappa = 0.10$}
     \end{minipage}\\
 \end{center} 
@@ -363,19 +366,33 @@ Increasing the value of the intake rate scaling exponent evidently permits large
 
 \begin{center}
     \begin{minipage}{0.5\linewidth}
-        \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01}.pdf}  
+        \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_tex}.pdf}  
         \captionof{figure}{Optimum fecundity rate parameters $\rho,c$ \\ when $am^x = (2.15)m^{0.85}, \kappa = 0.01$}
         \label{0.85, 0.01}
     \end{minipage}%
     % \hfill
     \begin{minipage}{0.5\linewidth}
-        \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.10}.pdf}    
+        \includegraphics[width=\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.10_tex}.pdf}    
         \captionof{figure}{Optimum fecundity rate parameters $\rho,c$ \\ when $am^x = (2.15)m^{0.85}, \kappa = 0.10$}
         \label{0.85, 0.1}
     \end{minipage}
 \end{center}
 
 These results highlight a caveat of the model, which is that the fixed parameter $\alpha$ has a fundamental effect on the feasible parameter space. The aforementioned $\alpha Z$ invariant does, of course, cause the life history model (\cref{LHT_optimisation}) to behave the same regardless of the chosen $\alpha$, since $Z$ compensates. However, this invariant does not discipline the growth model (\cref{luke_model}), which is where predictive power begins to be lost. The results presented reflect $\alpha = 200$, or a fish maturity age of 200 days. However, I predict that adjusting $\alpha$ will have profound effects on the optimum fecundity rate parameter values, due to their relatedness to mass. Suppose $\alpha$ is set at a larger value, e.g. 400 days. This means that for double the amount of time, our hypothetical fish is governed only by \cref{luke_model_juvenile}, which incurs less cost (no reproduction), thus in this time the fish can grow larger. At $\alpha$, when it matures, it has already reached a larger size, thus the reproduction term takes on a much larger value, especially due to $\rho$. This sudden and larger diversion of resources causes $dm/dt < 0$, or shrinking. This is, in fact, how the feasible parameter space in the model is calculated. Suppose, for a given $c, \rho$ combination, a fish is born mature, thus incurring a $cm^{\rho}$ cost for its whole lifespan, if this trajectory's $m_{\infty}$ is smaller than $m_{\alpha}$ when maturity is delayed (e.g. $\alpha = 200$), then this fish will always shrink under this model. When fish mature very early on ($\alpha \rightarrow 0$), they can never reach a size $m_{\alpha} > m_{\infty}$ because they incur these costs from birth. Thus, I predict that at larger values of $\alpha$, only very small values for $\rho$ are possible, if not at all, across a fixed intake rate. In the case that $\rho \approx 0$ and $c \rightarrow 0$, this indicates that reproducing at that age, at all, is not possible, unless another quantity changes, e.g. intake exponent increases. Alternatively, this would indicate that the architecture of the model itself is not realistic, in the sense that fish do not suddenly become mature in the timescale of a single day and incur an immediately large cost. Instead, they either allocate to fecundity from a very early age while remaining sexually immature, termed ``the dissipative processes of respiration''. Or, in reality, the timescale of the juvenile phase is almost negligible in contrast to the timescale of the lifetime, hence they are only governed by \cref{luke_model} \autocite{West2001}. 
+
+\begin{center}
+    \begin{minipage}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{{../Results/alpha_sensitivity_x=0.75}.pdf}  
+        \captionof{figure}{Results of sensitivity analysis of optimum $\rho$ \\ values to $\alpha$ when $am^x = (2.15)m^{0.75}$}
+        \label{alpha_sensitivity_0.75}
+    \end{minipage}%
+    % \hfill
+    \begin{minipage}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{{../Results/alpha_sensitivity_x=0.85}.pdf}    
+        \captionof{figure}{Results of sensitivity analysis of optimum $\rho$ \\ values to $\alpha$ for when $am^x = (2.15)m^{0.85}$}
+        \label{alpha_sensitivity_0.85}
+    \end{minipage}
+\end{center}
 % Need a heatmap of $a = 0.02 $ to prove that West values don't work and validate my change in H2
 
 %%% Conclusion %%%
