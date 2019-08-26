@@ -1,5 +1,13 @@
+
+INTRO
+
+Whilst these two branches of theory tend to operate in isolation, several attempts have been made at combining them. To reconcile the two theories, authors have typically derived seperate, energetically-governed growth equations for different ontogenetic stages, e.g. juvenile and mature, to form two-piece or ``biphasic'' models (reviewed in \cite{Wilson2018}) Post-maturity equations usually introduce a new energy loss term representing the rate of energy allocated to reproduction or gonad mass. These hybrids maximise explanatory potential by blending both philosophies to gain a proximate and ultimate understanding of growth \autocite{Marshall2019b}.    
+most mechanistic modelsdespite being an uncontroversially fundamental life history event, d do not explicitly account for reproduction. , rendering inferences made from these models problematic \autocite{Day1997, Marshall2019b}. Reproduction incurs large energetic costs and increases mortality risk, with some highly fecund vertebrates consisting of 75\% reproductive tissue \autocite{Parker2018}. At the onset of reproduction, different energetic mechanistims emerge in contrast to the preceding juvenile phase as energetic resources are shunted from growth to reproduction \autocite{Day1997}. 
+since the results of a large meta-study on fish growth were published, which concluded that total fish fecundity, considering clutch size, egg volume and egg energy content, scales hyperallometrically with mass \autocite{Barneche2018d}.
+
 Implicit in these models is the assumption that surplus energy is optimally allocated to growth \textit{after} non-negotiable maintenance of existing cells. This is derived from rearranging the conservation of energy equation presented by \cite{West2001}
 
+To do so, mathematical biologists have constructed sophisticated mathematical models, using laws from quantitative disciplines, such as the laws of geometry and laws of thermodynamics \& enzyme kinetics, to accurately predict the value of size across ontogeny.
 
 DISCUSSION
 \cite{West2001} addressed the issue of implied lifetime reproduction by estimating the premature, juvenile phase in fish to be short enough to be considered negligible, i.e. they effectively spend their entire life as a mature fish and, as such, their growth can be considered by their model. They also discuss the onset of reproduction and how it can be considered to be a higher maintenance cost based on energetic principles, since the energy density of egg and somatic cells are similar, thus maintenance term $b$ becomes $b + \lambda$ and asymptotic size reduces to $a/(b+\lambda)$ as the energy scope is reduced.
