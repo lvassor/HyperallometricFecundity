@@ -8,3 +8,5 @@ fig a and b in one figure
 link between H1 and H2 should naturally emerge
 ball park estimate for kappa value which actually causes change
 more data for alpha 
+
+can still go for intake rate time scaling since these results open up the idea that it should be explore more.

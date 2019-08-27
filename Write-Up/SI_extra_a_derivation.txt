@@ -1,0 +1,38 @@
+They make the following calculation: Assume incoming rate of energy, $B$, scales with standard metabolic rate, such that $B = B_{0}m^{3/4}$, where $B_0$ is constant for a given taxon. $E_T$ is the energy content of mammalian tissue $\approx 7 \cdot 10^6 J \cdot Kg^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} g$, thus $E_c$, the energy required to create a cell \textit{in viro} = $E_T \cdot m_c = (7 \cdot 10^6 JKg^{-1})(3 \cdot 10^{-12} Kg) \approx 2.1 \cdot 10^{-5} J$. They take  $B_0 \approx 1.9 \cdot 10^{-2} W$. By substitution:
+\begin{align*}
+    a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
+    a &= \frac{(1.9 \cdot 10^{-2} W)(3 \cdot 10^{-9} g)}{2.1 \cdot 10^{-5} J}\\
+    a &= 2.71 \cdot 10^{-6} g^{1/4}s^{-1} \\
+    2.71 \cdot 10^{-6}&g\cdot s^{-1} \cdot 24 \cdot 60 \cdot 60 \ \ \textsc{   seconds to days}\\
+    a &\approx 0.25 g^{1/4}day^{-1}
+\end{align*}
+
+Bioenergetically, $a$ represents the number of cells grown per unit time given the energy available ($\frac{\textsc{mass}}{\textsc{joules}} \cdot \frac{\textsc{joules}}{\textsc{sec}}$). They claim their theoretical calculation of $a$ is in ``good agreement'' with the model fit estimate for $a$ in their Table 1, but brief observation reveals that this claim only holds true for mammals, not birds and fish (fish are an order of magnitude lower), an intuitive deduction since they used the energy content of mammalian tissue in their calculation, taken from \cite{peters1983}. However, further investigation makes apparent the intriguing value they use for $B_0$. This quantity remains constant within a taxon, and \cite{West2001} chose the value known for unicellular organisms, derived from data published by \cite{Hemmingsen1960}, collected by \cite{peters1983}, which included different slope (scaling) values for unicellulars, poikilotherms and homeotherms. Given the deliberate choice to use a caloric equivalent value for mammals only, it is perplexing that they chose to ignore the $B_0$ value for homeotherms.
+
+Given my objective of modelling growth and life history in fish, this choice is not only of particular interest but is crucial given that this endeavour mandates accurate values for fixed parameters, such as $a$, in order for free parameters to be biologically realistic. To this end I altered the \cite{West2001} calculation of $a$ to include values for the same cellular parameters but which are accurate to fish. Tissue energy content $E_T$ for fish was calculated as the average from caloric equivalents across 70 fish species (see SI) \autocite{Cummins1971, Steimle1980, Hartman1995}, converted from $kJ\cdot g^{-1}$ to $JKg^{-1}$ using ``per gram of wet weight'' values, the same metric used by \cite{West2001}. Repeating the same calculation: $E_T$ is the energy content of fish tissue $= 5.63 \cdot 10^3 J\cdot g^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} \textsc{g}$, thus $E_c$, the energy required to create a cell \textit{in viro} = $1.69 \cdot 10^{-5} J$. $B_0 \approx 1.4 \cdot 10^{-1} W$ for poikilotherms. By substitution:
+\begin{align*}
+    a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
+    a &= \frac{(1.4 \cdot 10^{-1} W)(3 \cdot 10^{-9} g)}{1.69 \cdot 10^{-5} J}\\
+    a &= 2.4867 \cdot 10^{-5}g\cdot s^{-1} \\
+    2.4867 \cdot 10^{-5}&g\cdot s^{-1} \cdot 24 \cdot 60 \cdot 60 \ \ \textsc{   seconds to days}\\
+    a &= 2.1485 g^{1/4}\cdot day^{-1}
+\end{align*}
+
+
+  These discrete measurements are not compatible with the continuous rates that growth models are built on (see SI), meaning, it is erroneous to simply add an extra non-linear term to \cref{west_ogm} to represent this new finding, since it is not a measure of allocation per unit time, but instead a snapshot of fecundity. In fact, if a model is made this way, 
+
+  \subsection{Growth Model}
+
+The \cite{West2001} general model is derived from an organism of wet mass $m$ (g), a resting metabolic rate $b$ ($J \cdot d^{-1}$) and a growth rate per unit time of $dm/dt$ ($g \cdot d^{-1}$),
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - bm \label{west_ogm}
+\end{align}
+where $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E_{c}$. $B_0$ is a metabolic normalisation constant invariant within a taxon, $m_{c}$ is the mass of a single cell, $E_{c}$ is the energy expended to synthesise a single cell ($J \cdot g^{-1}$) and $B_{c}$ is the metabolic rate of a single cell. $x$ and $y$ are dimensionless mass-scaling exponents which are assumed to take values of $3/4$ and $1$, respectively. 
+
+A revised form of \cref{west_ogm} published by \cite{Charnov2001}, incorporates an explicit fecundity rate term. Crucially, \cite{Charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_ogm}. At $\alpha$, a reproduction term is introduced where c is the proportion of body mass allocated to reproduction and $\rho$ is the reproduction mass-scaling exponent:
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - bm - cm \label{charnov} \\
+    \frac{dm}{dt} &= am^{3/4} - (b+c)m \nonumber
+\end{align}
+Equally, models which do not explicitly consider reproduction at any point (only maintenance, $-bm$) make the same assumption implicitly, since modelling across ontogeny or lifespan assumes progression to maturity, which incurs an energetic cost, which must come from maintenance cost. This again assumes isometric mass-scaling of reproduction allocation rate. In the \cite{Marshall2019b} update to \cref{charnov}, they add a scaling exponent to $cm$ and make a philosophical argument for its superior accuracy by fitting this new model to fish age-at-size data, which fits as well as the \cite{West2001} and von \cite{vonBert1938} models (although they argue this by curve-overlap rather than using a valid model comparison metric such as Akaike or Baysian Information Criterion, which penalise additional parameters.) Crucially, however, this update is problematic in that it inadvertently reconciles two seemingly incompatible quantities. The fish hyperallometry data is not a rate, unlike the other elements of the model, intake rate and maintenance rate, which have dimensions \textsc{mass/time} (see SI for full derivation and dimensions). To this end, \cite{Marshall2019b} implicitly claim that these ``snapshots'' of fecundity for different sized fish of the same species together form a rate, which scales hyperallometrically. Here I seek to understand, theoretically, whether the scaling of a true instantaneous fecundity rate scales this way with mass. As stated, it is likely that this is only permitted under higher intake rate regime, resulting from steeper mass-scaling (see below).
+
