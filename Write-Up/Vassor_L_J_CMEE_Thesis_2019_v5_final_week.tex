@@ -71,6 +71,26 @@
 \usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
     \addbibresource{./CMEE_Thesis.bib}
     \setlength\bibitemsep{0.5\baselineskip}
+\renewbibmacro*{textcite}{%
+  \ifnameundef{labelname}
+    {\iffieldundef{shorthand}
+       {\usebibmacro{cite:label}%
+        \setunit{%
+          \global\booltrue{cbx:parens}%
+          \addspace\bibopenparen}%
+        \ifnumequal{\value{citecount}}{1}
+          {\usebibmacro{prenote}}
+          {}%
+        \usebibmacro{cite:labelyear+extrayear}}
+       {\usebibmacro{cite:shorthand}}}
+    {\printnames{labelname}%
+     \setunit{%
+       \global\booltrue{cbx:parens}%
+       \addspace\bibopenparen}%
+     \ifnumequal{\value{citecount}}{1}
+       {\usebibmacro{prenote}}
+       {}%
+     \usebibmacro{citeyear}}}
     % \renewcommand*\finalnamedelim{\addspace\&\space}
 
 % Force \textit{et al}. to be italicised
@@ -257,11 +277,10 @@ Production of a fecundity-rate feasibility heatmap proved necessary to obtain gr
         \label{growth_curve}
     \end{minipage}\\
 \end{center}
-\vspace{0.5cm}
+% \vspace{0.5cm}
 
 \subsection{Can instantaneous fecundity rate scale hyperallometrically with mass in fish mothers?}
-The life history optimisation results show that, theoretically, instantaneous fecundity rate in mature fish is unlikely to scale hyperallometrically with mass. These results highlight the importance of age-at-maturity in a fish's ability to then devote a large proportion of body mass to reproduction, under the paradigm of the model. In order for fecundity rate to scale hyperallometrically, of which there was a single instance, a fish must mature very early. Immature fish are not subject to a fecundity rate cost in the model, only maintenance cost (see \cref{luke_model_juvenile}), thus they grow far more rapidly than in the later mature phase (see \cref{growth_curve}) when this extra cost is incurred (see logistic growth). Moreover, if this growth rate is too rapid, fish will reach a size at maturity $m_{\alpha}$ which is too large \autocite{Arendt2011} to permit fecundity rate hyperallometry, , as an exponent of their large mass, the cost is greater that what is physiologically feasible. At maturity their overall cost quickly exceeds their energy intake, causing $dm/dt < 0$ or shrinking. Therefore, as maturity age increases, the optimum $\rho$ decreases (see \cref{alpha_sensitivity_0.75}). This highlights the mathematical dynamics of the model which play out given the non-linearity of the intake and fecundity rate terms. Exponents dominate coefficients, so as a result have far narrower ranges of feasible values, evidenced by the shape of the feasible parameter space in \cref{heatmap_0.75}. Since I filtered out values which caused shrinking fish, in maintaining biological realism, the only scaling exponent values which remained were hypoallometric, except for the one instance of hyperallometry at a very young maturity age and small size (see \cref{alpha_sensitivity_0.75}). If $\alpha$ is, in reality, in the order of hundreds of days, or years, then fecundity rate hyperallometry is not theoretically possible. In this case, these results support previous suggestions that larger adults invest relatively less in reproduction, with mass-scaling exponents of 0.5 - 0.9 \autocite{Reiss1985, Stearns2000}. At these older maturity ages, fish will have reached much larger sizes (given the lack of fecundity cost), and so only small $c$ and $\rho$ values are permitted to avoid shrinking. Under the canonical $3/4$ mass-scaling of intake rate, the only way that hyperallometric fecundity rate is theoretically possible is if fish mature very early in their lifetime, at small sizes. These results corroborate this idea since optimum $\rho$ values decrease with maturity age (\cref{alpha_sensitivity_0.75}), potentially supporting the idea that relative to the timescale of a fish's lifetime, the sexually immature phase is negligible, therefore growth is well approximated by a single equation which encompasses the costs incurred by sexual maturity (\cref{luke_model}) in their lifetime \autocite{West2001}. The speed at which fish reach maturity in early life means they can essentially be viewed as being born mature. By maturing very early, fish effectively do not ``let'' themselves grow too large.
-
+The life history optimisation results show that, theoretically, instantaneous fecundity rate in mature fish is unlikely to scale hyperallometrically with mass, under traditional intake rate assumptions. These results highlight the importance of age-at-maturity in a fish's ability to then devote a large amount of body mass to reproduction, under the paradigm of the model. In order for fecundity rate to scale hyperallometrically, results suggest a fish must mature very early on in its lifetime. Immature fish are not subject to a fecundity rate cost in the model, only maintenance cost (see \cref{luke_model_juvenile}), thus they grow far more rapidly than in the later mature phase (see \cref{growth_curve} inflection) when this extra cost is incurred. Delayed maturity means fish are free from this cost for longer and thus reach a much larger $m_{\alpha}$, which permits only small $c$ and $\rho$ values to avoid shrinking. A high exponent of their larger $m_{\alpha}$, resulting from maturity, would generate a cost which exceeds what is physiologically feasible. At maturity, this sudden, overall cost quickly exceeds their energy intake, causing $dm/dt < 0$, or shrinking, which is stripped from the feasible parameter space. Therefore, as $\alpha$, and hence $m_{\alpha}$, increases, the optimum $\rho$ decreases (see \cref{alpha_sensitivity_0.75}). Additionally, steeper scaling than the optimum $\rho$ may be theoretically possible, but this would mandate an exceptionally low $c$, and would still not be optimal for maximising $R_0$ (see \cref{heatmap_0.75}). 
 
 \begin{center}
     \begin{minipage}{0.7\linewidth}
@@ -270,23 +289,31 @@ The life history optimisation results show that, theoretically, instantaneous fe
     \label{heatmap_0.75}
     \end{minipage}%
 \end{center} 
-\vspace{0.5cm}
+
+Given that, empirically, fish have been observed to mature after years of growth (Cod: 2-4 years, \textcite{OBrien1993, Rochet2001, Knickle2013}; Chinook Salmon: 2-5 years, \textcite{groot1991pacific}, Yellowtail flounder: 2-5 years: \textcite{OBrien1993}), under $3/4$ intake rate fecundity rate hyperallometry is theoretically highly unlikely, since such a late $\alpha$ and large $m_{\alpha}$ would cause huge fecundity costs and shrinking. This supports previous suggestions that larger adults invest relatively less in reproduction, where $0.5 < \rho < 0.9$ \autocite{Reiss1985, Stearns2000}. Under the canonical $3/4$ intake rate allometry, the only way that hyperallometric fecundity rate is theoretically possible is if fish mature very early in their lifetime, at very small sizes (see \cref{alpha_sensitivity_0.75}). This corroborates the idea that, relative to the timescale of a fish's lifetime, the sexually immature phase is negligible, and growth is well approximated by a single equation \autocite{West2001}. In this case, fish would experience the the costs incurred by sexual maturity (\cref{luke_model}) from very early on in their lifetime \autocite{West2001}.
+
+These results highlight the mathematical dynamics of the model which play out given the non-linearity of the intake and fecundity rate terms. Exponents dominate coefficients, so as a result have far narrower ranges of feasible values, evidenced by the shape of the feasible parameter space in \cref{heatmap_0.75}. Since I filtered out values which caused shrinking fish, in maintaining biological realism, nearly all scaling exponent values which remained were hypoallometric, except for the one instance of hyperallometry at a very young maturity age and small size (see \cref{alpha_sensitivity_0.75}). By maturing very early, fish effectively do not ``let'' themselves grow too large.
+
 
 \subsection{Is fecundity rate hyperallometry more likely when intake rate mass-scaling is steeper?}
-Increasing the value of the intake rate scaling exponent to 0.85 theoretically makes fecundity rate hyperallometry more likely. Furthermore, it endorses the above claim regarding maturity age by permitting hyperallometry at older maturity ages (see \cref{alpha_sensitivity_0.85}). In essence, under a higher intake regime, fish can delay maturity and reproductive hyperallometry can still emerge at these large sizes due to the larger energy scope. Increased intake rate translates the curved fecundity rate parameter space upwards in the $\rho$ plane (\cref{heatmap_0.85} vs \cref{heatmap_0.75}), pushing several optimum $\rho$ values above 1 (see \cref{alpha_sensitivity_0.85}). This is an intuitive result, since the steeper scaling of intake rate now provides the energy needed to compensate for the extra loss incurred by higher fecundity rates, which will be optimally increased to maximise lifetime reproduction. Mathematically, a small alteration to an exponent like this can substantially alter the behaviour of such a model, given that when $m > 1 g$, the exponent will dominate any changes in the coefficient. As such, even slight increases in intake rate scaling will permit greater values of $c$ and $\rho$. 
+Increasing the value of the intake rate scaling exponent to 0.85 theoretically makes fecundity rate hyperallometry more likely. Furthermore, it also allows for delayed $\alpha$, which aligns with my previous claim that $3/4$ intake rate scaling constrains fecundity rate scaling to be hypoallometric (see \cref{alpha_sensitivity_0.85}). Since fish typically mature after years of growth, it logically follows that if fecundity rate hyperallometry exists in nature, intake rate must scale steeper than $3/4$. The energy scope required to compensate for the huge fecundity costs at these maturity ages can only originate from here. In essence, under a higher intake regime, fish can delay maturity and reproductive hyperallometry can still emerge at these large $m_{\alpha}$ sizes due to the larger energy scope provided by steeper scaling. 
 
-These results extend a dilemma known formerly as ``the general life history problem'', in which indeterminate growers are subject to a trade-off between increased mortality at maturity and maximising lifetime reproductive output \autocite{Roff2006, Stearns2000}. Given these results, if a fish can benefit disproportionately in fecundity by delaying maturity (which is permitted by higher intake scaling) and growing larger, they face the decision of doing so while simultaneously decreasing their probability of surviving that long. Essentially, the reward in delayed fecundity (resulting from hyperallometry) must be greater than the risk of mortality \autocite{Arendt2011}. Given that, empirically, fish have been observed to mature after years of growth, rather than instantly, (Cod: 2-4 years, \textcite{OBrien1993, Rochet2001, Knickle2013}; Chinook Salmon: 2-5 years, \textcite{groot1991pacific}, Yellowtail flounder: 2-5 years: \textcite{OBrien1993}), if fecundity rate hyperallometry is true, then we can predict that one of two things must be occuring: either intake rate scales steeper than the canonical $3/4$ to allow them to mature that late, or their adult mortality rate is less than expected. The latter is already captured by the $\alpha Z$ invariant, since Z has to decrease to allow a greater $\alpha$, a broad however this exists under the assumption high mortality rate disincentivises fish from delaying maturity without consideration of the benefits, which include greater fecundity, more competitive and less vulnerable \autocite{Arendt2011} FORWARD CITE. It may be that even when $Z$ remains high, in a game theoretic sense, it is still optimal to delay maturity to benefit from the hyperallometric fecundity.
+Increased intake rate translates the curved fecundity rate parameter space upwards in the $\rho$ plane (\cref{heatmap_0.85} vs \cref{heatmap_0.75}), pushing several optimum $\rho$ values above 1 (see \cref{alpha_sensitivity_0.85}). \todo{repeating the same sentence here - trim back}. This is an intuitive result, since the steeper scaling of intake rate now provides the energy needed to compensate for the larger loss incurred by higher fecundity rates at a larger $m_{\alpha}$, which, optimally increases to maximise lifetime reproduction. Mathematically, a small alteration to an exponent like this can substantially alter the behaviour of such a model, given that when $m > 1 g$, the exponent will dominate any changes in the coefficient. As such, even slight increases in intake rate scaling will permit greater values of $c$ and $\rho$. 
 
-These results highlight the multi-dimensionality of an evolutionary life history theory approach to growth. One would intuitively think that large body size is selected for, since this has been shown to increase fecundity, improve competitiveness, reduce vulnerability to predators and provide disproportionate access to food in resource-trapped environments \autocite{roff2002life, Oddie2000, French2005, Bashey2008, Magnhagen2001, Craig2006, Arendt2011, Pawar2012}. If these advantages were able to more than offset the heavy mortality cost of being disproportionately more fecund at larger sizes, then one would expect that later maturity is always preferable, assuming that energy intake needs are met. However, if they do not offset this mortality cost then a trade-off is born since evolution will select as late a maturity age as possible, given the mortality rate, which maximises lifetime reproductive output.
+These results extend a dilemma known formerly as ``the general life history problem'', in which indeterminate growers are subject to a trade-off between increased mortality at maturity and maximising lifetime reproductive output \autocite{Roff2006, Stearns2000}. Given these results, if a fish can benefit disproportionately in fecundity by delaying maturity and growing larger, permitted by higher intake scaling, they face the decision of doing so in the face of an extrinsic mortality rate which lowers their probability of surviving this delay. In a game theoretic sense, the disproportionate gain in fecundity from being larger, resulting from delayed maturity, must be greater than the risk of mortality, in order to be a stable strategy \autocite{Arendt2011}. This is already captured by the $\alpha Z$ invariant, since $Z$ has to decrease to allow a greater $\alpha$, ($\alpha \approx 2/Z$, however \textit{why} a fish would delay maturity is not conveyed by this.
+
+This highlights the multi-dimensionality of an evolutionary life history theory approach to growth. One would intuitively think that large body size is selected for, since this has been shown to increase fecundity, improve competitiveness, reduce vulnerability to predators and provide disproportionate access to food in resource-trapped environments \autocite{roff2002life, Oddie2000, French2005, Bashey2008, Magnhagen2001, Craig2006, Arendt2011, Pawar2012}. However, delaying maturity to reach these larger sizes and reap these benefits is only possible if you are likely enough to survive that long. Thus, a trade-off forms where evolution selects for as large a size and late maturity as possible, without increasing risk of death. Simultaneously, growing as rapidly as possible at a young age is of obious benefit to reduce your chances of predation. Since growing rapidly means investing in growth rather than fecundity, we return to the point that higher intake rate scaling must exist in order to allow this delayed maturity to occur. In fact, it has previously been shown that intraspecific growth rates scale steeper early in ontogeny \autocite{Barneche2018c}, like metabolic rate. This finding actually necessetitates steeper intake rate scaling to avoid shrinking at maturity, since this steeper scaling of growth rate would, again, lead to a larger $m_{\alpha}$. In fact, in their derivation of $3/4$ resting metabolic rate scaling, \textcite{West1997} even predict that positive deviation from $3/4$ intake rate scaling may occur in very small organisms, due to the very short branching of their supply network \autocite{Barneche2018c}
 
 The results of this study raise questions surrounding our theoretical knowledge of intake rate, since it makes reproductive hyperallometry theoretically more likely. At present we do not have enough empirical data, regarding the duration and frequency of fish foraging bouts, to make more accurate predictions about their realised energy intake. Furthermore, it is very difficult to integrate the disconnected timescales of these bouts, presumably a timescale of hours, and ontogenetic lifetime, presumably a timescale of years. Given that intake rate is derived from a rate of incoming energy per day, more accurate data on actual energy obtained by a fish throughout the day will allow improved growth modelling. This demands a knowledge of the digestion efficiency of fish, since they cannot utilise every gram of resource they consume, and how the timescale of foraging bout scales with mass, a power law which is yet unknown. Knowledge of this sort could have profound consequences for ontogenetic growth models. For example, it may be that our understanding of indeterminate growth as a continuous process, is not biologically realistic. Instead, following a glut of resource, animals may pause reproductive efforts in order to maximally grow \autocite{Kozowski1987-indeterminate}
 
-
 Secondly this study also highlights the need for an improved theoretical understanding of allocation to fecundity as a rate. While there may still be area for imrpovement in the derivation of intake rate, a solid theoretical framework, based on bioenergetics, exists. In light of my results, and the \textcite{Barneche2018-reproductive_output} and \textcite{Marshall2019b} papers, we now need a first-principles, bioenergetic derivation of instantaneous allocation rate to fecundity. Given the near impossibility of collecting empirical data of this form in continuous time, SOMETHING/
+
+As such, it may be that even when $Z$ remains high, it is still optimal to delay maturity to benefit from the hyperallometric fecundity. If these advantages were able to more than offset the heavy mortality cost of being disproportionately more fecund at larger sizes, then one would expect that later maturity is always preferable, assuming that energy intake needs are met. However, if they do not offset this mortality cost then a trade-off is born since evolution will select as late a maturity age as possible, given the mortality rate, which maximises lifetime reproductive output.
 
 \todo{develop SI with a derivation and cut shit out}
 If anything it is actually necessary to have higher allometry scalings (assuming rho has a physiological maximum) at later maturity ages because they must compensate for the lost time to maximise lifetime repro. Delay wouldn't be a strategy if they couldn't do this (counter argument is that they delay it for the other reason, competition and less vulnerable \autocite{Arendt2011})
-
+diego's young fish higher growth rate means adults MUST be getting more energy because these younger fish will be 
+Moreover, if this growth rate is too rapid, fish will reach a size at maturity $m_{\alpha}$ which is too large \autocite{Arendt2011} to permit fecundity rate hyperallometry, as the 
 \begin{center}
     \begin{minipage}{0.7\linewidth}
         \includegraphics[width=0.9\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_tex}.pdf}  
@@ -295,11 +322,18 @@ If anything it is actually necessary to have higher allometry scalings (assuming
     \end{minipage}%
 \end{center}
 
+Maybe $Z$ goes down BECAUSE of later alpha - not necessarily the other way round. Later alpha = bigger size which reduces your mortality rate.
 Results also appear unaffected by a changing $\kappa$, suggeting that the decline in fecundity is not does not occur at a large enough magnitude to overcome the investment in reproduction itself.
 
 \subsection{Caveats}
 These results highlight a caveat of the model, which is that the fixed parameter $\alpha$ has a fundamental effect on the feasible parameter space. The aforementioned $\alpha Z$ invariant does, of course, cause the life history model (\cref{LHT_optimisation}) to behave the same regardless of the chosen $\alpha$, since $Z$ compensates. However, this invariant does not discipline the growth model (\cref{luke_model}), which is where predictive power begins to be lost. The results presented reflect $\alpha = 200$, or a fish maturity age of 200 days.
-$b$ is also caveat as this dictates growth size and juvenile ages and calculated from rearrangement of $a$ and $M$
+
+$b$ is also caveat as this dictates growth size and juvenile ages and calculated from rearrangement of $a$ and $M$ - uses a rearrangement of a - meaning they have higher metabolic costs - hyperallometry may actually emerge at lower scaling rates and even more so at higher intake rate
+
+couldn't go beyond 0.85 scaling due to computational limitations 
+
+Fish don't suddently become mature
+Alternatively, this would indicate that the architecture of the model itself is not realistic, in the sense that fish do not suddenly become mature in the timescale of a single day and incur an immediately large cost. Instead, they either allocate to fecundity from a very early age while remaining sexually immature, termed ``the dissipative processes of respiration''
 \begin{center}
     \begin{minipage}{0.5\linewidth}
         \includegraphics[width=\linewidth]{{../Results/alpha_sensitivity_x=0.75}.pdf}  
@@ -314,11 +348,16 @@ $b$ is also caveat as this dictates growth size and juvenile ages and calculated
     \end{minipage}
 \end{center}
 
-Alternatively, this would indicate that the architecture of the model itself is not realistic, in the sense that fish do not suddenly become mature in the timescale of a single day and incur an immediately large cost. Instead, they either allocate to fecundity from a very early age while remaining sexually immature, termed ``the dissipative processes of respiration''
+
 \todo{Produce more alpha values for denser plot}
 
 
 \subsection{Empirical Predictions}
+Based on empirical studies based on preferred prey size, I predict that fishing mortality will have a positive feedback on fish fitness, by selecting for smaller fish, but then these fish are disproportionately less fecund. 
+
+obvious one is that alpha reduces in the face higher mortality - 
+
+juvenile 
 %%% Conclusion %%%
 \section{Conclusion}\thispagestyle{plain}
 My conclusion.
