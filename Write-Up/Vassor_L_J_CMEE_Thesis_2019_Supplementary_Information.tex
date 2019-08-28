@@ -56,7 +56,7 @@
     % \renewcommand*\finalnamedelim{\addspace\&\space}
 % Force \textit{et al}. to be italicised
 \usepackage{xpatch}
-\xpretocmd{\eqref}{Eq.~}{}{}
+\xpretocmd{\cref}{Eq.~}{}{}
     \xpatchbibmacro{name:andothers}{%
         \bibstring{andothers}%
     }{%
@@ -80,8 +80,8 @@
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
-
-
+\usepackage{parskip}
+\usepackage{cleveref}
 \begin{document}
 
 \begin{titlepage}
@@ -112,15 +112,15 @@
     \thickhline
     \textbf{Description}                        & \textbf{Symbol}       & \textbf{Value}            & \textbf{Units}        & \textbf{Range}                    & \textbf{Source}       \\ \thickhline
     Body mass                                   & $m$                   &                           & g                     &                                   &                       \\ \hline
-    Energy Intake/Acquisition Rate              & $a$                   & 0.2                       & g $\cdot$ day$^{-1}$  & 0.25 - 2.149                      & \cite{West2001}       \\ 
-                                                & $y$                   & $0.75$                    & \textsc{}             & 0.75 - 1.06                       & \cite{Pawar2012}      \\ \hline
-    Maintenance Metabolic Rate                  & $b$                   & $a/(M)^{0.25}$            & g $\cdot$ day$^{-1}$  &                                   & \cite{West2001}       \\ 
+    Energy Intake/Acquisition Rate              & $a$                   & 0.2                       & g $\cdot$ day$^{-1}$  & 0.25 - 2.149                      & \textcite{West2001}       \\ 
+                                                & $y$                   & $0.75$                    & \textsc{}             & 0.75 - 1.06                       & \textcite{Pawar2012}      \\ \hline
+    Maintenance Metabolic Rate                  & $b$                   & $a/(M)^{0.25}$            & g $\cdot$ day$^{-1}$  &                                   & \textcite{West2001}       \\ 
                                                 & $z$                   & $1.00$                    & \textsc{}             &                                   &                       \\ \hline
-    Allocation to reproduction Rate             & $c$                   & \textsc{variable}         & g $\cdot$ day$^{-1}$  & 0.001 - 0.4                       & \cite{Charnov2001}    \\  %\autocite{peters1983,Blueweiss1978}
-    (estimated by GSI*)                         & $\rho$                & \textsc{variable}         & \textsc{}             & 0.001 - 1.25                      & \cite{Barneche2018d}                      \\ \hline %$1.29$ \autocite{Barneche2018d}
+    Allocation to reproduction Rate             & $c$                   & \textsc{variable}         & g $\cdot$ day$^{-1}$  & 0.001 - 0.4                       & \textcite{Charnov2001}    \\  %\autocite{peters1983,Blueweiss1978}
+    (estimated by GSI*)                         & $\rho$                & \textsc{variable}         & \textsc{}             & 0.001 - 1.25                      & \textcite{Barneche2018-reproductive_output}                      \\ \hline %$1.29$ \autocite{Barneche2018-reproductive_output}
     Age at maturity (onset of reproduction)     & $\alpha$              & $2/Z$                     & day                   & 100 - 400                         &                       \\ \hline
     Consumption rate                            & $C(t)$                &                           & g $\cdot$ s$^{-1}$    &                                   &                       \\ \hline
-                                                & $\gamma$              &                           & \textsc{}             & 0.75 - 1.06                       & \cite{Pawar2012}      \\ \hline
+                                                & $\gamma$              &                           & \textsc{}             & 0.75 - 1.06                       & \textcite{Pawar2012}      \\ \hline
     Foraging length                             & $t_0$                 & $0.75$                    & s                     &                                   &                       \\
                                                 & $\psi$                & $0.75$                    &                       &                                   &                       \\ \hline
     Mass at maturity                            & $m_{\alpha}$          &                           & g                     &                                   &                       \\ \hline
@@ -139,7 +139,7 @@ West \textit{et al.} developed their previous work on allometric scaling laws \a
 \begin{align}
     B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \label{master_balance}
 \end{align}
-The incoming rate of energy flow, $B$, is the resting metabolic rate of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell (\textsc{joules/sec}), $E_c$ is the metabolic energy required to create a single cell (\textsc{joules}) and $N_c$ is the total number of cells. Differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power (\textsc{watts} or \textsc{joules/sec}) required to maintain the total existing biomass of the organsim, denoted background maintenance, a resting metabolic process. The second is the power allocated to the production of new cells and, therefore, to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$ (\textsc{grams}), are assumed to be independent of $m$ remaining constant throughout ontogenetic growth, i.e. these quantities do not vary with size. \eqref{master_balance} can be rearranged to find the rate of cell growth at time $t$: 
+The incoming rate of energy flow, $B$, is the resting metabolic rate of the whole organism at time $t$, $B_c$ is the metabolic rate of a single cell (\textsc{joules/sec}), $E_c$ is the metabolic energy required to create a single cell (\textsc{joules}) and $N_c$ is the total number of cells. Differences between tissues are ignored and some average typical cell is taken as the fundamental unit. The first term, $N_{c}B_{c}$, is the power (\textsc{watts} or \textsc{joules/sec}) required to maintain the total existing biomass of the organsim, denoted background maintenance, a resting metabolic process. The second is the power allocated to the production of new cells and, therefore, to growth. $E_c$, $B_c$, and the mass of a cell, $m_c$ (\textsc{grams}), are assumed to be independent of $m$ remaining constant throughout ontogenetic growth, i.e. these quantities do not vary with size. \cref{master_balance} can be rearranged to find the rate of cell growth at time $t$: 
 \begin{align}
     \frac{dN_{c}}{dt} &= \frac{B - N_{c}B_{c}}{E_{c}} \label{cell_rate}
 \end{align}
@@ -147,7 +147,7 @@ This rearrangement reveals a crucial assumption of the model which is that growt
 \begin{align*}    
     \frac{dN_{c}}{dt} &= \frac{\textsc{Surplus energy}}{\textsc{Cost of creating single cell}}
 \end{align*}
-At any time $t$ the total body mass $m$ is the number of cells multiplied by the mass of a single cell, $m = N_{c}m_{c}$. Thus, we can multiply equation \eqref{cell_rate} by $m_{c}$ to find the rate of whole-organism growth (change in organism mass $m$) at time $t$:
+At any time $t$ the total body mass $m$ is the number of cells multiplied by the mass of a single cell, $m = N_{c}m_{c}$. Thus, we can multiply equation \cref{cell_rate} by $m_{c}$ to find the rate of whole-organism growth (change in organism mass $m$) at time $t$:
 \begin{align*}
     \Bigg(\frac{dN_{c}}{dt}\Bigg)m_c &= \Bigg(\frac{B - N_{c}B_{c}}{E_{c}}\Bigg)m_c \\
     \Bigg(\frac{dN_{c}}{dt}\Bigg)m_c &= \Bigg(\frac{Bm_c - N_{c}m_{c}B_{c}}{E_c}\Bigg) \\
@@ -156,7 +156,7 @@ At any time $t$ the total body mass $m$ is the number of cells multiplied by the
     \frac{dm}{dt} &= \Bigg(\frac{Bm_c}{E_c}\Bigg) - \Bigg(\frac{mB_{c}}{E_c}\Bigg) \\
     \frac{dm}{dt} &= \Bigg(\frac{m_c}{E_c}\Bigg)B - \Bigg(\frac{B_{c}}{E_c}\Bigg)m \numberthis \label{growth_pre_sub}
 \end{align*}
-We can define \eqref{growth_pre_sub} qualitatively in terms of cellular-level phenomena. The first term is the mass of a single cell divided by the energy required to build a single cell, (\textsc{mass/joules}), i.e. how many individual cells can be built from a single \textsc{joule} of energy. This is multiplied by the energy inflow ($B$) (\textsc{joules/sec}), thus \textsc{joules} units cancel out, left with only \textsc{mass/time}. Qualitatively this tells us: ``how much mass can I build per second given the energy ($B$) I have available per second.'' If maintenance (second term) did not exist, this first term would represent all growth. The second term represents the metabolic rate of single cell (\textsc{joules/sec}) divided by the energetic cost of building a cell (\textsc{joules}), which is all multiplied by mass, thus units are (\textsc{mass/time}).
+We can define \cref{growth_pre_sub} qualitatively in terms of cellular-level phenomena. The first term is the mass of a single cell divided by the energy required to build a single cell, (\textsc{mass/joules}), i.e. how many individual cells can be built from a single \textsc{joule} of energy. This is multiplied by the energy inflow ($B$) (\textsc{joules/sec}), thus \textsc{joules} units cancel out, left with only \textsc{mass/time}. Qualitatively this tells us: ``how much mass can I build per second given the energy ($B$) I have available per second.'' If maintenance (second term) did not exist, this first term would represent all growth. The second term represents the metabolic rate of single cell (\textsc{joules/sec}) divided by the energetic cost of building a cell (\textsc{joules}), which is all multiplied by mass, thus units are (\textsc{mass/time}).
 \begin{align*}
     \frac{\textsc{mass}}{\textsc{sec}} &= \frac{\textsc{mass}}{\textsc{joules}}\cdot\frac{\textsc{joules}}{\textsc{sec}} - \frac{\frac{\textsc{joules}}{\textsc{sec}}}{\textsc{joules}}\cdot\textsc{mass} \\
     \frac{\textsc{mass}}{\textsc{sec}} &= \frac{\textsc{mass}}{\textsc{\st{joules}}}\cdot\frac{\textsc{\st{joules}}}{\textsc{sec}} - \frac{\frac{\textsc{\st{joules}}}{\textsc{sec}}}{\textsc{\st{joules}}}\cdot\textsc{mass} \\
@@ -164,18 +164,18 @@ We can define \eqref{growth_pre_sub} qualitatively in terms of cellular-level ph
 \end{align*}
 %     \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m
 % \end{align}
-Now, MTE assumes that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \eqref{growth_pre_sub} leads to the general growth equation.
+Now, MTE assumes that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \cref{growth_pre_sub} leads to the general growth equation.
 \begin{align*}
     \frac{dm}{dt} &= \bm{\Bigg(\frac{m_c}{E_c}\Bigg)B_{0}}m^{3/4} - \bm{\Bigg(\frac{B_{c}}{E_c}\Bigg)}m \\
 \end{align*}
-Since $E_c$, $B_c$ and $m_c$ are independent of mass and $B_0$ is constant within a taxon, we can define two new constants: $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E{c}$.
+Since $E_c$, $B_c$ and $m_c$ are independent of mass and $B_0$ is constant within a taxon, we can define two new constants: $a \equiv B_{0}m_{c}/E_{c}$ and $b \equiv B_{c}/E{c}$. Thus, \textcite{West2001} derive the following model for an organism of wet mass $m$ (g), a resting metabolic rate $b$ ($J \cdot d^{-1}$) and a growth rate per unit time of $dm/dt$ ($g \cdot d^{-1}$):
 \begin{align*}
     \textsc{substitute }a, b
 \end{align*}
 \begin{equation}
     \frac{dm}{dt} = am^{3/4} - bm \label{west_model}
 \end{equation}
-This equation excludes reproduction and would result in sigmoid growth to an asymptotic size, $M$. We can find find this asymptotic size in terms of $a$ and $b$ analytically since change in growth at terminal size, $\frac{dm}{dt} = 0$. Thus we set \eqref{west_model} to 0 as follows:
+This equation excludes reproduction and would result in sigmoid growth to an asymptotic size, $M$. We can find find this asymptotic size in terms of $a$ and $b$ analytically since change in growth at terminal size, $\frac{dm}{dt} = 0$. Thus we set \cref{west_model} to 0 as follows:
 \begin{align*}
     aM^{3/4} - bM &= 0 \\
     aM^{3/4} &= bM \\
@@ -186,12 +186,35 @@ This equation excludes reproduction and would result in sigmoid growth to an asy
     M &= \Big(\frac{a}{b}\Big)^4
 \end{align*}
 
+\subsection{Derivation of intake rate coefficient $a$}
+\textcite{West2001} make the following calculation: Assume incoming rate of energy, $B$, scales with standard metabolic rate, such that $B = B_{0}m^{3/4}$, where $B_0$ is constant for a given taxon. $E_T$ is the energy content of mammalian tissue $\approx 7 \cdot 10^6 J \cdot Kg^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} g$, thus $E_c$, the energy required to create a cell \textit{in viro} = $E_T \cdot m_c = (7 \cdot 10^6 JKg^{-1})(3 \cdot 10^{-12} Kg) \approx 2.1 \cdot 10^{-5} J$. They take  $B_0 \approx 1.9 \cdot 10^{-2} W$. By substitution:
+\begin{align*}
+    a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
+    a &= \frac{(1.9 \cdot 10^{-2} W)(3 \cdot 10^{-9} g)}{2.1 \cdot 10^{-5} J}\\
+    a &= 2.71 \cdot 10^{-6} g^{1/4}s^{-1} \\
+    2.71 \cdot 10^{-6}&g\cdot s^{-1} \cdot 24 \cdot 60 \cdot 60 \ \ \textsc{   seconds to days}\\
+    a &\approx 0.25 g^{1/4}day^{-1}
+\end{align*}
+
+Bioenergetically, $a$ represents the number of cells grown per unit time given the energy available ($\frac{\textsc{mass}}{\textsc{joules}} \cdot \frac{\textsc{joules}}{\textsc{sec}}$). They claim their theoretical calculation of $a$ is in ``good agreement'' with the model fit estimate for $a$ in their Table 1, but brief observation reveals that this claim only holds true for mammals, not birds and fish (fish are an order of magnitude lower), an intuitive deduction since they used the energy content of mammalian tissue in their calculation, taken from \textcite{peters1983}. However, further investigation makes apparent the intriguing value they use for $B_0$. This quantity remains constant within a taxon, and \textcite{West2001} chose the value known for unicellular organisms, derived from data published by \textcite{Hemmingsen1960}, collected by \textcite{peters1983}, which included different slope (scaling) values for unicellulars, poikilotherms and homeotherms. Given the deliberate choice to use a caloric equivalent value for mammals only, it is perplexing that they chose to ignore the $B_0$ value for homeotherms.
+
+Given my objective of modelling growth and life history in fish, this choice is not only of particular interest but is crucial given that this endeavour mandates accurate values for fixed parameters, such as $a$, in order for free parameters to be biologically realistic. To this end I altered the \textcite{West2001} calculation of $a$ to include values for the same cellular parameters but which are accurate to fish. Tissue energy content $E_T$ for fish was calculated as the average from caloric equivalents across 70 fish species \autocite{Cummins1971, Steimle1980, Hartman1995} (\cref{caloric_equivalents}), converted from $kJ\cdot g^{-1}$ to $JKg^{-1}$ using ``per gram of wet weight'' values, the same metric used by \textcite{West2001}. Repeating the same calculation: $E_T$ is the energy content of fish tissue $= 5.63 \cdot 10^3 J\cdot g^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} \textsc{g}$, thus $E_c$, the energy required to create a cell \textit{in viro} = $1.69 \cdot 10^{-5} J$. $B_0 \approx 1.4 \cdot 10^{-1} W$ for poikilotherms. By substitution:
+\begin{align*}
+    a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
+    a &= \frac{(1.4 \cdot 10^{-1} W)(3 \cdot 10^{-9} g)}{1.69 \cdot 10^{-5} J}\\
+    a &= 2.4867 \cdot 10^{-5}g\cdot s^{-1} \\
+    2.4867 \cdot 10^{-5}&g\cdot s^{-1} \cdot 24 \cdot 60 \cdot 60 \ \ \textsc{   seconds to days}\\
+    a &= 2.1485 g^{1/4}\cdot day^{-1}
+\end{align*}
+
+Therefore intake rate of fish is expected to be $\approx 2.15g^{1/4}\cdot day^{-1}$ which I use in my parameterisation of the growth model.
+
 \subsection{Introducing Reproduction}
-To add reproduction, we note that gonad mass in fish is proportional to body mass \autocite{Charnov2001, Roff1983, peters1983, kozlowski1996}; thus, after the onset of reproduction (age $\alpha$) at size $m_{\alpha}$ we introduce a reproduction term so ontogenetic growth follows a biphasic model:
+A revised form of \cref{model} published by \textcite{Charnov2001}, incorporates an explicit fecundity rate term, given that gonad mass in fish is proportional to body mass \autocite{Charnov2001, Roff1983, peters1983, kozlowski1996}. Crucially, \textcite{Charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_model}. 
 \begin{align*}
     \frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha} \\
     \frac{dm}{dt} &= am^{3/4} - bm - cm \ \ \ \ \ m \geq m_{\alpha} \numberthis \label{charnov2001} \\
-    &= am^{3/4} - (b+c)m
+    \frac{dm}{dt} &= am^{3/4} - (b+c)m
 \end{align*}
 where $c \cdot m$ is the reproductive allocation. Since maintenance and reproduction ($bm$ and $cm$) both scale linearly with mass, we can factorise the last two terms to predict that asymptotic size $M$ is now brought down. In this sense, the onset of reproduction can be viewed mathematically as an increase in maintenance cost since $(b+c)$ is a new constant in its own right:
 \begin{align*}
@@ -206,7 +229,8 @@ where $c \cdot m$ is the reproductive allocation. Since maintenance and reproduc
 This reduction highlights the cost to growth reproduction introduces, since there is less energetic scope for growth after $\alpha$. To this end, the earlier a fish matures, and the more fecund it is, its growth rate and asymptotic size will both reducte, reflecting both the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
 
 \subsection{Assumptions}
-An axiom of the growth model in \eqref{west_model} proposed by \cite{West2001} is that energy intake follows a simple relationship with resting metabolic rate, which scales with body size ($m$) to an exponent of $3/4$, as predicted by \cite{West1997} and used in the Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. The assumptions of resting metabolic rate data are that the study organism is under ``idealised conditions'' i.e. not foraging, reproducing or growing. Consequently, it is puzzling that \cite{West2001} and those who develop their model, use a resting metabolic metric for energy intake, which is an active metabolic process. This is a potentially erroneous assumption since for most organisms, garnering energy from the environment involves foraging bouts, an active metabolic activity. 
+An axiom of the growth model in \cref{west_model} proposed by \textcite{West2001} is that energy intake follows a simple relationship with resting metabolic rate, which scales with body size ($m$) to an exponent of $3/4$, as predicted by \textcite{West1997} and used in the Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. The assumptions of resting metabolic rate data are that the study organism is under ``idealised conditions'' i.e. not foraging, reproducing or growing. Consequently, it is puzzling that \textcite{West2001} use a resting metabolic metric for energy intake, which is an active metabolic process and \textcite{Charnov2001} does the same when incorporating reproduction, another active metabolic process. It has been shown by \textcite{Pawar2012} that consumption rate scaling is, therefore, more likely to relate to field metabolic rate. Both scaling exponents are tested in this paper.
+
 
 \section{Life History Optimisation}
 \subsection{Invariant Values}
@@ -227,14 +251,14 @@ Since fish live in a juvenile and adult phase, they are subject to varying morta
           &= cL_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
           &= c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \numberthis \label{LHT_optimisation}
 \end{align*}
-To perform this optimisation, the analytical goal is to solve \eqref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
+To perform this optimisation, the analytical goal is to solve \cref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
 
 \newpage
 \begin{landscape}
 \pagestyle{empty}
 \section{Fish Caloric Equivalents Data}
 \begin{longtable}[]{|l|p{1.8cm}|p{2cm}|p{2cm}|p{2.15cm}|p{1.9cm}|l|}
-    \caption{Caloric equivalents data digitised from \cite{Steimle1980} and \cite{Cummins1971}.} \\
+    \caption{Caloric equivalents data digitised from \textcite{Steimle1980} and \textcite{Cummins1971}.} \\
     \hline
     \textbf{Species}                         & \textbf{No. combustions} & \textbf{Dry weight \% ash} & \textbf{Dry weight KJ/g}     & \textbf{Dry Weight ash-free KJ/g}         & \textbf{Wet weight KJ/g} & \textbf{Source}           \\ \hline
     \textit{Acanthocybium solanderi}         & 6                            & 6                          & 23.4                          & 24.9                              &                          & Steimle, 1980                \\ \hline
@@ -323,23 +347,23 @@ This scales with size, thus we introduce a scaling exponent, $\gamma$:
 \begin{align}
     C(t) &= C_{0}m^{\gamma} \label{time_scaling}
 \end{align}
-Consumption rate takes units \textsc{individuals/area/time} or which is the product of prey encountered (individuals/area) and handling time by the consumer, thus is a function of time. Fish consume resources for a time period, or the duration of a foraging bout. To calculate total intake (mass) in a foraging bout we can integrate \eqref{time_scaling} with respect to time, where $t_0$ is an arbitrary time point at the commencement of a bout, and $t_1$ marks the end of a bout:
+Consumption rate takes units \textsc{individuals/area/time} or which is the product of prey encountered (individuals/area) and handling time by the consumer, thus is a function of time. Fish consume resources for a time period, or the duration of a foraging bout. To calculate total intake (mass) in a foraging bout we can integrate \cref{time_scaling} with respect to time, where $t_0$ is an arbitrary time point at the commencement of a bout, and $t_1$ marks the end of a bout:
 \begin{align*}
     C_{tot} &= \int_{t_{0}}^{t_{1}}C_{0}m^{\gamma}dt \\
     C_{tot} &= C_{0}m^{\gamma}t \numberthis \label{intake_amount}
 \end{align*}
-We assume that, as is ubiquitous across biological rates, foraging time scales with mass to some scaling exponent $\psi$ i.e. $t = t_{0}m^{\psi}$ which we can substitute into \eqref{intake_amount}:
+We assume that, as is ubiquitous across biological rates, foraging time scales with mass to some scaling exponent $\psi$ i.e. $t = t_{0}m^{\psi}$ which we can substitute into \cref{intake_amount}:
 \begin{align*}
     \textsc{substitute } t &= t_{0}m^{\psi} \\
     C_{tot} &= C_{0}m^{\gamma}t_{0}m^{\psi} \\
     C_{tot} &= C_{0}t_{0}m^{\gamma + \psi} \numberthis \label{total_intake}
 \end{align*}
-where $C_{tot}$ has dimensions mass. I can assume that fish begin to allocate to growth \textbf{after} a foraging bout or that growth during a bout is negligible due to a disconnect in timescales between foraging (a matter of hours) and lifetime growth (a matter of years). This presupposition means total intake term is biologically identical to $a$ in equation (3). Assimilation of nutrients via digestion can never be 100\% efficient and we hence add an efficieny term, $\varepsilon$ to \eqref{total_intake}, bounded $[0,1]$, which captures carbon loss of ingested resource during digestion due to thermodynamic constraints. \eqref{total_intake} becomes:
+where $C_{tot}$ has dimensions mass. I can assume that fish begin to allocate to growth \textbf{after} a foraging bout or that growth during a bout is negligible due to a disconnect in timescales between foraging (a matter of hours) and lifetime growth (a matter of years). This presupposition means total intake term is biologically identical to $a$ in equation (3). Assimilation of nutrients via digestion can never be 100\% efficient and we hence add an efficieny term, $\varepsilon$ to \cref{total_intake}, bounded $[0,1]$, which captures carbon loss of ingested resource during digestion due to thermodynamic constraints. \cref{total_intake} becomes:
 \begin{align}
     \varepsilon C_{0}t_{0}m^{\gamma + \psi} \label{intake_term}
 \end{align} 
 We can now multiply this distribution term by our total energy intake term from equation (10):
-In order to substitute our new term \eqref{intake_term} we must consider the dimensions of the original growth equation \eqref{west_model} on both sides, which must balance out.
+In order to substitute our new term \cref{intake_term} we must consider the dimensions of the original growth equation \cref{west_model} on both sides, which must balance out.
 \begin{align}
     \frac{dm}{dt} &= am^{3/4} - bm \\
     \frac{\textsc{grams}}{\textsc{sec}} &= \frac{\textsc{grams}}{\textsc{joules}}\cdot \frac{\textsc{joules}}{\textsc{sec}} - \frac{\frac{\textsc{joules}}{\textsc{sec}}}{\textsc{joules}}\cdot \textsc{grams} \\
@@ -364,36 +388,36 @@ Further, it has also been shown that the assumption of resting metabolic rate sc
 \section{Ontogenetic Growth Model Literature}
 
 \begin{table}[H]
-    \caption{Published literature on Ontogenetic Growth Models including discipline of origin and reproductive scaling. Adapted from \cite{Barneche2018d}.}
+    \caption{Published literature on Ontogenetic Growth Models including discipline of origin and reproductive scaling. Adapted from \textcite{Barneche2018-reproductive_output}.}
     \begin{tabular}{|l|l|l|l|}
     \hline
     \textbf{Study}                      & \textbf{Model type}       & \textbf{Scaling} & \textbf{Prediction/Assumption} \\ \hline
-    \cite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                     \\ \hline
-    \cite{Roff1983}                     & Life history              & Isometric        & Assumption                     \\ \hline
-    \cite{Roff1984}                     & Life history              & Isometric        & Assumption                     \\ \hline
-    \cite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                     \\ \hline
-    \cite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                     \\ \hline
-    \cite{kozlowski1996}                & Life history              & Variable         & Prediction                     \\ \hline
-    \cite{West2001}                     & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \cite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    \cite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    \cite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \cite{Roff2006}                     & Life history              & Isometric        & Assumption                     \\ \hline
-    \cite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \cite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                     \\ \hline
-    \cite{Pecquerie2009}                & Life history              & Isometric        & Assumption                     \\ \hline
-    \cite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                     \\ \hline
-    \cite{Arendt2011}                   & Life history              & Isometry         & Assumption                     \\ \hline
-    \cite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                     \\ \hline
-    \cite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \cite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
-    \cite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \cite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                     \\ \hline
-    \cite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
-    \cite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \cite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                     \\ \hline
-    \cite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                     \\ \hline
-    \cite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \textcite{Gadgil1970}                   & Life history              & Hyperallometric  & Prediction                     \\ \hline
+    \textcite{Roff1983}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \textcite{Roff1984}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \textcite{Reiss1985}                    & Mechanistic               & Hypoallometric   & Prediction                     \\ \hline
+    \textcite{Kozowski1987-indeterminate}   & Life history              & Variable         & Prediction                     \\ \hline
+    \textcite{kozlowski1996}                & Life history              & Variable         & Prediction                     \\ \hline
+    \textcite{West2001}                     & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \textcite{Charnov2001}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \textcite{Charnov2002}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \textcite{Lester2004}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \textcite{Roff2006}                     & Life history              & Isometric        & Assumption                     \\ \hline
+    \textcite{Quince2008}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \textcite{Quince2008b}                  & Life history - Biphasic   & Hyperallometric* & Prediction                     \\ \hline
+    \textcite{Pecquerie2009}                & Life history              & Isometric        & Assumption                     \\ \hline
+    \textcite{kooijman2010dynamic}          & Mechanistic               & Isometric*       & Assumption                     \\ \hline
+    \textcite{Arendt2011}                   & Life history              & Isometry         & Assumption                     \\ \hline
+    \textcite{Ohnishi2011}                  & Life history - Biphasic   & Hyperallometric  & Assumption                     \\ \hline
+    \textcite{Brunel2013}                   & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \textcite{Charnov2013}                  & Hybrid                    & Isometric        & Assumption                     \\ \hline
+    \textcite{Boukal2014}                   & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \textcite{Kooijman2014a}                & Mechanistic               & Isometric*       & Assumption                     \\ \hline
+    \textcite{Minte-Vera2016a}              & Life history - Biphasic   & Isometric*       & Assumption                     \\ \hline
+    \textcite{Jusup2017}                    & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \textcite{Mangel2017}                   & Life history              & Hyperallometric  & Assumption                     \\ \hline
+    \textcite{Smallegange2017}              & Mechanistic               & Isometric        & Assumption                     \\ \hline
+    \textcite{Audzijonyte2018}              & Hybrid                    & Isometric        & Assumption                     \\ \hline
     Beverton and Holt (1957)            & Fisheries                 & Isometric        & Assumption                     \\ \hline
     Scott \textit{et al}. (2006)        & Fisheries                 & Hyperallometric  & Assumption                     \\ \hline
     Jørgensen and Fisken (2006)         & Fisheries                 & Isometric*       & Assumption                     \\ \hline
@@ -407,6 +431,7 @@ Further, it has also been shown that the assumption of resting metabolic rate sc
     Hartvig \textit{et al}. (2011)      & Food web                  & Isometric        & Assumption                     \\ \hline
     Carozza \textit{et al}. (2016)      & Food web                  & Isometric        & Assumption                     \\ \hline
     \end{tabular}
+    \label{caloric_equivalents}
 \end{table}
 
 %%% Bibliography %%%
