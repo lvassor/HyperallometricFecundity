@@ -125,7 +125,7 @@
 
 
 \begin{frame}
-	\frametitle{Power laws: Metabolic Rate \& Intake Rate}
+	\frametitle{Power laws: Why Growth Slows}
 		\centering
 		\begin{figure}
 			\includegraphics[width=\textwidth]{./Figures/presentation_growth_schedules.pdf} \
@@ -149,10 +149,23 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Power laws: Intake Rate Update}
+	\begin{itemize}
+		\item Most modern growth models assume that intake rate shares a simple relationship with resting metabolic rate
+		\item Resting metabolic rate scales sub-linearly with mass, or $MR \propto m^{3/4}$
+		\item Organisms become more efficient as they grow larger
+		\item Therefore the assumption is that larger organisms acquire disproportionately less energy, so intake rate scales with mass as: $am^{3/4}$
+		\item However, resting metabolic rate carries restrictive assumptions
+		\item Intake rate is actually related to field metabolic rate, which scales with mass as: $am^{0.85}$
+		\item I used the traditional 0.75 and updated 0.85 scaling to see if this increases the likelihood of fecundity rate hyperallometry
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Capturing this in a model}
 	\begin{itemize}
 		\item Intake rate scales less steeply than maintenance: $am^{3/4}$
-		\item $3/4$ exponent originates from how metabolic rate scales with mass - metabolic rate decreases with size, so larger organisms need less fuel per unit of mass
+		
 		\item Maintenance scales as: $bm^{1}$
 		\item $1$ exponent as double the cells = double the maintenance costs
 		\item Reproduction scales as: $cm^{\rho}$
@@ -169,15 +182,12 @@
 \begin{frame}
 	\frametitle{Life History Theory}
 	\begin{itemize}
-		\item Life History Theory assumes that evolution will select for the strategy which maximises fitness
-		\begin{itemize}
-			\item Natural selection optimises the timing and magnitude of life history events.
-		\end{itemize}
-		\item Lifetime reproductive output is a direct measure of fitness and is impacted by several factors:
+		\item Life History Theory assumes that evolution will select for the strategy which maximises fitness - e.g. timing and magnitude of life history events and how reproduction scales with size
+		\item Lifetime reproductive output ($R_0$) is a direct measure of fitness and is impacted by several factors:
 		\begin{enumerate}
-			\item Organism dedicates a fraction of mass to fecundity at any time 
-			\item Also has a probability of survival wich decreases with time
-			\item Also has a decreasing efficiency in allocating to reproduction with age
+			\item Fish dedicate a fraction of mass to fecundity at any time 
+			\item Fish have a probability of survival wich decreases with time
+			\item Fish have a decreasing efficiency in allocating to reproduction with age
 		\end{enumerate}
 	\end{itemize}
 \end{frame}
@@ -209,8 +219,9 @@
 \begin{frame}
 	\frametitle{EMT \& LHT}
 	\begin{itemize}
-		\item To test whether fecundity rate scales hyperallometrically, I allowed $c$ and $\rho$ to vary
+		\item To test whether fecundity rate scales hyperallometrically, I allowed $c$ and $\rho$ to vary in my simulations
 		\item See if hyperallometry ($\rho > 1$) emerges naturally
+		\item Remove shrinking growth curves - not biologically realistic
 	\end{itemize}
 	\begin{block}{Final Model}
 		\begin{align*}
@@ -222,25 +233,55 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{``Missing'' Energy}
-	\begin{itemize}
-		\item Where is the energy shortfall coming from?
-		\item Pawar \textit{et al.}'s Intake rate mass scaling laws
-	\end{itemize}
-	\begin{table}
-		\tiny
-		\caption{Size-scaling exponents of consumption rate in different foraging dimensions and resource states. 2D v 3D \& Empirical v Predicted (parentheses) are significantly different in all cases (Pawar \textit{et al.,} 2012)}
-		\begin{tabularx}{\linewidth}{|X|X|X|}
-		\toprule
-		& \multicolumn{2}{c}{\textbf{Consumption rate scaling exponent}}                                        \\
-		\midrule
-		& \multicolumn{1}{c}{\textbf{Scarce resources}} & \multicolumn{1}{c}{\textbf{Abundant resources}} \\
-		\midrule
-		2D & 0.85 $\pm$ 0.05 (0.78)                      & 0.85 $\pm$ 0.05 (0.78)                        \\
-		\midrule
-		3D & 1.06 $\pm$ 0.06 (1.16)                      & 1.00 $\pm$ 0.06 (1.16)                       \\              
-		\bottomrule
-		\end{tabularx}
-	\end{table}
+	\frametitle{Results - Varying Intake Rate Scaling}
+	\begin{columns}[b]
+		\column{0.0125\textwidth}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01_tex}.pdf} \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Intake rate scaling of 0.75}
+			\end{figure}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_tex}.pdf} \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Intake rate scaling of 0.85}
+			\end{figure}
+		\column{0.0125\textwidth}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Results - Varying Age-At-Maturity, $\alpha$}
+	\begin{columns}[b]
+		\column{0.0125\textwidth}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{{../../Results/alpha_sensitivity_x=0.75}.pdf}   \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Intake rate scaling of 0.75}
+			\end{figure}
+		\column{0.4875\textwidth}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{{../../Results/alpha_sensitivity_x=0.85}.pdf}  \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Intake rate scaling of 0.85}
+			\end{figure}
+		\column{0.0125\textwidth}
+	\end{columns}
+\end{frame}
+\begin{frame}
+	\frametitle{Hyperallometry permitted at very low maturity ages}
+	\centering
+		\begin{figure}
+			\includegraphics[width=0.85\textwidth]{../../Results/single_curve_with_onset.pdf}   \
+				% remove the 'draft' keyword, when replacing with final figure!
+			\caption{Example growth curve with onset of maturity at $\alpha = 200$ days}
+		\end{figure}
 \end{frame}
 \end{document}
