@@ -1,0 +1,246 @@
+\documentclass[handout]{beamer}
+%\documentclass[presentation]{beamer}
+
+\usecolortheme{Imperial}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage[UKenglish]{babel}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xpatch}
+
+\usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
+    \addbibresource{../../Write-Up/CMEE_Thesis.bib}
+    \setlength\bibitemsep{0.5\baselineskip}
+\renewbibmacro*{textcite}{%
+  \ifnameundef{labelname}
+    {\iffieldundef{shorthand}
+       {\usebibmacro{cite:label}%
+        \setunit{%
+          \global\booltrue{cbx:parens}%
+          \addspace\bibopenparen}%
+        \ifnumequal{\value{citecount}}{1}
+          {\usebibmacro{prenote}}
+          {}%
+        \usebibmacro{cite:labelyear+extrayear}}
+       {\usebibmacro{cite:shorthand}}}
+    {\printnames{labelname}%
+     \setunit{%
+       \global\booltrue{cbx:parens}%
+       \addspace\bibopenparen}%
+     \ifnumequal{\value{citecount}}{1}
+       {\usebibmacro{prenote}}
+       {}%
+     \usebibmacro{citeyear}}}
+    % \renewcommand*\finalnamedelim{\addspace\&\space}
+
+% Force \textit{et al}. to be italicised
+
+    \xpatchbibmacro{name:andothers}{%
+        \bibstring{andothers}%
+    }{%
+    \bibstring[\emph]{andothers}%
+    }
+    \xpatchbibmacro{Name}{%
+        \bibstring{name}
+    }{%
+    \bibstring[\textbf]{name}%
+    }{}{} % leave these empty arguments here, seem to cause issues when ommited
+    \xpatchbibmacro{textcite} % combine same author different year citations
+  {\setunit{\addcomma}\usebibmacro{cite:extrayear}}
+  {\setunit{\compcitedelim}\usebibmacro{cite:labelyear+extrayear}}
+  {}
+  {}
+% Kill "Accessed on" lines in bibliography
+\AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{doi}
+    \clearfield{url}
+    \clearfield{eprint}
+    \clearfield{eprinttype}
+}
+
+% complying UK date format, i.e. 1 January 2001
+\usepackage{datetime}
+\let\dateUKenglish\relax
+\newdateformat{dateUKenglish}{\THEDAY~\monthname[\THEMONTH] \THEYEAR}
+
+% Imperial College Logo, not to be changed!
+\institute{\includegraphics[height=0.7cm]{logo.png}}
+
+% -----------------------------------------------------------------------------
+
+
+
+
+%Information to be included in the title page:
+\title{Realistic Intake Rate Scaling Allows For Hyperallometric Fecundity Rate and Later Maturity In Fish}
+
+\subtitle{Theoretical Ecology}
+
+\author{Luke Vassor \\ \textit{M.Sc. CMEE}}
+
+\date{\today}
+
+
+
+\begin{document}
+ 
+\frame{\titlepage}
+
+
+\begin{frame}
+	\frametitle{Ontogenetic Growth}
+	\begin{itemize}
+		\item Organisms acquire resources from the environment to grow new biomass
+		\item Costs to address: maintaining cells, reproduction
+		\item Ecological Metabolic Theory: Growth rate slows because as we grow larger, we need to maintain more and more cells
+		\item Life History Theory: Growth rates change throughout ontogeny because evolution has selected these timings to maximise reproductive output
+	\end{itemize}
+	% \begin{table}[h]
+	% 	\centering
+	% 	\begin{tabular}{p{0.2\textwidth} p{0.7\textwidth}} 
+	% 		\toprule
+	% 		\multicolumn{2}{p{0.9\textwidth}}{TableTitle} \\
+	% 		\midrule
+	% 		CapA       & lots of examplesA \\
+
+	% 		CapB       & lots of examplesB \\
+			
+	% 		CapC       & lots of examplesC \\
+	% 		\bottomrule
+	% 	\end{tabular} 
+	% \end{table}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Power laws: Metabolic Rate \& Intake Rate}
+		\centering
+		\begin{figure}
+			\includegraphics[width=\textwidth]{./Figures/presentation_growth_schedules.pdf} \
+			% remove the 'draft' keyword, when replacing with final figure!
+			\caption{Maintenance (metabolic) rate scales with mass more steeply than intake rate, causing growth to slow or terminate.}
+		\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Power laws: Fecundity Rate}
+	\begin{itemize}
+		\item New results from \textcite{Barneche2018-reproductive_output}: fish data suggest that the rate of allocation to fecundity may scale hyperallometrically
+		\item Bigger fish mothers are disproportionately more fecund
+	\end{itemize}
+		\centering
+		\begin{figure}
+			\includegraphics[width=\textwidth]{./Figures/presentation_growth_schedules.pdf} \
+			% remove the 'draft' keyword, when replacing with final figure!
+			\caption{Maintenance (metabolic) rate scales with mass more steeply than intake rate, causing growth to slow or terminate.}
+		\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Capturing this in a model}
+	\begin{itemize}
+		\item Intake rate scales less steeply than maintenance: $am^{3/4}$
+		\item $3/4$ exponent originates from how metabolic rate scales with mass - metabolic rate decreases with size, so larger organisms need less fuel per unit of mass
+		\item Maintenance scales as: $bm^{1}$
+		\item $1$ exponent as double the cells = double the maintenance costs
+		\item Reproduction scales as: $cm^{\rho}$
+	\end{itemize}
+
+	\begin{block}{Growth model}
+		\begin{align*}
+			\frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha}\\
+			\frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \ \ \ \ \  \ \ \ m \geq m_{\alpha}
+		\end{align*}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Life History Theory}
+	\begin{itemize}
+		\item Life History Theory assumes that evolution will select for the strategy which maximises fitness
+		\begin{itemize}
+			\item Natural selection optimises the timing and magnitude of life history events.
+		\end{itemize}
+		\item Lifetime reproductive output is a direct measure of fitness and is impacted by several factors:
+		\begin{enumerate}
+			\item Organism dedicates a fraction of mass to fecundity at any time 
+			\item Also has a probability of survival wich decreases with time
+			\item Also has a decreasing efficiency in allocating to reproduction with age
+		\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Capturing this in a model}
+	\begin{itemize}
+		\item Reproduction is the fraction of mass dedicated and scales with mass: $cm^{\rho}$
+		\item Probability of survival decreases with time: $l(t)$
+		\item Efficiency of fecundity decreases with time: $h(t)$
+		\item The product of these is the reproductive output at time $t$, so the lifetime reproductive output is the integral of this quantity from maturity to death
+	\end{itemize}
+	\begin{block}{Life history model}
+		\begin{align*}
+			R_0 = \int_{\alpha}^{\infty}l(t)cm^{\rho}h(t) dt
+		\end{align*}
+	\end{block}
+\end{frame}
+
+% \begin{frame}
+% 	\frametitle{Fitness - Lifetime Reproductive Output}
+% 	\bigskip
+% 	\begin{figure}
+% 		\includegraphics[width=0.8\textwidth, height=0.5\textwidth]{./Figures/fecundity.pdf}
+% 		% remove the 'draft' keyword, when replacing with final figure!
+% 		\caption{Lifetime reproductive output from maturity to $t_{\infty}$}
+% 	\end{figure}
+% \end{frame}
+\begin{frame}
+	\frametitle{EMT \& LHT}
+	\begin{itemize}
+		\item To test whether fecundity rate scales hyperallometrically, I allowed $c$ and $\rho$ to vary
+		\item See if hyperallometry ($\rho > 1$) emerges naturally
+	\end{itemize}
+	\begin{block}{Final Model}
+		\begin{align*}
+			\frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha}\\
+			\frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \ \ \ \ \  \ \ \ m \geq m_{\alpha}\\
+			R_0 &= \int_{\alpha}^{\infty}l(t)cm^{\rho}h(t) dt
+		\end{align*}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{``Missing'' Energy}
+	\begin{itemize}
+		\item Where is the energy shortfall coming from?
+		\item Pawar \textit{et al.}'s Intake rate mass scaling laws
+	\end{itemize}
+	\begin{table}
+		\tiny
+		\caption{Size-scaling exponents of consumption rate in different foraging dimensions and resource states. 2D v 3D \& Empirical v Predicted (parentheses) are significantly different in all cases (Pawar \textit{et al.,} 2012)}
+		\begin{tabularx}{\linewidth}{|X|X|X|}
+		\toprule
+		& \multicolumn{2}{c}{\textbf{Consumption rate scaling exponent}}                                        \\
+		\midrule
+		& \multicolumn{1}{c}{\textbf{Scarce resources}} & \multicolumn{1}{c}{\textbf{Abundant resources}} \\
+		\midrule
+		2D & 0.85 $\pm$ 0.05 (0.78)                      & 0.85 $\pm$ 0.05 (0.78)                        \\
+		\midrule
+		3D & 1.06 $\pm$ 0.06 (1.16)                      & 1.00 $\pm$ 0.06 (1.16)                       \\              
+		\bottomrule
+		\end{tabularx}
+	\end{table}
+\end{frame}
+\end{document}

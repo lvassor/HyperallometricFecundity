@@ -85,7 +85,7 @@
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
 \usepackage{parskip}
-\usepackage{cleveref}
+\usepackage[capitalise]{cleveref}
 \begin{document}
 
 \begin{titlepage}
@@ -114,7 +114,7 @@
 
 \section{Ontogenetic Growth Model}
 \subsection{Model derivation from the Energy Balance Equation}
-West \textit{et al.} developed their previous work on allometric scaling laws \autocite{West1997} to capture growth in their ``general model for ontogenetic growth'' \autocite{West2001}. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These networks become more deeply nested with size and are, thus, self-similar, approximating a fractal, constraining the number of capillaries to scale sublinearly with size. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogenty, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the synthesis of new tissue. This is expressed by the dynamic conservation of energy equation:
+\textcite{West2001} developed their previous work on allometric scaling laws \autocite{West1997} to capture growth in their ``general model for ontogenetic growth'' \autocite{West2001}. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These networks become more deeply nested with size and are, thus, self-similar, approximating a fractal, constraining the number of capillaries to scale isometrically with size. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogeny, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the synthesis of new tissue. This is expressed by the dynamic conservation of energy equation:
 \begin{align}
     B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \label{master_balance}
 \end{align}
@@ -143,7 +143,7 @@ We can define \cref{growth_pre_sub} qualitatively in terms of cellular-level phe
 \end{align*}
 %     \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m
 % \end{align}
-Now, MTE assumes that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \cref{growth_pre_sub} leads to the general growth equation.
+Now, Ecological Metabolic Theory assumes that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \cref{growth_pre_sub} leads to the general growth equation.
 \begin{align*}
     \frac{dm}{dt} &= \bm{\Bigg(\frac{m_c}{E_c}\Bigg)B_{0}}m^{3/4} - \bm{\Bigg(\frac{B_{c}}{E_c}\Bigg)}m \\
 \end{align*}
@@ -189,7 +189,7 @@ Given my objective of modelling growth and life history in fish, this choice is 
 Therefore intake rate of fish is expected to be $\approx 2.15g^{1/4}\cdot day^{-1}$ which I use in my parameterisation of the growth model.
 
 \subsection{Introducing Reproduction}
-A revised form of \cref{model} published by \textcite{Charnov2001}, incorporates an explicit fecundity rate term, given that gonad mass in fish is proportional to body mass \autocite{Charnov2001, Roff1983, peters1983, kozlowski1996}. Crucially, \textcite{Charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_model}. 
+A revised form of \cref{west_model} published by \textcite{Charnov2001}, incorporates an explicit fecundity rate term, given that gonad mass in fish is proportional to body mass \autocite{Charnov2001, Roff1983, peters1983, kozlowski1996}. Crucially, \textcite{Charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_model}. 
 \begin{align*}
     \frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha} \\
     \frac{dm}{dt} &= am^{3/4} - bm - cm \ \ \ \ \ m \geq m_{\alpha} \numberthis \label{charnov2001} \\
@@ -272,15 +272,15 @@ To perform this optimisation, the analytical goal is to solve \cref{LHT_optimisa
     \textit{Merluccius bilinearis}           & 10                           & 13                         & 21.3                          & 24.6                              & 4.6                      & Steimle, 1980                \\ \hline
     \textit{Myoxocephalus octodecemspinosus} & 5                            & 17                         & 20.8                          & 25.1                              & 5.4                      & Steimle, 1980                \\ \hline
     \textit{Oecapterus punctatus}            & 5                            & 13                         & 18.8                          & 21.6                              & 6                        & Steimle, 1980                \\ \hline
-    \textit{Oncorhynchus garbusha}           &                              &                            & 15.058216                     &                                   & 6.54796                  & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus garbusha}           &                              &                            & 16.915912                     &                                   & 7.058408                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus keta}               &                              &                            & 15.087504                     &                                   & 6.681848                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus kisutch}            &                              &                            & 14.418064                     &                                   & 5.778104                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus masu}               &                              &                            & 14.493376                     &                                   & 6.552144                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus masu}               &                              &                            & 15.761128                     &                                   & 7.192296                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus nerka}              &                              &                            & 13.99548                      &                                   & 5.405728                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus nerka}              &                              &                            & 14.418064                     &                                   & 5.727896                 & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Oncorhynchus tschawytscha}       &                              &                            & 15.267416                     &                                   & 5.702792                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Oncorhynchus garbusha}           &                              &                            & 15.058216                     &                                   & 6.54796                  & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus garbusha}           &                              &                            & 16.915912                     &                                   & 7.058408                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus keta}               &                              &                            & 15.087504                     &                                   & 6.681848                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus kisutch}            &                              &                            & 14.418064                     &                                   & 5.778104                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus masu}               &                              &                            & 14.493376                     &                                   & 6.552144                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus masu}               &                              &                            & 15.761128                     &                                   & 7.192296                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus nerka}              &                              &                            & 13.99548                      &                                   & 5.405728                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus nerka}              &                              &                            & 14.418064                     &                                   & 5.727896                 & Cummins, 1971                 \\ \hline
+    \textit{Oncorhynchus tschawytscha}       &                              &                            & 15.267416                     &                                   & 5.702792                 & Cummins, 1971                 \\ \hline
     \textit{Ophichthus cruentifier}          & 4                            & 14                         & 19.8                          & 22.9                              & 5.8                      & Steimle, 1980                \\ \hline
     \textit{Opisthonema oglinum}             & 5                            & 11                         & 24.8                          & 27.7                              & 6.4                      & Steimle, 1980                \\ \hline
     \textit{Paralichthys oblongus}           & 10                           & 13                         & 22                            & 25.4                              & 5.5                      & Steimle, 1980                \\ \hline
@@ -290,8 +290,8 @@ To perform this optimisation, the analytical goal is to solve \cref{LHT_optimisa
     \textit{Pomatomus saltatrix}             & 5                            & 20                         & 20.8                          & 25                                & 4.8                      & Steimle, 1980                \\ \hline
     \textit{Prionotus carolinus}             & 5                            & 22                         & 17.7                          & 22.7                              & 4.4                      & Steimle, 1980                \\ \hline
     \textit{Pseudopleuronectes americanus}   & 5                            & 15                         & 16.4                          & 19.4                              & 3.6                      & Steimle, 1980                \\ \hline
-    \textit{Salmo salar}                     &                              &                            & 14.882488                     &                                   & 5.83668                  & Cummins, 1971; Smirnov, 1968 \\ \hline
-    \textit{Salmo salar}                     &                              &                            & 15.31344                      &                                   & 6.163032                 & Cummins, 1971; Smirnov, 1968 \\ \hline
+    \textit{Salmo salar}                     &                              &                            & 14.882488                     &                                   & 5.83668                  & Cummins, 1971 \\ \hline
+    \textit{Salmo salar}                     &                              &                            & 15.31344                      &                                   & 6.163032                 & Cummins, 1971 \\ \hline
     \textit{Sardinella aurita}               & 5                            & 14                         & 19.9                          & 23.1                              & 6                        & Steimle, 1980                \\ \hline
     \textit{Scomber japonicus}               & 15                           & 12                         & 21.6                          & 24.4                              & 6.2                      & Steimle, 1980                \\ \hline
     \textit{Scomberesox saurus}              & 5                            & 9                          & 22.3                          & 24.6                              & 8.5                      & Steimle, 1980                \\ \hline
@@ -369,8 +369,8 @@ To perform this optimisation, the analytical goal is to solve \cref{LHT_optimisa
 \end{table}
 
 %%% Bibliography %%%
-\newpage\addcontentsline{toc}{section}{SI Bibliography}
+\newpage\addcontentsline{toc}{section}{SI References}
 
-\let\mkbibnamefamily\textsc\printbibliography[title=SI Bibliography]\thispagestyle{empty} % Sets author names to small caps
+\let\mkbibnamefamily\textsc\printbibliography[title=SI References]\thispagestyle{empty} % Sets author names to small caps
 
 \end{document}
