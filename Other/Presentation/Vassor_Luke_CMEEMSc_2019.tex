@@ -137,15 +137,27 @@
 \begin{frame}
 	\frametitle{Power laws: Fecundity Rate}
 	\begin{itemize}
-		\item New results from \textcite{Barneche2018-reproductive_output}: fish data suggest that the rate of allocation to fecundity may scale hyperallometrically
-		\item Bigger fish mothers are disproportionately more fecund
+		\item New results from \textcite{Barneche2018-reproductive_output}: fish data suggest that fecundity output scales hyperallometrically 
+		\item Bigger fish mothers are disproportionately more fecund - not an instantaneous rate
 	\end{itemize}
-		\centering
-		\begin{figure}
-			\includegraphics[width=\textwidth]{./Figures/presentation_growth_schedules.pdf} \
-			% remove the 'draft' keyword, when replacing with final figure!
-			\caption{Maintenance (metabolic) rate scales with mass more steeply than intake rate, causing growth to slow or terminate.}
-		\end{figure}
+		\begin{columns}[b]
+			\column{0.0125\textwidth}
+			\column{0.4875\textwidth}
+				\centering
+				\begin{figure}
+					\includegraphics[width=0.85\textwidth]{{./Figures/diego_hyperallometry}.pdf} \
+					% remove the 'draft' keyword, when replacing with final figure!
+					\caption{Hyperallometric fecundity on linear axes}
+				\end{figure}
+			\column{0.4875\textwidth}
+				\centering
+				\begin{figure}
+					\includegraphics[width=\textwidth]{{./Figures/diego_hyperallometry_log}.pdf} \
+					% remove the 'draft' keyword, when replacing with final figure!
+					\caption{Hyperallometry means costs scale steeper}
+				\end{figure}
+			\column{0.0125\textwidth}
+		\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -156,7 +168,7 @@
 		\item Organisms become more efficient as they grow larger
 		\item Therefore the assumption is that larger organisms acquire disproportionately less energy, so intake rate scales with mass as: $am^{3/4}$
 		\item However, resting metabolic rate carries restrictive assumptions
-		\item Intake rate is actually related to field metabolic rate, which scales with mass as: $am^{0.85}$
+		\item Intake rate is more likely related to field metabolic rate, which scales with mass as: $am^{0.85}$ \autocite{Weibel2004, Pawar2012}
 		\item I used the traditional 0.75 and updated 0.85 scaling to see if this increases the likelihood of fecundity rate hyperallometry
 	\end{itemize}
 \end{frame}
@@ -164,17 +176,17 @@
 \begin{frame}
 	\frametitle{Capturing this in a model}
 	\begin{itemize}
-		\item Intake rate scales less steeply than maintenance: $am^{3/4}$
+		\item Intake rate scales as: $am^{0.75}$ or $am^{0.85}$
 		
 		\item Maintenance scales as: $bm^{1}$
 		\item $1$ exponent as double the cells = double the maintenance costs
 		\item Reproduction scales as: $cm^{\rho}$
 	\end{itemize}
 
-	\begin{block}{Growth model}
+	\begin{block}{Biphasic Growth model}
 		\begin{align*}
-			\frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha}\\
-			\frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \ \ \ \ \  \ \ \ m \geq m_{\alpha}
+			\frac{dm}{dt} &= am^{0.75} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha}\\
+			\frac{dm}{dt} &= am^{0.75} - bm - cm^{\rho} \ \ \ \ \  \ \ \ m \geq m_{\alpha}
 		\end{align*}
 	\end{block}
 \end{frame}
@@ -283,5 +295,22 @@
 				% remove the 'draft' keyword, when replacing with final figure!
 			\caption{Example growth curve with onset of maturity at $\alpha = 200$ days}
 		\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Future direction}
+	\begin{itemize}
+		\item ``Reverse-engineer'' consumption rate scaling from \textcite{Barneche2018-reproductive_output} data 
+		\item Collect data on continuous rate of fecundity allocation - very difficult to do
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Acknowledgements}
+	\begin{itemize}
+		\item Dr Samraat Pawar (Supervisor, ICL) 
+		\item Tom Clegg (PhD Student, ICL)
+		\item Prof Van Savage (UCLA)
+		\item Dr Diego Barneche (University of Exeter)
+		\item Prof Dustin Marshall (Monash University)
+	\end{itemize}
 \end{frame}
 \end{document}
