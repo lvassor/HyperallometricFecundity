@@ -84,7 +84,7 @@
 
 
 %Information to be included in the title page:
-\title{Realistic Intake Rate Scaling Allows For Hyperallometric Fecundity Rate and Later Maturity In Fish}
+\title{Realistic Intake Rate Scaling Predicts Hyperallometric Fecundity Rate and Later Maturity In Fish}
 
 \subtitle{Theoretical Ecology}
 
@@ -105,7 +105,7 @@
 		\item Organisms acquire resources from the environment to grow new biomass
 		\item Costs to address: maintaining cells, reproduction
 		\item Ecological Metabolic Theory: Growth rate slows because as we grow larger, we need to maintain more and more cells
-		\item Life History Theory: Growth rates change throughout ontogeny because evolution has selected these timings to maximise reproductive output
+		\item Life History Theory: Growth rates change throughout ontogeny because evolution has selected these strategies to maximise reproductive output
 	\end{itemize}
 	% \begin{table}[h]
 	% 	\centering
@@ -164,11 +164,12 @@
 	\frametitle{Power laws: Intake Rate Update}
 	\begin{itemize}
 		\item Most modern growth models assume that intake rate shares a simple relationship with resting metabolic rate
-		\item Resting metabolic rate scales sub-linearly with mass, or $MR \propto m^{3/4}$
+		\item Resting MR scales sub-linearly with mass, $MR \propto m^{3/4}$
 		\item Organisms become more efficient as they grow larger
 		\item Therefore the assumption is that larger organisms acquire disproportionately less energy, so intake rate scales with mass as: $am^{3/4}$
 		\item However, resting metabolic rate carries restrictive assumptions
-		\item Intake rate is more likely related to field metabolic rate, which scales with mass as: $am^{0.85}$ \autocite{Weibel2004, Pawar2012}
+		\item Intake rate more likely related to field metabolic rate, which scales as: $am^{0.85}$ \autocite{Weibel2004, Pawar2012}
+		\item Consumption rate scales as steeply as $am^{1.06}$
 		\item I used the traditional 0.75 and updated 0.85 scaling to see if this increases the likelihood of fecundity rate hyperallometry
 	\end{itemize}
 \end{frame}
@@ -198,7 +199,7 @@
 		\item Lifetime reproductive output ($R_0$) is a direct measure of fitness and is impacted by several factors:
 		\begin{enumerate}
 			\item Fish dedicate a fraction of mass to fecundity at any time 
-			\item Fish have a probability of survival wich decreases with time
+			\item Fish have a probability of survival which decreases with time
 			\item Fish have a decreasing efficiency in allocating to reproduction with age
 		\end{enumerate}
 	\end{itemize}
@@ -253,14 +254,14 @@
 			\begin{figure}
 				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01_tex}.pdf} \
 				% remove the 'draft' keyword, when replacing with final figure!
-				\caption{Intake rate scaling of 0.75}
+				\caption{Optimum fecundity rate parameters $c,\rho$ when \\ intake rate scaling = 0.75}
 			\end{figure}
 		\column{0.4875\textwidth}
 			\centering
 			\begin{figure}
 				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_tex}.pdf} \
 				% remove the 'draft' keyword, when replacing with final figure!
-				\caption{Intake rate scaling of 0.85}
+				\caption{Optimum fecundity rate parameters $c,\rho$ when \\ intake rate scaling = 0.85}
 			\end{figure}
 		\column{0.0125\textwidth}
 	\end{columns}
@@ -296,6 +297,19 @@
 			\caption{Example growth curve with onset of maturity at $\alpha = 200$ days}
 		\end{figure}
 \end{frame}
+\begin{frame}
+	\frametitle{Realistic maturity ages}
+	\begin{itemize}
+		\item Empirically, fish have been observed to mature after years of growth (in the order of thousands of days)
+		\begin{itemize}
+			\item Cod: 2-4 years \autocite{OBrien1993, Rochet2001, Knickle2013}
+			\item Chinook Salmon: 2-5 years \autocite{groot1991pacific}
+			\item Yellowtail flounder: 2-5 years \autocite{OBrien1993}
+		\end{itemize}
+		\item Maturity ages this late necessitate steeper intake rate scaling
+	\end{itemize}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Future direction}
 	\begin{itemize}
