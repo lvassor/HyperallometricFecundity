@@ -41,4 +41,4 @@
 * predict that fecundity rate
 * explain empirical basis and future empirical implications. nothing wrong with model except some assumptions
 * clearer relationship between intake and fecundity exp
-* 
+
