@@ -17,7 +17,7 @@
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{xpatch}
-
+\usepackage[export]{adjustbox}
 \usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
     \addbibresource{../../Write-Up/CMEE_Thesis.bib}
     \setlength\bibitemsep{0.5\baselineskip}
@@ -93,7 +93,7 @@
 
 \subtitle{Theoretical Ecology}
 
-\author{Luke Vassor \\ \textit{M.Sc. CMEE}}
+\author{Luke Vassor \\ \textit{M.Sc. Computational Methods in Ecology \& Evolution}}
 
 \date{\today}
 
@@ -118,110 +118,82 @@
 
 
 \begin{frame}
-	\frametitle{Power laws: Why Growth Slows}
+	\frametitle{Power laws}
+	\putat{-20}{-15}{\includegraphics[height=2.5cm]{./Figures/energy_flow.pdf}}
 		\centering
 		\begin{figure}
 			\includegraphics[width=\textwidth]{./Figures/presentation_growth_schedules.pdf} \
 			% remove the 'draft' keyword, when replacing with final figure!
-			\caption{Maintenance (metabolic) rate scales with mass more steeply than intake rate, causing growth to slow or terminate.}
+			\caption{Maintenance (metabolic) rate scales with mass more steeply than intake rate, causing growth to slow or terminate. \\ IG = Indeterminate Grower. DG = Determinate Grower.}
 		\end{figure}
 \end{frame}
-\begin{frame}
-	\frametitle{Power laws: Intake Rate Update}
-	\putat{230}{32}{\includegraphics[height=1cm]{./Figures/resource.png}}\putat{260}{25}{\includegraphics[width=2.5cm]{./Figures/fish.png}}
-	\begin{itemize}
-		\item Most models assume that intake rate relates to resting metabolic rate
-		\item $MR \propto m^{3/4}$ - increased efficiency at larger sizes
-		% \item Therefore the assumption is that larger organisms acquire disproportionately less energy, so intake rate scales with mass as: $am^{3/4}$
-		\item Resting MR carries restrictive assumptions
-		\item Intake rate more likely related to field metabolic rate, which scales as: $am^{0.85}$ \autocite{Weibel2004, Pawar2012}
-		\item Consumption rate scales as steeply as $am^{1.06}$
-		\item I used the traditional 0.75 and updated 0.85 scaling to see if this increases the likelihood of fecundity rate hyperallometry
-	\end{itemize}
+\begin{frame}[t]
+	\frametitle{Power laws}
+	\begin{columns}[t]
+		\column{0.0125\textwidth}
+		\column{0.4875\textwidth}
+		\vspace{-0.5cm}
+			\centering
+			\begin{figure}
+				\includegraphics[width=\textwidth]{./Figures/new_costs.pdf} \
+				% remove the 'draft' keyword, when replacing with final figure!
+				\caption{Introduction of new costs}
+			\end{figure}
+		\column{0.4875\textwidth}
+			\begin{itemize}
+				\item Intake rate may scale steeper
+				\item Fecundity rate makes costs scale steeper
+			\end{itemize}
+			\begin{figure}
+				\includegraphics[height=2.7cm]{./Figures/energy_flow_fecundity.pdf}				
+			\end{figure}
+		\column{0.0125\textwidth}
+	\end{columns}
+		
 \end{frame}
+
 \begin{frame}
 	\frametitle{Power laws: Fecundity Rate}
 	\putat{215}{-5}{\includegraphics[height=2cm]{./Figures/fish_fecund.png}}
-	\begin{itemize}
-		\item New results from \textcite{Barneche2018-reproductive_output}: fish data suggest that fecundity output scales hyperallometrically 
-		\item Bigger fish mothers are disproportionately more fecund - not an instantaneous rate
+	\begin{itemize}\setlength\itemsep{0.3cm}
+		\item New results from \textcite{Barneche2018-reproductive_output}: fish fecundity output scales hyperallometrically 
+		\item Bigger fish mothers are disproportionately more fecund - but only a snapshot
 	\end{itemize}
-		\begin{columns}[b]
-			\column{0.0125\textwidth}
-			\column{0.4875\textwidth}
-			\vspace{-0.5cm}
-				\centering
+	\centering
 				\begin{figure}
-					\includegraphics[width=0.85\textwidth]{{./Figures/diego_hyperallometry}.pdf} \
+					\includegraphics[height=3cm]{{./Figures/diego_hyperallometry}.pdf} \
 					% remove the 'draft' keyword, when replacing with final figure!
-					\caption{Hyperallometric fecundity on linear axes}
+					\caption{95\% species showed hyperallometric fecundity output}
 				\end{figure}
-			\column{0.4875\textwidth}
-				\centering
-				\begin{figure}
-					\includegraphics[width=\textwidth]{{./Figures/diego_hyperallometry_log}.pdf} \
-					% remove the 'draft' keyword, when replacing with final figure!
-					\caption{Hyperallometry means costs scale steeper}
-				\end{figure}
-			\column{0.0125\textwidth}
-		\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Capturing this in a model}
-	\begin{columns}[b]
+	\frametitle{Aims}
+	\begin{columns}[t]
 		\column{0.0125\textwidth}
 		\column{0.4875\textwidth}
-		\begin{itemize}
-			\item Intake rate scales as: $am^{0.75}$ or $am^{0.85}$
-			\item Maintenance scales as: $bm^{1}$
-			% \item $1$ exponent as double the cells = double the maintenance costs
-			\item Reproduction scales as: $cm^{\rho}$
-		\end{itemize}
 		\begin{block}{Biphasic Growth model}
 			\begin{align*}
 				\frac{dm}{dt} &= am^{0.75} - bm \\ %\ \ \ \ \ \ \ m < m_{\alpha}\\
-				\frac{dm}{dt} &= am^{0.75} - bm - cm^{\rho} %\ \ \ \ \  \ \ \ m \geq m_{\alpha}
-			\end{align*}
-		\end{block}
-		\column{0.4875\textwidth}
-		\centering
-		\begin{figure}
-			\includegraphics[width=\textwidth]{../../Results/single_curve_with_onset.pdf}   \
-				% remove the 'draft' keyword, when replacing with final figure!
-			\caption{Example growth curve with onset of maturity at $\alpha = 200$ days}
-		\end{figure}
-		\column{0.0125\textwidth}
-	\end{columns}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Capturing this in a model}
-	\begin{columns}[b]
-		\column{0.0125\textwidth}
-		\column{0.4875\textwidth}
-		\begin{itemize}
-			\item I allowed $c$ and $\rho$ to vary in my simulations
-			\item See if hyperallometry ($\rho > 1$) emerges naturally
-			\item Remove shrinking growth curves - not biologically realistic
-		\end{itemize}
-		\begin{block}{Maximising Fitness}
-			\begin{align*}
+				\frac{dm}{dt} &= am^{0.75} - bm - cm^{\rho} \\ %\ \ \ \ \  \ \ \ m \geq m_{\alpha}
 				R_0 &= \int_{\alpha}^{\infty}l(t)cm^{\rho}h(t) dt
 			\end{align*}
 		\end{block}
+		
 		\column{0.4875\textwidth}
 		\centering
 		\begin{figure}
 			\includegraphics[width=\textwidth]{../../Results/single_curve_with_onset.pdf}   \
 				% remove the 'draft' keyword, when replacing with final figure!
-			\caption{Example growth curve with onset of maturity at $\alpha = 200$ days}
+			\caption{Example growth curve with maturity age $\alpha = 200$ days}
 		\end{figure}
 		\column{0.0125\textwidth}
 	\end{columns}
+	\begin{itemize}\setlength\itemsep{0.3cm}
+		\item Simulate variable $c$ and $\rho$ - does hyperallometry emerge?
+		\item How does intake rate scaling affect the likelihood of this?
+	\end{itemize}
 \end{frame}
-		% \item Probability of survival decreases with time: $l(t)$
-		% \item Efficiency of fecundity decreases with time: $h(t)$
 
 \begin{frame}
 	\frametitle{Results - Varying Intake Rate Scaling}
@@ -230,16 +202,16 @@
 		\column{0.4875\textwidth}
 			\centering
 			\begin{figure}
-				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01_tex}.pdf} \
+				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01_regfont}.pdf} \
 				% remove the 'draft' keyword, when replacing with final figure!
-				\caption{Optimum fecundity rate parameters $c,\rho$ when \\ intake rate scaling = 0.75}
+				\caption{Optimum fecundity rate parameters $c,\rho$ when \textbf{intake rate scaling = 0.75}}
 			\end{figure}
 		\column{0.4875\textwidth}
 			\centering
 			\begin{figure}
-				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_tex}.pdf} \
+				\includegraphics[width=\textwidth]{{../../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_regfont}.pdf} \
 				% remove the 'draft' keyword, when replacing with final figure!
-				\caption{Optimum fecundity rate parameters $c,\rho$ when \\ intake rate scaling = 0.85}
+				\caption{Optimum fecundity rate parameters $c,\rho$ when \textbf{intake rate scaling = 0.85}}
 			\end{figure}
 		\column{0.0125\textwidth}
 	\end{columns}
@@ -254,24 +226,27 @@
 			\begin{figure}
 				\includegraphics[width=\textwidth]{{../../Results/alpha_sensitivity_x=0.75}.pdf}   \
 				% remove the 'draft' keyword, when replacing with final figure!
-				\caption{Intake rate scaling of 0.75}
+				\caption{Optimum $\rho$ for different maturity ages when \textbf{intake rate scaling of 0.75}}
 			\end{figure}
 		\column{0.4875\textwidth}
 			\centering
 			\begin{figure}
 				\includegraphics[width=\textwidth]{{../../Results/alpha_sensitivity_x=0.85}.pdf}  \
 				% remove the 'draft' keyword, when replacing with final figure!
-				\caption{Intake rate scaling of 0.85}
+				\caption{Optimum $\rho$ for different maturity ages when \textbf{intake rate scaling of 0.75}}
 			\end{figure}
 		\column{0.0125\textwidth}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
+	\putat{0}{-44}{\includegraphics[height=0.5cm]{./Figures/Gadus.png}}
+	\putat{0}{-75}{\includegraphics[height=0.5cm]{./Figures/salmon_chinook.jpeg}}
+	\putat{-5}{-95}{\includegraphics[height=0.5cm]{./Figures/yellowtail-flounder.png}}
 	\frametitle{Realistic maturity ages}
-	\begin{itemize}
+	\begin{itemize}\setlength\itemsep{0.5cm}
 		\item Empirically, fish have been observed to mature after years of growth (in the order of thousands of days)
-		\begin{itemize}
+		\begin{itemize}\setlength\itemsep{0.2cm}
 			\item Cod: 2-4 years \autocite{OBrien1993, Rochet2001, Knickle2013}
 			\item Chinook Salmon: 2-5 years \autocite{groot1991pacific}
 			\item Yellowtail flounder: 2-5 years \autocite{OBrien1993}
@@ -282,19 +257,23 @@
 
 \begin{frame}
 	\frametitle{Future direction}
-	\begin{itemize}
-		\item ``Reverse-engineer'' consumption rate scaling from \textcite{Barneche2018-reproductive_output} data 
-		\item Collect data on continuous rate of fecundity allocation - very difficult to do
+	\begin{itemize}\setlength\itemsep{0.5cm}
+		\item ``Reverse-engineer'' consumption rate scaling from \textcite{Barneche2018-reproductive_output} data - I predict that fish species showing hyperallometric fecundity come from high intake environments
+		\item Need better understanding of consumption versus intake - requires digestion efficiency data and foraging time data
+		\item Collect data on and develop theory for continuous rate of fecundity allocation
 	\end{itemize}
 \end{frame}
 \begin{frame}
 	\frametitle{Acknowledgements}
-	\begin{itemize}
-		\item Dr Samraat Pawar (Supervisor, ICL) 
-		\item Tom Clegg (PhD Student, ICL)
-		\item Prof Van Savage (UCLA)
-		\item Dr Diego Barneche (University of Exeter)
-		\item Prof Dustin Marshall (Monash University)
-	\end{itemize}
+	\vspace{-0.5cm}
+	\begin{table}[]
+		\begin{tabular}{m{9.5cm}m{5cm}}
+		Dr Samraat Pawar (Primary Supervisor, Imperial College)               			& \includegraphics[height=1.2cm]{Figures/samraat.jpg} \\
+		Dr Diego Barneche (Secondary Supervisor, Univ. of Exeter) 			& \includegraphics[height=1.2cm]{Figures/Diego_R_Barneche.jpg} \\
+		Tom Clegg (PhD Student, Imperial College)                    					& \includegraphics[height=1.2cm]{Figures/tom_clegg.JPG} \\
+		Prof Van Savage (UCLA)                                        		& \includegraphics[height=1.2cm]{Figures/van_savage.jpg} \\
+		Prof Dustin Marshall (Monash University, Melbourne)                     		& \includegraphics[height=1.2cm]{Figures/dustin_marshall.jpg}
+		\end{tabular}
+		\end{table}
 \end{frame}
 \end{document}

@@ -24,8 +24,8 @@
 
 ## Samraat on mine
 * simplify the starting message - be very succinct about current state of affairs
-* no need to go through the perspectives
-* using that LH tool to figure out what is happening at the instantanteous timescale
+* no need to go through the perspectives /
+* using that LH tool to figure out what is happening at the instantanteous timescale 
 * translate lists into succinct points
 * indeterminate growth - internal constraints prevent you growing infinitely
 * viva 0.85 - field metabolic rate pegged to 0.85 - consumption rate. computational limitations for going higher. one could argue even argue the WBE model is delivery not consumption. doesnt mean you can deliver it. doesnt make sense to up it to 1.06 - available energy
@@ -42,3 +42,12 @@
 * explain empirical basis and future empirical implications. nothing wrong with model except some assumptions
 * clearer relationship between intake and fecundity exp
 
+=========================
+* Remove intake rate slide
+* clear questions that i tackled in dissertation
+* get from log-log plot. changing slopes.
+* repro not included - not clear on what the slope is. diego showed this...
+
+* remove bullets on capture slide. combine both into one box
+* item sep larger on bullets
+* IR scales more steeply for at least two reasons
