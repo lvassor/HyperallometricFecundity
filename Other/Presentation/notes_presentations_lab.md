@@ -1,6 +1,6 @@
 # Lab Presentations Feedback
 
-## Others
+## Others - General
 ### Hsi-Cheung
 * Create better flow between pieces - lots of pieces right now
 * back up claims quantitatively
@@ -14,6 +14,7 @@
 * crush down previous work - focus on YOUR study
 
 ## Mine
+### PawarLab
 * LHT slide too dense, increase whitespace
 * use bold typeface
 * scale figure 6+7
@@ -22,7 +23,7 @@
 * LHT is tool for fitness - ditch background
 * remove maintenance 1 exp
 
-## Samraat on mine
+### Samraat's Comments
 * simplify the starting message - be very succinct about current state of affairs
 * no need to go through the perspectives /
 * using that LH tool to figure out what is happening at the instantanteous timescale 
@@ -42,7 +43,7 @@
 * explain empirical basis and future empirical implications. nothing wrong with model except some assumptions
 * clearer relationship between intake and fecundity exp
 
-=========================
+### Second round
 * Remove intake rate slide
 * clear questions that i tackled in dissertation
 * get from log-log plot. changing slopes.
@@ -51,3 +52,36 @@
 * remove bullets on capture slide. combine both into one box
 * item sep larger on bullets
 * IR scales more steeply for at least two reasons
+
+## My feedback
+
+### Deraj
+* "I believe"
+* emphasise AICc for non-CMEE. ranking best model fit.
+* thermal optima vs lag. 
+* Difference between were not statistically significant
+
+### Jacob
+* i liked the proportional combined model with timings
+* why would you think that gunshots are lower in red?
+* how do you define morning, afternoon and night
+* supervised - labelling for other areas could come earlier 
+
+### Eva
+* good: "never been done"
+* why is S2 more accurate?
+* turning rates make encounters more likely?
+* "we" believe
+* I predict that.. 
+
+### Joe
+* figure for heavy tailed?
+* as we know, single scale for exponential?
+* sum across what?
+* psi acts as a weight
+* "we" and "our"
+* reverse-engineering lambda rate from data?
+* AIC explanation
+* AIC better with less parameters - exponential vs gamma
+* analytical error
+* dense text
