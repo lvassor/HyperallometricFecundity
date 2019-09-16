@@ -1,0 +1,26 @@
+hypothetical_starting_mass = 0.1
+hypothetical_asymptotic_mass = 25000
+hypothetical_starting_reproduction = 0 #c * (hypothetical_starting_mass)^ rho
+a = 0.4; a_b = 0.75
+b = a/(hypothetical_asymptotic_mass^0.25)
+c = 0.06 # West et al. assume 0.1 from Peters
+alpha = 200
+p = Dict([(:a_0,a),(:a_b,a_b),
+          (:b_0,b),(:b_b,1.0),
+          (:c_0,c),(:c_b,0.75),
+          (:Alph,alpha),
+          (:k,0.01),(:Z,2/alpha)])
+
+M0 = [hypothetical_starting_mass, hypothetical_starting_reproduction]
+# M0 = [1.,0.0]
+tspan = (0.0,1000)
+prob = ODEProblem(dM,M0,tspan,p)
+sol = solve(prob,Rosenbrock23())
+
+# plot(hcat(sol.u...)')
+# Pkg.add("PGFPlots")
+# gr()
+# using LaTeXStrings
+# using Plots; pgfplots()         # PGFPlots backend
+# plot(sol, label = ["Somatic Growth" "Cumulative reproduction"], xlab = "Time (days)", ylabel="Mass (g)", legend = :right)
+# savefig("../Results/single_curve.pdf") # Saves the plot from p as a .pdf vector graphic

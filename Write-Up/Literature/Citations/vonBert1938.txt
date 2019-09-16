@@ -1,0 +1,13 @@
+@article{10.2307/41447359,
+ ISSN = {00187143, 15346617},
+ URL = {http://www.jstor.org/stable/41447359},
+ author = {LUDWIG von BERTALANFFY},
+ journal = {Human Biology},
+ number = {2},
+ pages = {181--213},
+ publisher = {Wayne State University Press},
+ title = {A QUANTITATIVE THEORY OF ORGANIC GROWTH (INQUIRIES ON GROWTH LAWS. II)},
+ volume = {10},
+ year = {1938}
+}
+

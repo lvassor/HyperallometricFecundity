@@ -1,0 +1,12 @@
+if i account for lifetime/increase lifetime time scale in between fecundity output measurements i expect the scaling to go down
+
+questions to generate hypotheses. expectation with empirical data would ...
+
+introduce the model i use, LHT optimisation, simulations i do
+marshall IMPLICITLY claims...
+fig a and b in one figure
+link between H1 and H2 should naturally emerge
+ball park estimate for kappa value which actually causes change
+more data for alpha 
+
+can still go for intake rate time scaling since these results open up the idea that it should be explore more.

@@ -1,0 +1,373 @@
+\documentclass[a4paper]{article} % twoside for paper submission but remove for electronic submission
+\title{Reconciling Resource Supply and Ontogenetic Growth (Models)}
+\author{Luke Joseph Vassor}
+
+%%%% Packages %%%
+
+% Page Formatting packages
+\usepackage[margin=2cm]{geometry}
+\usepackage{lipsum} % Generates dummy text
+\usepackage{titlesec}
+    \titleformat*{\section}{\LARGE\bfseries}
+    \titleformat*{\subsection}{\normalsize\bfseries}
+    \titleformat*{\subsubsection}{\large\bfseries}
+    \titleformat*{\paragraph}{\large\bfseries}
+    \titleformat*{\subparagraph}{\large\bfseries}
+    \newcommand{\sectionbreak}{\newpage} % forces new page for each section
+    \titlespacing*{\section}
+{0pt}{20cm plus 1ex minus .2ex}{4.3ex plus .2ex}
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+\usepackage{fancyhdr} % rule line and current section displayed at top of pages % \thispagestyle{plain} removes it on desired pages
+    \pagestyle{fancy}
+    \renewcommand{\footrulewidth}{0.4pt}% default is 0pt
+    \renewcommand{\headrulewidth}{0.4pt}% default is 0pt
+    \renewcommand{\sectionmark}[1]{\markboth{#1}{}} % set the \leftmark to section name
+    \fancyhead[L]{\nouppercase{\leftmark}} %  sets the left head element ONLY EVER section name, otherwise mark is section/subsection/subsubsection
+    \fancyhead[R]{} % sets the right head element to the page number if you use \thepage as argument
+    \fancyfoot[C]{\thepage} % sets footer as page number
+
+\usepackage{pdfpages}
+% \usepackage{lscape}
+% Math packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{mathpazo}
+\usepackage{xpatch}
+\usepackage{todonotes}
+% Language packages
+% \usepackage[english]{babel}
+\usepackage[utf8]{inputenc}    % utf8 support       %!!!!!!!!!!!!!!!!!!!!
+\usepackage[T1]{fontenc}       % code for pdf file  %!!!!!!!!!!!!!!!!!!!!
+% \usepackage{listings}
+
+% Other packages
+% \usepackage[font=small,skip=0pt]{caption}
+\usepackage{lmodern}% http://ctan.org/pkg/lmodern
+\usepackage{slantsc}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{tocloft}
+    \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
+% \usepackage[colorinlistoftodos]{todonotes}
+
+% Plotting packages
+\makeatletter
+\newcommand{\thickhline}{%      % for thick lines in table
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+% \usepackage{subfigure}
+\usepackage[pyplot]{juliaplots}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+\usepackage{tabularx}
+% Citation packages
+\usepackage[maxcitenames=2, backend=biber, dashed=false, style=imperialharvard]{biblatex}
+    \addbibresource{./CMEE_Thesis.bib}
+    \setlength\bibitemsep{0.5\baselineskip}
+\renewbibmacro*{textcite}{%
+  \ifnameundef{labelname}
+    {\iffieldundef{shorthand}
+       {\usebibmacro{cite:label}%
+        \setunit{%
+          \global\booltrue{cbx:parens}%
+          \addspace\bibopenparen}%
+        \ifnumequal{\value{citecount}}{1}
+          {\usebibmacro{prenote}}
+          {}%
+        \usebibmacro{cite:labelyear+extrayear}}
+       {\usebibmacro{cite:shorthand}}}
+    {\printnames{labelname}%
+     \setunit{%
+       \global\booltrue{cbx:parens}%
+       \addspace\bibopenparen}%
+     \ifnumequal{\value{citecount}}{1}
+       {\usebibmacro{prenote}}
+       {}%
+     \usebibmacro{citeyear}}}
+    % \renewcommand*\finalnamedelim{\addspace\&\space}
+
+% Force \textit{et al}. to be italicised
+
+    \xpatchbibmacro{name:andothers}{%
+        \bibstring{andothers}%
+    }{%
+    \bibstring[\emph]{andothers}%
+    }
+    \xpatchbibmacro{Name}{%
+        \bibstring{name}
+    }{%
+    \bibstring[\textbf]{name}%
+    }{}{} % leave these empty arguments here, seem to cause issues when ommited
+    \xpatchbibmacro{textcite} % combine same author different year citations
+  {\setunit{\addcomma}\usebibmacro{cite:extrayear}}
+  {\setunit{\compcitedelim}\usebibmacro{cite:labelyear+extrayear}}
+  {}
+  {}
+% Kill "Accessed on" lines in bibliography
+\AtEveryBibitem{
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+    \clearfield{doi}
+    \clearfield{url}
+    \clearfield{eprint}
+    \clearfield{eprinttype}
+}
+\usepackage{lineno}
+\usepackage{setspace}
+\usepackage[capitalise]{cleveref}
+\onehalfspacing
+\begin{document}
+
+\begin{titlepage}
+    % Square brackets control size of vertical gap AFTER group
+    %----------------------------------------------------------------------------------------
+    %	LOGO SECTION
+    %----------------------------------------------------------------------------------------
+    
+    \includegraphics[width=4cm]{./Images/logo.png}\\%[1cm] % Include a department/university logo - this will require the graphicx package
+     
+    %----------------------------------------------------------------------------------------
+    
+    \center % Center everything on the page
+    
+    
+    %----------------------------------------------------------------------------------------
+    %	TITLE SECTION
+    %----------------------------------------------------------------------------------------
+    \makeatletter
+    \linespread{1.5} % controls line spacing of title
+        {\huge{REALISTIC INTAKE RATE SCALING ALLOWS FOR HYPERALLOMETRIC FECUNDITY RATE AND LATER MATURITY IN FISH}\par} % leave \par here
+    \vspace{2.5cm} % Title of your document
+
+    %----------------------------------------------------------------------------------------
+    %	DESCRIPTION SECTION
+    %----------------------------------------------------------------------------------------
+    % If you want consistent line spacing then need to typeset paragraphy as a single {} group and use \\ for line break
+    % Strangely, you need to leave the \ character at the end of the group so that the spacing of the last line from the penultimate line in a group remains constant
+    % textsc command sets small capitals (sc)
+    \textsc{A thesis submitted in partial fulfilment \\ of the requirements for the degree of \\ Master of Science at Imperial College London \\ by \\ \ }\\[2.5cm]
+    \textsc{\Large \@author}\\[2.5cm]
+    \textsc{Submitted for the \\ M.Sc. Computational Methods in Ecology \& Evolution \\ Formatted in the journal style of \textsl{\textsc{Ecology Letters}} \\ \ }\\[1.5cm]
+
+    %----------------------------------------------------------------------------------------
+    %	HEADING SECTIONS
+    %----------------------------------------------------------------------------------------
+    \textsc{Department of Life Sciences \\ Imperial College London \\ \ }\\[1cm]
+    \textsc{\today}\\ % Date, change the \today to a set date if you want to be precise
+    \textsc{Word Count: 5266}
+    
+    \vfill % Fill the rest of the page with whitespace
+    
+\end{titlepage}
+
+%%% Declaration %%%
+\section*{Declaration of Originality}\thispagestyle{plain}
+    I certify that this thesis, and the research to which it refers, are the product of my own work, conducted during the current year of the \emph{M.Sc. Computational Methods in Ecology \& Evolution} at Imperial College London. Any ideas or quotations from the work of other people, published or otherwise, or from my own previous work are fully acknowledged in accordance with the standard referencing practices of the discipline and this institution. I digitised and processed caloric equivalents data from \textcite{Cummins1971} and \textcite{Steimle1980}. I developed the mathematical models presented in this paper equally with my supervisor, Dr Samraat Pawar, and Ph.D. student, Tom Clegg.
+
+    \vspace{3cm}
+    \begin{flushright}
+        Luke Joseph Vassor \\
+        \today
+    \end{flushright}
+
+%%% Abstract %%%
+\section*{Abstract}\thispagestyle{plain}
+    The amount of metabolic energy an organism can sequester from its environment fundamentally determines its scope for growth and reproduction. Here I use a fish-based bioenergetics and life history theoretical model, which optimises fecundity parameters, to show that an instantaneous rate of allocation to fecundity is unlikely to scale hyperallometrically (increase disproportionately) with mass under traditional intake rate values. I further show that using an arguably more realistic intake rate regime, supported by empirical data, not only makes reproductive hyperallometry more likely to emerge, but does so at more biologically accurate maturity ages. Thus I predict that fish which exhibit this hyperallometry likely come from environments and foraging dimensions that increase intake rate. The results here support recently published data which suggest hyperallometric fecundity scaling, by endorsing snapshot measures of reproductive output with simulation results for instantaneous fecundity rates. This paper not only suggests that higher intake rate scaling may be more justified in these approaches but also highlights the importance of correctly characterising the growth and fitness contribution of different sized individuals to a population. This will be crucial in generating new hypotheses for testing empirical data and will also be vital in creating space for new theory to develop an understanding of the energetic mechanisms behind fecundity rate allocation. Quantifying the effects of these new findings for fish growth models will have profound implications for fisheries management and for growth modelling as a scientific practice in general.
+
+    \textbf{Keywords} \\
+    Biomass; energetics; productivity; allometry; life history; fisheries
+%%% Acknowledgements %%%
+\section*{Acknowledgments}\thispagestyle{plain}
+    Special thanks goes to Dr Samraat Pawar for providing excellent supervision and facilitating  highly-stimulating, always comical, dialogue throughout the 5-month thesis period, and the CMEE course in general. Likewise to Tom Clegg, for his part in this, and his unwavering patience in providing frequent additional support and discussion outside of scheduled meetings. Additional thanks goes to Dr Diego Barneche, Prof Van Savage and Prof Dustin Marshall for allocating time to this problem on their visits to Silwood Park, to Francis Windram and Alex Christensen for coding and mathematics assistance, respectively, to Deraj Wilson-Aggarwal for moral support and frequent Barista skills, and to the remaining members of PawarLab for providing such an open, intellectual and hilarious environment. Lastly, the completion of this thesis, or the degree in general, would not have been possible without the efforts and support of my family, who have assisted in any way possible to make life easier this year, for which I will always be grateful. Nor would it have been possible without the support of my partner, Tiffany, who, despite her passion for a different field, has tolerated, and engaged with, my endless utterances and vocalised cognitive grapplings with metabolic, life history and game theory for the last 5 months - something tells me I should hold on tight.
+
+%%% Table of Contents %%%
+\newpage\tableofcontents\thispagestyle{plain}
+
+%%% List of Figures %%%
+\newpage\listoffigures\thispagestyle{plain}
+\addcontentsline{toc}{section}{List of Figures}
+
+%%% Listof Tables %%%
+% \newpage\listoftables\thispagestyle{plain}
+% \addcontentsline{toc}{section}{List of Tables}
+
+%%% Introduction %%%
+\newpage
+
+\section{Introduction}\thispagestyle{plain}
+% \linenumbers
+    Organisms must grow by synthesising biomass from consumed resources in order to progress through ontogeny, or stages of life \autocite{Hariharan2016}. The rate of biomass production directly influences fitness at the individual level by constraining the speed at which maturity is reached. Beyond the individual, growth has scalable, measurable impacts at multiple ecological levels, by constraining food-web trophic structure and energy transfer efficiency \autocite{Barneche2018}. Biologists have sought to gain a proximate and ultimate understanding of ontogenetic growth for over a century. \textit{Why do organisms grow at a specific rate during a specific stage? Why do they stop growing? What causes this? Can growth be controlled, and if so, why? What is the optimal size to grow to? When is the optimal age to mature?} Answers to these questions require a theoretical understanding of the energetics of growth and how evolution has selected for the patterns we observe given these constraints. 
+    
+    Energetic constraints dictate the variety of sizes and, consequently, the fantastic spectrum of niches resident in the biosphere, since most key physiological, ecological and life history traits covary with body size \autocite{peters1983, brown2000-scaling-book,schmidt1984scaling,Marshall2019b}. To quote \textcite{Bartholomew1981}, ``It is only a slight overestimate to say that the most important attribute of an animal, both physiologically and ecologically, is its size''. As such, growth modelling has, historically, been a popular endeavor in the biological sciences, demanding a knowledge of the mechanisms which shape resource allocation and evolutionary strategy. This prerequisite has attracted theorists, field ecologists and applied scientists, in a joint endeavor to translate growth as a quantifiable, mathematisable and testable idea into a theoretical, predictive framework \autocite{popper1962,popper1972,peters1983, West2011}. Geometric scaling laws are especially relevant to this pursuit since many biological traits scale with body size, governed by a power law: $Y = Y_0 M^{\beta}$, where $Y$ is the trait to be predicted, $M$ is body mass, and $Y_0$ and $\beta$ are empirically-derived constants. These laws have been formalised into ``allometric'' equations. If $\beta = 1$, the scaling is said to be ``isometric'' with mass, while if $\beta \neq 1$, the scaling is allometric with mass, and plots as a curve on linear axes \autocite{brown2000-scaling-book}.
+
+    Historically, the approaches used to model ontogenetic growth bifurcate into two major branches. Evolutionary Life History Theory, which relates growth, phenomenologically, to the optimum timing of fundamental life history events, and Ecological Metabolic Theory, which relates growth, mechanistically, to fundamental cellular and energetic processes which constrain the scope for growth.
+        
+    Evolutionary life history theorists have typically employed optimisation techniques to solve for the age and size values of given life history events which maximise fitness, e.g. age-at-maturation. The \textit{modus operandi} is to assume that evolution selects for timing and growth strategies which do this by optimising trade-offs among competing traits \autocite{Day1997, Stearns1989, stearns1992evolution}. Typically, then, simplifying assumptions are made with regard to energetic mechanisms \autocite{Day1997, Kozowski1987-indeterminate}, which are viewed as the end evolutionary result of selection on body size, an exemplar of a ``top-down'' approach.
+        
+    Conversely, metabolic theorists utilise laws from thermodynamics and enzyme kinetics as a first-principles, ``bottom-up'' approach to growth problems, starting with energetics and ending with body size \autocite{Brown2004}. Paradigmatically, lifetime growth is governed by the distribution and transformation of available energy. These bioenergetic growth models are predicated on the premise that growth is constrained by an energy scope or profit. An organism garners energy from its environment at a certain intake rate (revenue), some of which it expends on internal maintenance (metabolism) at a certain rate (cost). Any surplus energy remaining after this expenditure, can then be used to synthesise new biomass for growth \autocite{Holdway1984, Rochet2001, Enberg2012, VanGemert2019}. Growth slows because maintenance rate scales with mass to a larger exponent than intake rate (different power laws), so this energy profit decreases with size (see Fig. 1). Extant models generally agree upon a mass exponent of 1 for maintenance rate (double the body mass = double the number of cells), whereas the mass exponent of intake rate has been debated through time, given its derivation from different physiological geometries. Early models suggested a value of $2/3$ \autocite{Putter1920,vonBert1938, VonBertalanffy1957}, due to intake being governed by absorption across a membrane surface (rearrangement of $\pi r^2$). However, recent models tend to use a value of $3/4$, proposed by \textcite{West1997}, instead due to energy transport begin governed by a fractal-like supply network (e.g. capillaries), the result being their ``general ontogenetic growth model'' \autocite{West2001}.
+
+    \begin{center}
+        \begin{minipage}{\linewidth}
+        \includegraphics{../Other/Presentation/Figures/triple_panel.pdf}
+        \label{growth_schedules}
+        \captionof{figure}{a) Determinate growers reach an asymptotic size when their intake and maintenance rates intersect, which occurs before death, whereas for indeterminate growers, these lines do not intersect before death. NB: after logarithmic transformation of a power law, the slope equals the exponent $\log{(am^y)} = y\cdot \log{(am)}$. \textbf{a)} and \textbf{b)} adapted from \textcite{Marshall2019b}, \textbf{c)} adapted from \textcite{West2001} SI.}
+        \end{minipage}%
+    \end{center}
+
+    \textcite{Charnov2001} continued this energetics approach in a fish life history theory framework by developing the \textcite{West2001} model to include a fecundity rate term, acknowledging that this only appears at maturity. Fish are ideal model organisms for growth modelling given their immense ecological and economic importance. Across a global range of freshwater and marine habitats, they represent the highest vertebrate species richness and exceed 8 orders of magnitude in their range of body masses \autocite{Barneche2018c}. In fisheries management, knowledge of time and food required to reach maturity is integral to sustainable management of stocks \autocite{Szuwalski2017, Barneche2018c}.
+    While \textcite{Charnov2001}, like many previous studies (see Supplementary Information (SI) Table 2), assumed that fecundity rate scales isometrically with mass, recently, \textcite{Barneche2018-reproductive_output} showed that fish reproductive output scales hyperallometrically with body mass, i.e. larger mothers are disproportionately more fecund. This raises the question of whether the instantaneous rate of allocation to fecundity, as a continuous process, also scales with mass in this way. As such, a consequent review extended the \textcite{Charnov2001} model to include this hyperallometry \autocite{Marshall2019b} (see SI 1.3 for full derivation). However, the data presented by \textcite{Barneche2018-reproductive_output} render this model problematic as they represent batch fecundity at discrete time points, a consequence of the typical sampling technique used to measure fecundity, which involves catch and dissection to take gonad measurements (Barneche, 2019, pers comm). Unlike intake rate and maintenance rate, this fecundity output term does not represent an instantaneous rate. Instead it captures snapshots of fecundity at different sizes and it remains unclear whether this hyperallometry would also emerge for instantaneous rate of allocation. Should this rate scale hyperallometrically, how fish increase their energy surplus to permit this extra cost comes into question.
+
+    Resource intake rate scaling has previously been shown to exhibit environment and dimensionality-dependence, which most extant models ignore \autocite{Pawar2012}. Many assume a simple relationship between energy intake rate and resting metabolic rate, such that per-capita intake rate scales with consumer body size ($m$) to an exponent of $3/4$ (see above), irrespective of taxon or environment \autocite{Pawar2012}. Environment and dimension-dependence means that consumption rate can, in fact, scale to an exponent as large as $1.06$ and as low as $0.85$, the latter being the approximate mass-scaling exponent of field, or active, metabolic rate \autocite{peters1983,Weibel2004, Pawar2012}. Since foraging, consumption and digestion are active metabolic processes, it may, in fact, be more prudent to assume a relationship between intake rate and field metabolic rate, rather than resting \autocite{Boisclair1993}. It logically follows that the steeper scaling of intake rate may provide the energetic scope required for a hyperallometric fecundity rate scaling.
+
+    Together, these new results on fecundity rate and intake rate scaling reveal disconnects in the ontogenetic growth modelling literature. In this paper, I show that allocation to fecundity, as an instantaneous rate, is theoretically unlikely to exhibit hyperallometric mass-scaling in fish mothers, under the traditional intake rate scaling regime which uses the canonical $3/4$ exponent. By increasing this exponent, causing intake rate to scale steeper with mass, I then show that reproductive hyperallometry is more likely to emerge, due to the compensation effect of the larger intake rate.
+%%% Methods %%%
+\section{Materials and Methods}\thispagestyle{plain}
+
+To test whether hyperallometry is biologically feasible for an instantaneous rate of fecundity allocation, I developed the \textcite{Charnov2001} approach by using a biphasic, hybrid model, based on Ecological Metabolic Theory and Life History Theory, which captures the energetics of growth during two distinct ontogenetic stages. Mature fish experience continuous diversion of resources to fecundity which scales to the $\rho$ exponent of mass (see \cref{growth_curve}). I also used an updated value of the intake rate coefficient, $a$, derived from fish-specific energetic values. In order to theoretically endorse their model-fit results for the value of $a$, \textcite{West2001} used fundamental cellular properties to derive an approximate value of $a$. Investigation into this calculation revealed it was flawed when applied to fish data, warranting update (see SI 1.2). The model is as follows:
+\begin{align}
+    \frac{dm}{dt} &= am^{3/4} - bm \ \ \ \ \ \ \ \ \ \ \ \ \ \ m < m_{\alpha} \label{luke_model_juvenile}\\
+    \frac{dm}{dt} &= am^{3/4} - bm - cm^{\rho} \ \ \ \ \ m \geq m_{\alpha} \label{luke_model}
+\end{align}
+
+where $am^{3/4}$ represents hypoallometric intake rate, $bm$ represents isometric maintenance rate, $cm^{\rho}$ represents allometric fecundity rate and $m_{\alpha}$ is the size at maturity. The model is based on the Life History Theory concept that natural selection optimises strategies, e.g. $c$ and $\rho$, to maximise fitness, where lifetime reproductive output can be used as a proxy for fitness, denoted $R_0$, which can be derived from theoretical evolution studies \autocite{Charnov2001, stearns1992evolution}. To this end, I tested the model via simulations which allowed the fecundity rate parameters $c$ and $\rho$ to vary in order to maximise $R_0$, which is calculated using a life history model, developed from \textcite{Charnov2001}.
+
+At any time $t$, $b_{t}$ is the \textit{effective} energy allocated by fish to reproduction, the product of the physiological allocation of resources $cm^{\rho}$ and an efficiency term $h_t$ representing a declining efficiency of this allocation, known as reproductive senescence, the natural decline in fecundity as fish age \autocite{Stearns2000, Benoit2018, Vrtilek2018}. This decline begins at maturity ($\alpha$) and is controlled by a variable rate parameter $\kappa$. Fish also experience an extrinsic mortality rate, or actuarial senescence, contained in a surivorship function, $l_t$, which is effectively a declining $\mathbb{P}$(survival to $t$) \autocite{Beverton1959, Peterson1984, Charnov1993,Walters1993, Charnov2001, Benoit2018, Laird2010, Reznick2002, Reznick2006}. To the best of my knowledge, this study is the first instance of this incorporation of reproductive senescence into a growth and life history model. It is important to note than reproductive and actuarial senescence are functions of time or age, whilst allocation to reproduction is a function of mass. The instantaneous reproductive output at time $t$ is the product $l_{t}b_{t}$ and, thus, the lifetime (cumulative) reproductive output is represented by an extension of the ``characteristic equation'' \autocite{roff1992evolution, roff2002life, stearns1992evolution, Arendt2011, Tsoukali2016}:
+\begin{equation}
+    R_{0} = \int_{\alpha}^{\infty}cm^{\rho}h_{t}l_t dt
+\end{equation}
+Since fish live in a juvenile and adult phase, they are subject to varying mortality rates across ontogeny \autocite{Charnov2001}. Juvenile mortality ($t_0 \rightarrow t_{\alpha}$) controls how many fish are alive at $\alpha$ and recruited into the adult phase. Since this follows an exponential distribution, $l_t = e^{-Z(t)}$ bounded [0,1], it acts as a scaling factor, denoted $l_{\alpha}$, for the mature population ($t_{\alpha} \rightarrow t_{\infty}$), which controls how many individuals reach maturity \autocite{Charnov1990-agematurity}. For adults, survival is relative to when maturity is reached, $l_{t} = e^{-Z(t-\alpha)}$. Therefore the lifetime survivorship of fish is the product of the juvenile survivorship $l_{\alpha}$, and adult survivorship: 
+\begin{equation}
+    R_{0} = c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \label{LHT_optimisation}
+\end{equation}
+Common in comparative life histories in fish is the of use invariant dimensionless quantities derived from the timing of life history events. That is, across species but within a taxon, certain life history variables, representing the timing and magnitude of reproduction form dimensionless, invariant ratios \autocite{Charnov1990-invariant, Charnov1993, Prince2015}. It has been shown for fish that the ratio of age-at-maturity and mortality rate, $\alpha\cdot Z \approx 2$ \autocite{Charnov1993}. Logically, this invariant makes sense since delaying maturation, or increasing $\alpha$ ($\approx 2/Z$) is only a feasible strategy if the risk of dying is low enough. This is a traditional idea in life history theory that gaining in one life history trait that increases fitness, e.g. fecundity, is offset by a decline in fitness in another trait \autocite{Charlesworth1980, stearns1992evolution, Roff2006}. Rearranging this for $Z$ estimates mortality rate for a given $\alpha$ value $Z = 2/\alpha$.
+See SI 2.2 for full derivation of \cref{LHT_optimisation}.
+
+Maximising $R_0$ requires analytically solving \cref{LHT_optimisation} for values of $c$ and $\rho$. Since \cref{LHT_optimisation} has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated: $0.001 < c < 0.4$ \autocite{Roff1983, Enberg2008, Atiqulla2013} and $0.001 < \rho < 1.25$ over a lifespan of $1e6$ days, to ensure all growth trajectory simulations reached asymptotic size (see \cref{parameters} for full parameterisation). I produced a heat map of the fecundity rate parameter space, with an optimum $c, \rho$ combination, for a fixed intake rate mass-scaling and reproductive senescence rate ($\kappa$). Since the evolutionary goal is to maximise lifetime reproductive output, natural selection in fish will inevitably tend towards these optima across time, and thus optimum value combinations theoretically estimate if hyperallometrically scaled fecundity rate is possible and likely.
+\begin{table}[h]
+    \caption{Notation and parameterisations for the scaling relationships underlying the growth model.}
+    \begin{tabularx}{\linewidth}{Xlllll}
+    \thickhline
+    \textbf{Description}                                    & \textbf{Symbol}       & \textbf{Value}            & \textbf{Units}        & \textbf{Range}                    & \textbf{Source}       \\ \thickhline
+    Body mass                                               & $m$                   &                           & g                     &                                   &                       \\ \hline
+    Energy Intake  \qquad      \textsc{coeff}                & $a$                   & 2.15                       & g $\cdot$ day$^{-1}$  &                       & \textcite{West2001}$^{\dagger}$       \\ 
+    Rate           \qquad\qquad\quad\quad      \textsc{exp}   & $y$                   & $0.75$                    & \textsc{}             & 0.75 - 0.85                       & \textcite{Pawar2012}      \\ \hline
+    Maintenance   \; \qquad \textsc{coeff}                     & $b$                   & $a/(M)^{0.25}$            & g $\cdot$ day$^{-1}$  &                                   & \textcite{West2001}       \\ 
+    Rate           \qquad\qquad\quad\quad    \textsc{exp}     & $z$                   & $1.00$                    & \textsc{}             &                                   &                       \\ \hline
+    Fecundity   \; \; \; \quad\quad\textsc{coeff}                         & $c$                   & \textsc{variable}         & g $\cdot$ day$^{-1}$  & 0.001 - 0.4                       & \textcite{Charnov2001}    \\  %\autocite{peters1983,Blueweiss1978}
+    Rate*       \; \; \ \quad\quad\quad\quad       \textsc{exp}     & $\rho$                & \textsc{variable}         & \textsc{}             & 0.001 - 1.25                      & \textcite{Barneche2018-reproductive_output}                      \\ \hline %$1.29$ \autocite{Barneche2018-reproductive_output}
+    Age at maturity                                         & $\alpha$              & $2/Z$                     & day                   & 100 - 400                         &                       \\ \hline
+    % Consumption rate                                      & $C(t)$                &                           & g $\cdot$ s$^{-1}$    &                                   &                       \\ \hline
+    %                                                       & $\gamma$              &                           & \textsc{}             & 0.75 - 1.06                       & \textcite{Pawar2012}      \\ \hline
+    % Foraging length                                       & $t_0$                 & $0.75$                    & s                     &                                   &                       \\
+    %                                                       & $\psi$                & $0.75$                    &                       &                                   &                       \\ \hline
+    Mass at maturity                                        & $m_{\alpha}$          &                           & g                     &                                   &                       \\ \hline
+    Asymptotic/terminal size                                & $M$                   & 20000              & g                     &                                   &                       \\ \hline
+    Probability of survival to time $t$                     & $l_t$                 &                           & \textsc{}             &                                   &                       \\ \hline
+    Rate of instantaneous mortality                         & $Z$                   & $2/\alpha$                &                       &                                   &                       \\ \thickhline
+    \end{tabularx}
+    \label{parameters}
+\end{table}
+
+*Gonadosomatic Index (GSI) estimates $c$, the proportion of somatic body mass given to repro per year\\
+$^{\dagger}$method of derivation from \textcite{West2001}, data from \textcite{Cummins1971, Steimle1980}.
+\subsection{Can instantaneous fecundity rate scale hyperallometrically with mass in fish mothers?}
+
+Preliminary simulations of the model resulted in some growth curves which exhibit shrinking (i.e. loss of mass at maturity), due to large values of $c$ and $\rho$ causing too much loss, resulting in $dm/dt < 0$. Since shedding of somatic mass to reproduce is not biologically realistic, I first screened for these shrinking curves by only preserving the feasible parameter space of $c$ and $\rho$ which did not cause shrinking.
+By considering fecundity allocation as a rate across the entire mature lifetime, which accounts for time in between fecundity output measurements, I expect hyperallometry to be unlikely, due to the heavy continuous cost this places on fish, especially when combined with maintenance costs.
+
+\subsection{Is fecundity rate hyperallometry more likely when intake rate mass-scaling is steeper?}
+
+The $3/4$ scaling of intake rate is set by resting metabolic rate, which scales to the $3/4$ exponent of mass \autocite{Kleiber1947, peters1983, niklas1994plant} due to the approximate fractal architecture of supply networks which become more deeply nested with branches as body size increases \autocite{West1997}. This geometry has evolved due to natural selection optimising energy transport to the cells and consequently, as size increases, the number of terminal units (capillaries) scales to the $3/4$ exponent of mass \autocite{West1997, West2005}. As fractals are mathematically considered to have non-integer dimensions \autocite{Hausdorff1918, Mandelbrot1982}, this gives rise to non-integer size-scaling. 
+
+Resource consumption rate has been shown to scale with mass more steeply than the canonical $3/4$ exponent, argued to be more likely related to field metabolic rate mass-scaling (exponent = 0.85), versus resting metabolic rate. Given the restrictive assumptions underlying resting metabolic rate data of no foraging (food is provided \textit{ad libitum}), growth or reproduction, it seems far more prudent to relate intake rate to the mass-scaling of field metabolic rate. This is especially so for the last two assumptions, no growth or reproduction, which are both violated as part of this exercise. Shrinking curves are caused by an inability of intake rate to compensate for the large costs incurred by maintenance rate and high values of $c$ and $\rho$. Therefore, I predict that increasing the scaling exponent of intake rate to a more biologically realistic value (0.85) will open up the parameter space for larger values of $c$ and $\rho$, since fish will have more available energy to use, and make fecundity rate hyperallometry more likely.
+
+%%% Results %%%
+\section{Results and Discussion}\thispagestyle{plain}
+\subsection{Can instantaneous fecundity rate scale hyperallometrically with mass in fish mothers?}
+The life history optimisation results show that, theoretically, instantaneous fecundity rate in mature fish is possible, but unlikely to scale hyperallometrically with mass, under traditional intake rate assumptions. These results highlight the importance of age-at-maturity in a fish's ability to then devote a large amount of body mass to reproduction, under the paradigm of the model. In order for fecundity rate to scale hyperallometrically, results suggest that a fish must mature very early on in its lifetime (see \cref{alpha_sensitivity_0.75}). Immature fish are not subject to a fecundity rate cost in the model, only maintenance cost (see \cref{luke_model_juvenile}), thus they grow far more rapidly than in the later mature phase (see \cref{growth_curve} inflection) when this extra cost is incurred. Delayed maturity means fish are free from this cost for longer and thus reach a much larger $m_{\alpha}$, which permits only small $c$ and $\rho$ values to avoid shrinking and maintain physiological feasibility. At maturity, this sudden, overall cost quickly exceeds their energy intake, especially due to the dominating exponent, causing $dm/dt < 0$, or shrinking, which is stripped from the feasible parameter space. Therefore, as $\alpha$, and hence $m_{\alpha}$, increases, the optimum $\rho$ decreases (see \cref{alpha_sensitivity_0.75}). Additionally, sub-optimal values of $\rho$ can exceed the optimum, but this would mandate an exceptionally low $c$, as a trade-off, which together do not maximise $R_0$ (see \cref{heatmap_0.75}).
+
+\begin{center}
+    \begin{minipage}{0.8\linewidth}
+        \includegraphics[width=0.8\linewidth]{../Results/single_curve_with_onset.pdf}
+        \captionof{figure}{Growth undergoes an inflection at maturity age $\alpha = 200$, representing the diversion of resources to fecundity, leaving less scope for growth.} 
+        \label{growth_curve}
+    \end{minipage}\\
+\end{center}
+% \vspace{0.5cm}
+
+Given that, empirically, fish have been observed to mature after years of growth (in the order of thousands of days) (Cod: 2-4 years, \textcite{OBrien1993, Rochet2001, Knickle2013}; Chinook Salmon: 2-5 years, \textcite{groot1991pacific}, Yellowtail flounder: 2-5 years, \textcite{OBrien1993}), under $3/4$ intake rate scaling, fecundity rate hyperallometry is theoretically unlikely, since such a late $\alpha$ and large $m_{\alpha}$ would cause huge fecundity costs and shrinking. In this case, results support previous suggestions that larger adults may invest relatively less in reproduction, where $0.5 < \rho < 0.9$ \autocite{Reiss1985, Stearns2000}. Under a fixed canonical $3/4$ intake rate allometry, the only means by which a fecundity rate hyperallometry is theoretically possible is if fish mature very early in their lifetime, at very small sizes (see \cref{alpha_sensitivity_0.75}), which do not align with empirical observations. This corroborates the idea that, relative to the timescale of a fish's lifetime, the sexually immature phase is negligible, and growth is well approximated by a single equation \autocite{West2001}. This suggests that fish effectively experience the costs incurred by sexual maturity (\cref{luke_model}) from very early on in their lifetime \autocite{West2001}, meaning that this juvenile period of rapid growth, constraining fecundity to scale hypoallometrically, is, in fact, negligible. If this notion of a negligible, relative juvenile stage holds and fish do effectively spend all their life being mature, it may then be possible for a fecundity rate hyperallometry to emerge, although this is still unlikely under $3/4$ intake scaling (\cref{alpha_sensitivity_0.75}).
+
+\begin{center}
+    \begin{minipage}{0.7\linewidth}
+    \includegraphics[width=0.9\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.75_k=0.01_tex}.pdf}
+    \captionof{figure}{Optimum fecundity rate parameters $\rho,c$ when intake rate $am^x = (2.15)m^{0.75}, \kappa = 0.01$. White circle locates optimum combination.}
+    \label{heatmap_0.75}
+    \end{minipage}%
+\end{center} 
+
+These results highlight the mathematical dynamics of the model which play out given the non-linearity of the intake and fecundity rate terms. Exponents dominate coefficients, so as a result have far narrower ranges of feasible values, evidenced by the shape of the feasible parameter space in \cref{heatmap_0.75}. Since I filtered out values which caused shrinking fish, in maintaining biological realism, nearly all scaling exponent values which remained were hypoallometric, except for unrealistically young maturity age and small size (see \cref{alpha_sensitivity_0.75}). By maturing very early, fish effectively do not ``let'' themselves grow too large, which avoids shrinking.
+
+\subsection{Is fecundity rate hyperallometry more likely when intake rate mass-scaling is steeper?}
+Increasing the value of the intake rate scaling exponent to 0.85 theoretically makes fecundity rate hyperallometry more likely. Steeper intake rate scaling translates the curved fecundity rate parameter space upwards in the $\rho$ plane (\cref{heatmap_0.85} vs \cref{heatmap_0.75}), pushing several optimum $\rho$ values above 1 (see \cref{alpha_sensitivity_0.85}). Furthermore, this translation allows for higher fecundity at delayed $\alpha$, which aligns with my previous claim that $3/4$ intake rate scaling constrains fecundity rate scaling to be hypoallometric, given realistic maturity ages (see \cref{alpha_sensitivity_0.85}). Since fish typically mature after years of growth, it logically follows that if fecundity rate hyperallometry exists in nature, intake rate must scale steeper than $3/4$. The energy scope required to compensate for the huge fecundity costs at these older $\alpha$ and larger $m_{\alpha}$ can only originate from here. In essence, under a higher intake regime, fish can delay maturity and reproductive hyperallometry can still emerge at these large $m_{\alpha}$ sizes due to the larger energy scope provided by steeper scaling. Mathematically, a small alteration to an exponent like this can substantially alter the behaviour of such a model, given that when $m > 1 g$, the exponent will dominate any changes in the coefficient. As such, even slight increases in intake rate scaling will permit greater values of $c$ and $\rho$. 
+\begin{center}
+    \begin{minipage}{0.7\linewidth}
+        \includegraphics[width=0.9\linewidth]{{../Results/opt_hm_Alph=200.00_a=2.15_x=0.85_k=0.01_tex}.pdf}  
+        \captionof{figure}{Optimum fecundity rate parameters $\rho,c$ when intake rate $am^x = (2.15)m^{0.85}, \kappa = 0.01$. White circle locates optimum combination.}
+        \label{heatmap_0.85}
+    \end{minipage}%
+\end{center}
+\begin{center}
+    \begin{minipage}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{{../Results/alpha_sensitivity_x=0.75}.pdf}  
+        \captionof{figure}{Results of sensitivity analysis of optimum $\rho$ \\ values to $\alpha$ when $am^x = (2.15)m^{0.75}$.}
+        \label{alpha_sensitivity_0.75}
+    \end{minipage}%
+    % \hfill
+    \begin{minipage}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{{../Results/alpha_sensitivity_x=0.85}.pdf}    
+        \captionof{figure}{Results of sensitivity analysis of optimum $\rho$ \\ values to $\alpha$ for when $am^x = (2.15)m^{0.85}$.}
+        \label{alpha_sensitivity_0.85}
+    \end{minipage}
+\end{center}
+
+These results extend a dilemma known formerly as ``the general life history problem'', in which indeterminate growers, including fish, are subject to a trade-off between increased mortality at maturity and maximising lifetime reproductive output \autocite{Roff1984, Roff2006, Stearns2000}. My results add another layer to this strategy problem, because if a fish can benefit disproportionately in fecundity by delaying maturity and growing larger, permitted by higher intake scaling, life history theory suggests that they should do so, since the evolutionary goal is to maximise $R_0$. However, this gain in one trait is countered by an extrinsic mortality rate which lowers their probability of surviving this delay. In a game theoretic sense, the disproportionate gain in fecundity from being larger, resulting from delayed maturity, must be greater than the cost of somatic growth and risk of mortality, in order to be a stable strategy \autocite{Arendt2011, Enberg2012}. This is already captured by the $\alpha Z$ invariant, since $Z$ has to decrease to allow a greater $\alpha$, ($\alpha \approx 2/Z$), however \textit{why} a fish would delay maturity is not conveyed by this. One would intuitively think that large body size is selected for, since this has been shown to increase fecundity, improve competitiveness, reduce vulnerability to predators and provide disproportionate access to food in resource-trapped environments \autocite{roff2002life, Oddie2000, French2005, Bashey2008, Magnhagen2001, Craig2006, Arendt2011, Pawar2012}. However, delaying maturity to reach these larger sizes and reap these benefits is only possible if you are likely enough to survive that long. This concept is well-supported by empirical data that show fish stocks mature earlier under intensive fishing as the probability of survival is so low that their life history evolves in response to maximise $R_0$ \autocite{Rowell1993, Rochet2001, Swain2011}. Thus, a trade-off forms where evolution selects for as large a size and late maturity as possible, without increasing risk of death. Simultaneously, growing as rapidly as possible at a young age is of obvious benefit to reduce your chances of predation. Since growing rapidly means investing in growth rather than fecundity, we return to the point that higher intake rate scaling must exist in order to allow this delayed maturity to occur. In fact, it has previously been shown that intraspecific growth rates scale steeper early in ontogeny \autocite{Barneche2018c}, like metabolic rate. This finding actually necessitates steeper intake rate scaling to avoid shrinking at maturity, since this steeper scaling of growth rate would, again, lead to a larger $m_{\alpha}$. In fact, in their derivation of $3/4$ resting metabolic rate scaling, \textcite{West1997} even predict that positive deviation from $3/4$ intake rate scaling may occur in very small organisms, due to the very short branching of their supply network \autocite{Barneche2018c}. This highlights the multi-dimensionality of an evolutionary life history and game theory approach to understanding and modelling growth. 
+
+\subsection{Future Direction}
+Firstly, the results of this study raise questions surrounding our theoretical knowledge of intake rate, since it makes reproductive hyperallometry theoretically more likely. At present we lack substantial empirical data on the duration and frequency of fish foraging bouts, which would improve the accuracy of energy intake parameterisation, and consequently ontogenetic growth models.  I expect that, like many biological rates, foraging bout length would scale with body mass ($t = t_{0}m^{\psi}$), related, again, in some way to active metabolic rate. Furthermore, the amount or scaling of consumed biomass itself is not equal to the free energy made available to cells, since the digestion process is inherently subject to some inefficiency \autocite{VanGemert2019}. While data on digestion rate scaling is available, empirical data on this efficiency is lacking, especially for fish. Data of this sort could substantially improve our understanding of energy intake in ontogenetic growth models. Potentially, it may be that our understanding of indeterminate growth as a continuous process, is not biologically realistic. Instead, following a glut of resource, animals may pause reproductive efforts in order to maximally grow.
+
+Secondly, this study also highlights the need for an improved theoretical understanding of allocation to fecundity as a rate, and access to empirical data on this for accurate parameterisation. While there may still be area for improvement in our understanding of intake rate, a solid theoretical framework to do so, based on bioenergetics, exists. In light of my results, and the \textcite{Barneche2018-reproductive_output} and \textcite{Marshall2019b} papers, we now need more empirical data on instantaneous allocation rate to fecundity to improve our understanding of how fish grow and to develop a first-principles, bioenergetic derivation of this rate. However, collecting empirical data of this form to parameterise such a term will be extremely difficult, given its instantaneous nature.
+
+\subsection{Caveats}
+Several caveats must be acknowledged. First, it is with regret that I could not simulate my model at even higher intake rates, since the likelihood of fecundity rate hyperallometry emerging is evidently contingent on this. Unfortunately, due to computational limitations, iterating through fecundity parameter space in search of optima was not possible at intake rate scaling $> 0.85$. Given that consumption rate has been shown to scale to an exponent as high as 1.06 \autocite{Pawar2012}, I hope to be able to do this in the future.
+
+Secondly, the maintenance rate parameter $b$ will also have affected the results of my analysis. $b$ is energetically derived from the metabolic rate of a single cell, $B_c$ (see SI 1.1), however this is not independently known \autocite{West2001}, and in my model is parameterised for a given fish by rearranging the formula for calculating asymptotic size, $b = a/M^{1/4}$. The caveat here lies in the value for $M$, which I chose to be a hypothetical value of $20kg$, which is in the approximate region of the terminal size of Atlantic cod (\textit{Gadus morhua}). However the size of this value in the denominator of the equation for $b$, will of course have consequences for the costs borne by a fish, as a larger asymptotic size will increase this. In reality, if this maintenance cost is lower, this would allow energy scope for fecundity rate hyperallometry to emerge more easily. Extending this work would involve using a range of values for $b$ to investigate the effect of this maintenance cost on reproductive hyperallometry.
+
+Thirdly, the results were insensitive to $\kappa$, the rate of fecundity decline with age. Perhaps the values I used were unrealistic, given this result. However, parameterisation is extremely difficult since data on reproductive senescence are lacking, due to the difficulty of obtaining them, since fish at this age are extremely likely to die. In future work I would attempt to use an effective value of $\kappa$ to observe the life history consequences, which I predict would be a lower $\alpha$, since a high $\kappa$ would make delaying maturity sub-optimal.
+
+Lastly, a possible weakness in the model framework itself is the sudden introduction of a fecundity rate term at $\alpha$. Of course, fish do not become mature in the timescale of a single day, as in the model, so the ``sudden'' diversion of resources to reproduction would be far more gradual in real life. However, mathematically, the equilibrium point at asymptotic size would still remain the same under a more progressive onset of reproduction. \textcite{West2001} avoid this issue by acknowledging the negligible duration of the juvenile stage, using only the mature equation for lifetime growth. Alternatively, while the juvenile phase may not be negligible, it may be that fish allocate resources to reproduction from an early age, such as preparing reproductive organs and developing immunity, termed ``dissipative'' processes \autocite{kooijman2010dynamic, Kearney2012a, Marshall2019b}. This also sheds light on the distinction required in future work, between age-at-maturity and age-at-first-reproduction, since the model assumes that as soon as a fish becomes mature, it immediately commences reproduction. It is also entirely possible that growth is not a continuous process in the fashion I have modelled here. Instead fish may transiently grow during non-reproductive phases (e.g. winter) before investing heavily in reproduction \autocite{Kozowski1987-indeterminate}.
+
+
+\subsection{Empirical Predictions}
+I expect that, given empirical evidence of preferred prey size, combined with my results, intense fishing could drastically decrease the fitness of fish \autocite{Brose2006, Barnes2010, VanGemert2019}. Since fishing landing gear is designed around catching larger fish, continued intense fishing, as fish as a food base becomes more popular globally, means that we are now selecting for smaller sized fish, by removing their natural predators, the bigger fish. Given the likelihood of steeper intake rate scaling, and hyperallometric fecundity, these smaller fish will likely be disproportionately less fecund, meaning we may be drastically reducing their fitness via reduced $R_0$ and their reproductive contribution to the population.
+
+Additionally, given more time, I would have aimed to effectively reverse-engineer intake rate scaling of certain fish species, based on their fecundity rate scaling, by cross-referencing the results of \textcite{Pawar2012} and \textcite{Barneche2018-reproductive_output}. This would reveal whether the outliers in the \textcite{Barneche2018-reproductive_output} results, which did not exhibit hyperallometric fecundity scaling ($\approx$ 5\%) are known to forage in different environments or dimensions, with lower intake rate scaling. I expect that species showing reproductive hyperallometry would come from high intake environments, since theory suggests they should maximise $R_0$ if the energy scope allows.
+%%% Conclusion %%%
+\section{Conclusion}\thispagestyle{plain}
+In conclusion, my results suggest that, under a steeper allometric scaling of intake rate, fecundity rate is more likely to scale hyperallometrically in maximising lifetime reproductive output. Given existing empirical data on fish maturity age, these findings suggest that this intake rate is more realistic than the traditionally used value, since observed maturity ages and high fecundity would not be theoretically possible without higher intake rate. Several parameters contain gaps, including an accurate first-principles derivation of maintenance cost and empirical data on fish foraging duration, which will both impact the energetic scope for growth. I invite other studies to refute the results reported here and also call for new empirical data to be published on resource consumption in fish to gain a better theoretical understanding of intake rate, which may scale steeper still.
+
+%%% Bibliography %%%
+\addcontentsline{toc}{section}{References}
+\newpage\let\mkbibnamefamily\textsc\printbibliography[title=References]\thispagestyle{plain} % Sets author names to small caps
+
+%%% SI %%%
+\addcontentsline{toc}{section}{Supplementary Information}
+% \includepdf[pages=-]{Vassor_L_J_CMEE_Thesis_2019_Supplementary_Information.pdf}
+
+\end{document}

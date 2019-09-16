@@ -1,0 +1,49 @@
+Concern with growth and body size relations is well-founded, especially given the decline of the state of the Earth's biosphere. Given this decline, never has it been so crucial for ecologists to make prudent, accurate predictions about what will happen to life on Earth and prioritise what life to conserve as resources become increasingly stretched and time is of the essence. Ontogenetic growth gives rise to different, ecologically-distinct stages across the lifetime of an organism. Knowledge and powerful theory which allows us to ascertain which stages are most crucial to an organism's conservation, such as ontogenetic growth models and (st)age-based models will allow us to direct resources to conserving not only organisms themselves, but the stages of ontogeny within those organisms which are most crucial to the species' survival.
+
+Larger organisms have lower mass-specific metabolic rates i.e. demand less energy per unit body mass, tend to live for longer and sleep for longer than smaller organisms. They have lower intrinsic rates of increase and population sizes and slower rates of evolution. 
+
+\subsubsection{A glitch in the matrix}
+
+        The biological literature suggests that both branches typically assume that reproductive output scales isometrically with body size, e.g. a single 2kg female has the same reproductive output as two 1kg females. However, a recent meta-analysis of marine fishes covering 342 species and 15 orders has contradicted this assumption, with larger mothers reproducing disproportionately more for 95\% of species, i.e. reproductive hyperallometry whereby a single 2kg female reproduces more than two 1kg females \autocite{Barneche2018d}. It has since been argued that reproductive hyperallometry profoundly challenges mechanistic theories of growth, which should be revised accordingly, and that this hyperallometry drives growth trajectories in ways largely unanticipated by current theories PLAG \autocite{Marshall2019b}. In their opinion paper, \cite{Marshall2019b} correctly proclaim that these recent results beg two questions:
+        \begin{enumerate}
+            \item How reasonable is an assumption of isometric reproductive output (isometric reproductive scaling)?
+            \item If reproduction is not isometric, how does this alter our understanding of growth?
+        \end{enumerate}
+
+========
+PLAN 
+========
+\subsection{Plan}
+        Hourglass structure
+        \begin{itemize}
+            \item Why model at all? Brief Philosophy of modelling - Dustin's paper - Mechanistic and phenomenological
+            \item Migration of Biology to theory as a discipline - use miniproject WU
+            \item Why model growth? What's the point? 
+            \item What can we gain from doing it successfully? 
+            \item How long have scientists tried?
+            \item What obstacles have they encountered?
+            \item Detail the broad approaches - Top-down and bottom-up (Dustin's paper) - Examples of each - compare contrast
+            \item Is it possible to reconcile the two?
+            \item Why do the others fail to recover reproductive hyperallometry?
+        \end{itemize}
+        New plan
+        \begin{itemize}
+            \item Why model growth?
+            \item What is the status quo regarding why growth stops? - go right back to the first model - who attempted it first? anabolisms vs catabolism
+            \item challenges with modelling growth - what EXACTLY makes it difficult to capture mathematically?
+            \item What's missing? Resource supply
+            \item Reproduction? Well not really since reproduction can just be considered increasing $b$
+            \item But not hyperallometric reproduction which was recently found. Claimed that it was hyperallometric but it was batch fecundity - not a continuous rate. Dig further into this with Dustin's paper
+            \item We set out to see if fecundity really is hyperallometric mass scaling.
+        \end{itemize}
+
+==========
+consumption rate rationale
+==========
+To date, I have found no growth models which consider the scaling of resource supply or intake rate with mass. As with most biological rates, an economy of scale can be observed with size, and resource supply is no exception. Given this assertion, the scaling of resource supply used in extant models, such as \cite{West2001, Charnov2001}, may not abide by the ubiquitous $3/4$ power. This deviation arises for two reasons \autocite{Pawar2012}. Firstly, foraging is controlled by traits, some morphological, ``such as length of locomotory appendages or visual acuity,, which do not scale with metabolic rate. Second, and crucial in the context of growth models, species interactions in the field do not occur under the idealized conditions at which metabolic and ingestion rates are usually measured, in which individuals are not foraging, growing or reproducing. These interactions may scale at values closer to field metabolic rate (exponent > 0.85)''. Since the fundamental structure of growth models, mechanistic or otherwise, is that the scope for growth is determined by the difference between energy supply and energy expenditure, extant models ignore this scaling of supply at their own risk.
+
+Here, I reconcile this gap in the literature by incorporating the mass-scaling of resource supply into the existing \cite{West2001} model (equation \eqref{west_model}). Consequences of agnosticism toward scaling of supply manifest themselves in various literature. Firstly, when \cite{West2001} fit their model as a ``universal'' growth curve to data with mass and time collapsed to dimensionless quantities. Whilst the curve fits the growth data well across species, there are noticeable deviations from it. We hypothesise that this is because energy intake ($am^{3/4}$) is not constant, as implied by the $am^{3/4}$ resource supply term. In fact, consumers switch between resource-saturated and depleted environments as well as dimensions during their lifetime \autocite{Pawar2012}. This ultimately means that the surplus energy available to be allocated to growth is not a fixed scaling of mass throughout ontogeny. Given this supposition, the energy available to grow can change for potentially vast periods of ontogenetic time, hence why organisms' growth trajectories do not fall neatly on this curve.
+
+Another consequence follows from recent findings on fish growth by \cite{Barneche2018d}. Fish fecundity was found to scale hyperallometrically with size (i.e. larger mothers are disproportionately more fecund). However when simulating this model, superlinear scaling of reproduction (introduced at reproduction) dominates the sublinear and linear terms in the equation resulting in shrinking fish i.e. $dm/dt < 0$ (i.e. when $am^{3/4} < bm + cm^{\rho}$). In light of this, consideration of resource supply scaling becomes even more relevant, since this may account for the energy ``shortfall'' causing the shrinkage. (i.e. $\frac{dm}{dt} < 0$) until supply and cost then become equal again (as $\frac{dm}{dt} \rightarrow 0$). 
+
+The origin of the $3/4$ intake scaling in equation (3) is one of the fundamental axioms of metabolic theory \autocite{West1997,West2001} which states the resource delivery to cells is constrained by the fractal-like structure of a branching capillary network, invoking the geometry of fractal dimensions. However, \cite{West2001} assume basal metabolic rates and that $B$ is a constant, satisfied energy influx. In other words, energy delivered to cells is constrained only by the fractal structure but energy into the fractal structure itself is constant ($a$). We challenge this assumption with the scaling of energy intake/consumption rate in equation (10). Thus we must first find the distribution ``efficiency'' per unit mass of energy moving around the fractal network, ${am^{3/4}}/m = am^{-1/4}$. 

@@ -1,0 +1,46 @@
+\documentclass{standalone}
+\usepackage[T1]{fontenc}
+\renewcommand*\familydefault{\sfdefault} %%
+\usepackage{sfmath}
+\usepackage{pgfplots}
+
+\begin{document}
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Image [id:dp9631269593110057] 
+\draw (304.5,145) node  {\includegraphics[width=149.25pt,height=67.5pt]{fish_fecund.png}};
+%Straight Lines [id:da47403017555930926] 
+\draw    (175,148) -- (200,148) ;
+\draw [shift={(201,148)}, rotate = 180] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+
+%Straight Lines [id:da912878784363266] 
+\draw    (408,148) -- (437,148) ;
+\draw [shift={(439,148)}, rotate = 180] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+
+%Straight Lines [id:da2971542552352555] 
+\draw    (301,97) -- (301,71) ;
+\draw [shift={(301,69)}, rotate = 450] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+
+%Straight Lines [id:da47821355858155434] 
+\draw    (301,193.5) -- (301,219) ;
+\draw [shift={(301,221)}, rotate = 270] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+
+
+% Text Node
+\draw (150,150) node  [align=left] {Energy\\Intake};
+% Text Node
+\draw (480,148) node  [align=left] {Maintenance};
+% Text Node
+\draw (302,59) node  [align=left] {Growth};
+% Text Node
+\draw (301,230) node  [align=left] {Fecundity};
+
+
+\end{tikzpicture}
+\end{document}
