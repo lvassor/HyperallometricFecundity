@@ -20,9 +20,13 @@ alpha75 <- dF75[,1]
 c_opt75 <- dF75[,3]
 rho_opt75 <- dF75[,4]
 pearson_score75 <- round(cor(alpha75, rho_opt75, method = "pearson"), 2)
+<<<<<<< HEAD
 p75 <- qplot(alpha75, rho_opt75) + 
 # annotate("text", x = 0.9*max(alpha75), y = 1.21, label = paste("R = ", pearson_score75), family="cmr10", size = 4) 
 geom_hline(yintercept=1, linetype="dashed")
+=======
+p75 <- qplot(alpha75, rho_opt75) + annotate("text", x = 0.9*max(alpha75), y = 1.21, label = paste("R = ", pearson_score75), family="cmr10", size = 4) + geom_hline(yintercept=1, linetype="dashed")
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 p75 <- p75 + theme_bw() + theme(text = element_text(family="cmr10", size = 10), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(), axis.line = element_line(colour = "black")) + ylab(expression(paste("Optimum ", rho))) + xlab(expression(paste("Maturity age, ", alpha))) +
 scale_x_continuous(limits = c(0,250), breaks = seq(0, 250, by = 20)) + scale_y_continuous(limits = c(0,1.3), breaks = seq(0, 1.3, by = 0.1))
@@ -36,9 +40,13 @@ alpha85 <- dF85[,1]
 c_opt85 <- dF85[,3]
 rho_opt85 <- dF85[,4]
 pearson_score85 <- round(cor(alpha85, rho_opt85, method = "pearson"), 2)
+<<<<<<< HEAD
 p85 <- qplot(alpha85, rho_opt85) + 
 # annotate("text", x = 0.9*max(alpha85), y = 1.21, label = paste("R = ", pearson_score85), family="cmr10", size = 4) 
 geom_hline(yintercept=1, linetype="dashed")
+=======
+p85 <- qplot(alpha85, rho_opt85) + annotate("text", x = 0.9*max(alpha85), y = 1.21, label = paste("R = ", pearson_score85), family="cmr10", size = 4) + geom_hline(yintercept=1, linetype="dashed")
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 p85 <- p85 + theme_bw() + theme(text = element_text(family="cmr10", size = 10), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(), axis.line = element_line(colour = "black")) + ylab(expression(paste("Optimum ", rho))) + xlab(expression(paste("Maturity age, ", alpha))) +
 scale_x_continuous(limits = c(0,200), breaks = seq(0, 200, by = 20)) + scale_y_continuous(limits = c(0,1.3), breaks = seq(0, 1.3, by = 0.1))

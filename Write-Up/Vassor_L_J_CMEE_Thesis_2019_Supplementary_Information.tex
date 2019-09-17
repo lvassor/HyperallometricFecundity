@@ -86,8 +86,11 @@
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
 \usepackage{parskip}
 \usepackage[capitalise]{cleveref}
+<<<<<<< HEAD
 \usepackage{setspace}
 \onehalfspacing
+=======
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 \begin{document}
 
 \begin{titlepage}
@@ -116,7 +119,11 @@
 
 \section{Ontogenetic Growth Model}
 \subsection{Model derivation from the Energy Balance Equation}
+<<<<<<< HEAD
 \textcite{West2001} developed their previous work on allometric scaling laws \autocite{West1997} to capture growth in their ``general model for ontogenetic growth''. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These networks become more deeply nested with size and are, thus, self-similar, approximating a fractal, constraining the number of capillaries to scale isometrically with size. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogeny, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the synthesis of new tissue. This is expressed by the dynamic conservation of energy equation:
+=======
+\textcite{West2001} developed their previous work on allometric scaling laws \autocite{West1997} to capture growth in their ``general model for ontogenetic growth'' \autocite{West2001}. Ontogenetic development is fuelled by metabolism. Incoming energy and materials from the environment are transported through hierarchical branching network systems to supply all cells. These networks become more deeply nested with size and are, thus, self-similar, approximating a fractal, constraining the number of capillaries to scale isometrically with size. These resources are transformed into metabolic energy, which is used for life-sustaining activities. During ontogeny, some fraction of this energy is allocated to the synthesis of new tissue. The rate of energy transformation, then, is the sum of two terms, one of which represents the maintenance of existing biomass, and the other, the synthesis of new tissue. This is expressed by the dynamic conservation of energy equation:
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 \begin{align}
     B &= N_{c}B_{c} + E_{c}\frac{dN_{c}}{dt} \label{master_balance}
 \end{align}
@@ -145,7 +152,11 @@ We can define \cref{growth_pre_sub} qualitatively in terms of cellular-level phe
 \end{align*}
 %     \frac{dm}{dt} &= \frac{m_c}{E_c}B_{0}m^{3/4} - \frac{B_{c}}{E_c}m
 % \end{align}
+<<<<<<< HEAD
 Now, Ecological Metabolic Theory assumes that $B$, the resting metabolic rate of the organism at time $t$, scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \cref{growth_pre_sub} leads to the general growth equation.
+=======
+Now, Ecological Metabolic Theory assumes that $B$, the resting metabolic rate of the organism at time $t$ scales with mass as $B = B_{0}m^{3/4}$, where $B_0$ is constant within a taxon \autocite{West1997,brown2000-scaling-book, Brown2004}. Substituting this relationship into \cref{growth_pre_sub} leads to the general growth equation.
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 \begin{align*}
     \frac{dm}{dt} &= \bm{\Bigg(\frac{m_c}{E_c}\Bigg)B_{0}}m^{3/4} - \bm{\Bigg(\frac{B_{c}}{E_c}\Bigg)}m \\
 \end{align*}
@@ -156,7 +167,11 @@ Since $E_c$, $B_c$ and $m_c$ are independent of mass and $B_0$ is constant withi
 \begin{equation}
     \frac{dm}{dt} = am^{3/4} - bm \label{west_model}
 \end{equation}
+<<<<<<< HEAD
 This equation excludes reproduction and would result in sigmoid growth to an asymptotic size, $M$. We can find this asymptotic size in terms of $a$ and $b$ analytically since change in growth at terminal size, $\frac{dm}{dt} = 0$. Thus we set \cref{west_model} to 0 as follows:
+=======
+This equation excludes reproduction and would result in sigmoid growth to an asymptotic size, $M$. We can find find this asymptotic size in terms of $a$ and $b$ analytically since change in growth at terminal size, $\frac{dm}{dt} = 0$. Thus we set \cref{west_model} to 0 as follows:
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 \begin{align*}
     aM^{3/4} - bM &= 0 \\
     aM^{3/4} &= bM \\
@@ -179,7 +194,11 @@ This equation excludes reproduction and would result in sigmoid growth to an asy
 
 Bioenergetically, $a$ represents the number of cells grown per unit time given the energy available ($\frac{\textsc{mass}}{\textsc{joules}} \cdot \frac{\textsc{joules}}{\textsc{sec}}$). They claim their theoretical calculation of $a$ is in ``good agreement'' with the model fit estimate for $a$ in their Table 1, but brief observation reveals that this claim only holds true for mammals, not birds and fish (fish are an order of magnitude lower), an intuitive deduction since they used the energy content of mammalian tissue in their calculation, taken from \textcite{peters1983}. However, further investigation makes apparent the intriguing value they use for $B_0$. This quantity remains constant within a taxon, and \textcite{West2001} chose the value known for unicellular organisms, derived from data published by \textcite{Hemmingsen1960}, collected by \textcite{peters1983}, which included different slope (scaling) values for unicellulars, poikilotherms and homeotherms. Given the deliberate choice to use a caloric equivalent value for mammals only, it is perplexing that they chose to ignore the $B_0$ value for homeotherms.
 
+<<<<<<< HEAD
 Given my objective of modelling growth and life history in fish, this choice is not only of particular interest but is crucial given that this endeavour mandates accurate values for fixed parameters, such as $a$, in order for free parameters to be biologically realistic. To this end I altered the \textcite{West2001} calculation of $a$ to include values for the same cellular parameters but which are accurate to fish. Tissue energy content $E_T$ for fish was calculated as the average from caloric equivalents across 70 fish species \autocite{Cummins1971, Steimle1980, Hartman1995} (\cref{caloric_equivalents}), converted from $kJ\cdot g^{-1}$ to $JKg^{-1}$ using ``per gram of wet weight'' values, the same metric used by \textcite{West2001}). Repeating the same calculation: $E_T$ is the energy content of fish tissue $= 5.63 \cdot 10^3 J\cdot g^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} \textsc{g}$, thus $E_c$, the energy required to create a cell \textit{in viro} = $1.69 \cdot 10^{-5} J$. $B_0 \approx 1.4 \cdot 10^{-1} W$ for poikilotherms. By substitution:
+=======
+Given my objective of modelling growth and life history in fish, this choice is not only of particular interest but is crucial given that this endeavour mandates accurate values for fixed parameters, such as $a$, in order for free parameters to be biologically realistic. To this end I altered the \textcite{West2001} calculation of $a$ to include values for the same cellular parameters but which are accurate to fish. Tissue energy content $E_T$ for fish was calculated as the average from caloric equivalents across 70 fish species \autocite{Cummins1971, Steimle1980, Hartman1995} (\cref{caloric_equivalents}), converted from $kJ\cdot g^{-1}$ to $JKg^{-1}$ using ``per gram of wet weight'' values, the same metric used by \textcite{West2001}. Repeating the same calculation: $E_T$ is the energy content of fish tissue $= 5.63 \cdot 10^3 J\cdot g^{-1}$ and $m_c$ is the mass of a single cell $\approx 3 \cdot 10^{-9} \textsc{g}$, thus $E_c$, the energy required to create a cell \textit{in viro} = $1.69 \cdot 10^{-5} J$. $B_0 \approx 1.4 \cdot 10^{-1} W$ for poikilotherms. By substitution:
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 \begin{align*}
     a &\equiv \frac{B_{0}m_{c}}{E_{c}} \\
     a &= \frac{(1.4 \cdot 10^{-1} W)(3 \cdot 10^{-9} g)}{1.69 \cdot 10^{-5} J}\\
@@ -188,7 +207,11 @@ Given my objective of modelling growth and life history in fish, this choice is 
     a &= 2.1485 g^{1/4}\cdot day^{-1}
 \end{align*}
 
+<<<<<<< HEAD
 Therefore intake rate of fish is expected to scale as $\approx 2.15g^{1/4}\cdot day^{-1}$ which I use in my parameterisation of the growth model.
+=======
+Therefore intake rate of fish is expected to be $\approx 2.15g^{1/4}\cdot day^{-1}$ which I use in my parameterisation of the growth model.
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 
 \subsection{Introducing Reproduction}
 A revised form of \cref{west_model} published by \textcite{Charnov2001}, incorporates an explicit fecundity rate term, given that gonad mass in fish is proportional to body mass \autocite{Charnov2001, Roff1983, peters1983, kozlowski1996}. Crucially, \textcite{Charnov2001} assumed that fecundity rate scales isometrically with size, which is mathematically equivalent to elevating maintenance cost, since the maintenance and reproduction term have equivalent mass-scaling exponents. Until maturity (age $\alpha$, size $m_{\alpha}$), fish incur costs only from maintenance as they are sexually immature, captured by \cref{west_model}. 
@@ -207,7 +230,11 @@ where $c \cdot m$ is the reproductive allocation. Since maintenance and reproduc
     M^{1/4} &= \frac{a}{(b+c)} \\
     M &= \Bigg(\frac{a}{(b+c)}\Bigg)^4
 \end{align*}
+<<<<<<< HEAD
 This reduction highlights the cost to growth reproduction introduces, since there is less energetic scope for growth after $\alpha$. To this end, the earlier a fish matures, and the more fecund it is, its growth rate and asymptotic size will both reduce, reflecting both the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
+=======
+This reduction highlights the cost to growth reproduction introduces, since there is less energetic scope for growth after $\alpha$. To this end, the earlier a fish matures, and the more fecund it is, its growth rate and asymptotic size will both reducte, reflecting both the timing ($\alpha$) and magnitude ($c\cdot{m}$) of reproduction.
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
 
 \subsection{Assumptions}
 An axiom of the growth model in \cref{west_model} proposed by \textcite{West2001} is that energy intake follows a simple relationship with resting metabolic rate, which scales with body size ($m$) to an exponent of $3/4$, as predicted by \textcite{West1997} and used in the Metabolic Theory of Ecology \autocite{Brown2004} regardless of taxon, resource-environment or dimensionality. The assumptions of resting metabolic rate data are that the study organism is under ``idealised conditions'' i.e. not foraging, reproducing or growing. Consequently, it is puzzling that \textcite{West2001} use a resting metabolic metric for energy intake, which is an active metabolic process and \textcite{Charnov2001} does the same when incorporating reproduction, another active metabolic process. It has been shown by \textcite{Pawar2012} that consumption rate scaling is, therefore, more likely to relate to field metabolic rate. Both scaling exponents are tested in this paper.
@@ -215,6 +242,7 @@ An axiom of the growth model in \cref{west_model} proposed by \textcite{West2001
 
 \section{Life History Optimisation}
 \subsection{Invariant Values}
+<<<<<<< HEAD
 Across taxa, certain life history variables, representing the timing and magnitude of reproduction form, dimensionless, invariant ratios \autocite{Charnov1993}. These are particularly useful for comparative life histories as these numbers typically remain invariant within a given taxon, e.g. fish. I utilise these to parameterise the life history model below which was used in growth trajectory simulations. In fish, the quantity representing age at maturity multiplied by mortality rate, $\alpha\cdot Z \approx 2$ \autocite{Charnov2001}. I rearrange this to parameterise mortality rate $Z = 2/{\alpha}$.
 
 \subsection{Lifetime Reproduction}
@@ -230,6 +258,23 @@ Since fish live in a juvenile and adult phase, they are subject to varying morta
           &= \int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} L_{\alpha}e^{-Z(t-\alpha)} dt \\
           &= l_{\alpha}\int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} \cdot e^{-Z(t-\alpha)} dt \\
           &= cl_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
+=======
+Across taxa, certain life history variables, representing the timing and magnitude of reproduction form, dimensionless, invariant ratios \autocite{Charnov1993}. These are particularly useful for comparative life histories as these numbers typically remain invariant within a given taxon, e.g. fish. I utilise these to parameterise the life history model below which used in growth trajectory simulations. In fish, the quantity representing age at maturity multiplied by mortality rate, $\alpha\cdot Z \approx 2$ \autocite{Charnov2001}. I rearrange this to parameterise mortality rate $Z = 2/{\alpha}$.
+
+\subsection{Lifetime Reproduction}
+I assume that intake cannot be optimised since this is dependent on what the surrounding environment provides. However, optimisation of reproduction parameters invokes life history theory, which assumes that natural selection optimises strategies, or $c$ and $\rho$ to maximise fitness, where lifetime reproductive output can be used as a proxy for fitness, denoted $R_0$, which can be derived from theoretical evolution studies \autocite{Charnov2001, stearns1992evolution}.
+
+At any time $t$, $b_{t}$ is the \textit{effective} energy allocated by fish to reproduction, the product of the physiological allocation of resources, $cm^{\rho}$ and an efficiency term $h(m)$ representing a declining efficiecny of this allocation, known as reproductive senescence, the natural decline in fecundity as fish age \autocite{Stearns2000, Benoit2018, Vrtilek2018}. This decline begins at maturity ($\alpha$) and is controlled by a rate parameter $\kappa$. Fish also experience an extrinsic mortality rate, or actuarial senescence, contained in a surivorship function, $l_t$, which is effectively a declining $\mathbb{P}(survival to t)$ \autocite{Charnov1993, Charnov2001, Benoit2018, Laird2010, Reznick2002, Reznick2006}. Thus, the instanteous reproductive output at time $t$ is the product $l_{t}b_{t}$ and the lifetime reproductive output is:
+\begin{equation}
+    R_{0} = \int_{\alpha}^{\infty}l_{t}b_{t} dt
+\end{equation}
+Since fish live in a juvenile and adult phase, they are subject to varying mortality rates through ontogeny. Juvenile mortality ($t_0 \rightarrow t_{\alpha}$) controls how many fish are recruited into the adult phase and, since it follows an exponential distribution, $l_t = e^{-\int_{0}^{\alpha}Z(t)dt}$ bounded [0,1] it thus acts as a scaling factor, denoted $L_{\alpha}$, for the mature population ($t_{\alpha} \rightarrow t_{\infty}$). For adults survival is \textbf{relative to when maturity is reached}, $l_{t} = e^{-Z(t-\alpha)}$.
+\begin{align*}
+    R_{0} &= \int cm^{\rho}h(t) \cdot L_{t} dt \\
+          &= \int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} L_{\alpha}e^{-Z(t-\alpha)} dt \\
+          &= L_{\alpha}\int cm^{\rho}(t)^{\rho} e^{-\kappa(t-\alpha)} \cdot e^{-Z(t-\alpha)} dt \\
+          &= cL_{\alpha}\int m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \\
+>>>>>>> 2e12bb41d27af66c3b9ce02ae5c020354f89e975
           &= c\int_{0}^{\alpha}e^{-Z(t)}dt\int_{\alpha}^{\infty} m(t)^{\rho} e^{-(\kappa+Z)(t-\alpha)} dt \numberthis \label{LHT_optimisation}
 \end{align*}
 To perform this optimisation, the analytical goal is to solve \cref{LHT_optimisation} for values of $c$ and $\rho$ which maximise $R_0$. Since it has no closed-form solution, I simulated this numerically using the \texttt{DifferentialEquations} and \texttt{DiffEqCallbacks} packages in Julia v1.1.1 \autocite{Bezanson2017}, which ran the Rosenbrock optimisation function \autocite{Rosenbrock1960}. The following parameter space was simulated $0.001 < c < 0.4$ and $0.001 < \rho < 1.25$ with 100 linearly-spaced values over a lifespan of $1e6$ days.
