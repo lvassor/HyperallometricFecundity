@@ -53,3 +53,4 @@ growth_model(a = 7, b = 2, c = 2, a_exp = 0.75, b_exp = 1, c_exp = 1.06, m = mas
 
 # Growth curve for guinea pig (West et al. 2001, p2)
 growth_time(M = 840, m0 = 5, a = 0.2, t = time)
+
