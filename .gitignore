@@ -37,3 +37,6 @@
 *.m4a
 *.xls*
 __pycache__
+Write-Up/
+Reduntant/
+.ipynb_checkpoints/
