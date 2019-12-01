@@ -1,1 +1,0 @@
-@book{kooijman_2000, place={Cambridge}, edition={2}, title={Dynamic Energy and Mass Budgets in Biological Systems}, DOI={10.1017/CBO9780511565403}, publisher={Cambridge University Press}, author={Kooijman, S. A. L. M.}, year={2000}}
