@@ -1,8 +1,0 @@
-SIZE EVOLUTION AND RELATION TO DEMOGRAPHY
-Damouth's law - relationship between size and abundance of organisms. Larger, have fewer individuals at carrying capacity - to do with resources they require.
-Ian Hatten - production of systems show predictable scaling patters. 
-0.75 keeps reappearing when considering size and demography. Intuition is reasonable - we've built up predictions around how demography should scale with size based on metabolism (resources it uses determined by metabolic rate and size and thus these effect its demography)
-growth limited by rate at which you can produce new materials which is limited by your metabolic rate - capacity to make a new you
-fixed amount of energy entering a system, populations scale to the -B, energy equivalence rule - population energy flux independent of mass organisms use same amount of energy at carrying capacity 
-
-GROWTH
